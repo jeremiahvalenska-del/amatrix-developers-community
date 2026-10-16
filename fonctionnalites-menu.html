@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Hub — Menu</title>
+<style>
+:root {
+  --bleu:#0755c9;
+  --fonce:#06295b;
+  --fond:#f2f6fc;
+  --blanc:#fff;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fond);
+  color:#152641;
+}
+header {
+  background:linear-gradient(135deg,var(--fonce),var(--bleu));
+  color:white;
+  padding:20px 16px;
+}
+header h1 {margin:0;font-size:24px}
+header p {margin:8px 0 0;font-size:14px}
+main {max-width:1000px;margin:auto;padding:16px}
+.search {
+  width:100%;padding:14px;border:1px solid #d7e1ef;
+  border-radius:12px;font-size:16px;margin-bottom:16px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:12px;
+}
+.card {
+  background:white;border:1px solid #e1e9f5;
+  border-radius:14px;padding:18px 10px;
+  text-align:center;cursor:pointer;
+  box-shadow:0 3px 12px #0b367310;
+  color:var(--fonce);font-size:14px;font-weight:bold;
+}
+.card span {display:block;font-size:27px;margin-bottom:10px}
+.card:active {background:#e5efff}
+#page {
+  display:none;background:white;padding:20px;
+  border-radius:15px;margin-top:16px;
+}
+button {
+  background:var(--bleu);color:white;border:0;
+  padding:12px 16px;border-radius:9px;cursor:pointer;
+}
+input,select,textarea {
+  display:block;width:100%;padding:12px;margin:10px 0;
+  border:1px solid #d7e1ef;border-radius:9px;font-size:15px;
+}
+footer {text-align:center;padding:22px;color:#60718b;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 Campus Hub</h1>
+  <p>Le savoir à portée de main</p>
+</header>
+
+<main>
+  <h2>Fonctionnalités du menu</h2>
+  <p>Choisis une fonctionnalité pour ouvrir son espace.</p>
+
+  <input id="recherche" class="search"
+    placeholder="Rechercher une fonctionnalité..."
+    oninput="filtrer()">
+
+  <section class="grid" id="menu"></section>
+
+  <section id="page">
+    <button onclick="retour()">← Retour au menu</button>
+    <h2 id="titre"></h2>
+    <div id="contenu"></div>
+  </section>
+</main>
+
+<footer>Campus Hub — Plateforme universitaire</footer>
+
+<script>
+const fonctionnalites = [
+ ["Profil","👤"],
+ ["Agenda","📅"],
+ ["Pays","🌍"],
+ ["Universités","🏛️"],
+ ["Filières","🎓"],
+ ["Bibliothèque","📚"],
+ ["Livres","📖"],
+ ["Générateur de mémoire","📝"],
+ ["Générateur d'exposé","📊"],
+ ["Rapport de stage","💼"],
+ ["Autres documents","📄"],
+ ["Mes documents","🗂️"],
+ ["Mes commandes","📦"],
+ ["Paiements","💳"],
+ ["Notifications","🔔"],
+ ["Favoris","❤️"],
+ ["Galerie","🖼️"],
+ ["Encadreurs","👨‍🏫"],
+ ["Parrainage","🤝"],
+ ["Assistance","💬"],
+ ["Paramètres","⚙️"],
+ ["Sécurité","🔐"],
+ ["Administration","🛡️"]
+];
+
+const traductions = {
+ fr: {
+  "Profil":"Profil","Agenda":"Agenda","Pays":"Pays",
+  "Universités":"Universités","Filières":"Filières",
+  "Bibliothèque":"Bibliothèque","Livres":"Livres",
+  "Générateur de mémoire":"Générateur de mémoire",
+  "Générateur d'exposé":"Générateur d'exposé",
+  "Rapport de stage":"Rapport de stage",
+  "Autres documents":"Autres documents",
+  "Mes documents":"Mes documents","Mes commandes":"Mes commandes",
+  "Paiements":"Paiements","Notifications":"Notifications",
+  "Favoris":"Favoris","Galerie":"Galerie",
+  "Encadreurs":"Encadreurs","Parrainage":"Parrainage",
+  "Assistance":"Assistance","Paramètres":"Paramètres",
+  "Sécurité":"Sécurité","Administration":"Administration"
+ },
+ en: {
+  "Profil":"Profile","Agenda":"Calendar","Pays":"Countries",
+  "Universités":"Universities","Filières":"Programs",
+  "Bibliothèque":"Library","Livres":"Books",
+  "Générateur de mémoire":"Thesis generator",
+  "Générateur d'exposé":"Presentation generator",
+  "Rapport de stage":"Internship report",
+  "Autres documents":"Other documents",
+  "Mes documents":"My documents","Mes commandes":"My orders",
+  "Paiements":"Payments","Notifications":"Notifications",
+  "Favoris":"Favorites","Galerie":"Gallery",
+  "Encadreurs":"Supervisors","Parrainage":"Referrals",
+  "Assistance":"Support","Paramètres":"Settings",
+  "Sécurité":"Security","Administration":"Administration"
+ },
+ pt: {
+  "Profil":"Perfil","Agenda":"Agenda","Pays":"Países",
+  "Universités":"Universidades","Filières":"Cursos",
+  "Bibliothèque":"Biblioteca","Livres":"Livros",
+  "Générateur de mémoire":"Gerador de monografias",
+  "Générateur d'exposé":"Gerador de apresentações",
+  "Rapport de stage":"Relatório de estágio",
+  "Autres documents":"Outros documentos",
+  "Mes documents":"Meus documentos","Mes commandes":"Meus pedidos",
+  "Paiements":"Pagamentos","Notifications":"Notificações",
+  "Favoris":"Favoritos","Galerie":"Galeria",
+  "Encadreurs":"Orientadores","Parrainage":"Indicações",
+  "Assistance":"Assistência","Paramètres":"Configurações",
+  "Sécurité":"Segurança","Administration":"Administração"
+ }
+};
+
+function afficherMenu(liste=fonctionnalites) {
+ const menu=document.getElementById("menu");
+ menu.innerHTML="";
+ liste.forEach(([nom,icone])=>{
+  const bouton=document.createElement("button");
+  bouton.className="card";
+  bouton.innerHTML=`<span>${icone}</span>${nom}`;
+  bouton.onclick=()=>ouvrir(nom);
+  menu.appendChild(bouton);
+ });
+}
+
+function filtrer() {
+ const q=document.getElementById("recherche").value.toLowerCase();
+ afficherMenu(fonctionnalites.filter(f=>f[0].toLowerCase().includes(q)));
+}
+
+function ouvrir(nom) {
+ document.getElementById("page").style.display="block";
+ document.getElementById("titre").textContent=nom;
+ document.getElementById("contenu").innerHTML=`
+ <p>Bienvenue dans l'espace ${nom}.</p>
+ <p>Cette interface est une base de démonstration. Les données,
+ les paiements et les fonctions avancées nécessitent leur
+ développement et leur connexion au système Campus Hub.</p>
+ <div id="formulaire"></div>`;
+ document.getElementById("formulaire").innerHTML=genererFormulaire(nom);
+ document.getElementById("menu").style.display="none";
+ document.getElementById("recherche").style.display="none";
+ document.getElementById("page").scrollIntoView({behavior:"smooth"});
+}
+
+function genererFormulaire(nom) {
+ if(nom==="Profil") return `
+ <input placeholder="Nom complet">
+ <input type="file" accept="image/*">
+ <input placeholder="Université">
+ <input placeholder="Filière">
+ <button onclick="enregistrer(this)">Enregistrer</button>`;
+
+ if(nom==="Agenda") return `
+ <input placeholder="Nom de l'événement">
+ <input type="datetime-local">
+ <textarea placeholder="Description"></textarea>
+ <button onclick="enregistrer(this)">Enregistrer l'événement</button>`;
+
+ if(nom==="Bibliothèque" || nom==="Livres") return `
+ <input placeholder="Rechercher un livre">
+ <p>Ajoute une source de livres pour afficher un catalogue réel.</p>`;
+
+ if(nom.includes("Générateur") || nom==="Rapport de stage") return `
+ <input placeholder="Sujet ou titre du document">
+ <input placeholder="Université">
+ <input placeholder="Département / Filière">
+ <input placeholder="Directeur ou encadreur">
+ <button onclick="alert('Le moteur de génération doit être connecté.')">Générer</button>`;
+
+ if(nom==="Administration") return `
+ <p>Zone réservée aux administrateurs authentifiés.</p>
+ <textarea placeholder="Zone de configuration HTML"></textarea>
+ <button onclick="alert('Un système sécurisé de publication est nécessaire.')">Prévisualiser</button>`;
+
+ if(nom==="Assistance") return `
+ <textarea placeholder="Écris ta question..."></textarea>
+ <button onclick="alert('Connecte un service d’assistance pour recevoir une réponse.')">Envoyer</button>`;
+
+ return `
+ <input placeholder="Rechercher">
+ <p>Connecte cette page à tes données pour afficher les résultats.</p>`;
+}
+
+function enregistrer(bouton) {
+ const champs=[...document.querySelectorAll("#formulaire input, #formulaire textarea")]
+  .map(e=>({type:e.type,valeur:e.type==="file"?(e.files[0]?.name||""):e.value}));
+ try {
+  localStorage.setItem("campushub_"+document.getElementById("titre").textContent,JSON.stringify(champs));
+  alert("Informations enregistrées sur cet appareil.");
+ } catch(e) {
+  alert("Enregistrement impossible.");
+ }
+}
+
+function retour() {
+ document.getElementById("page").style.display="none";
+ document.getElementById("menu").style.display="grid";
+ document.getElementById("recherche").style.display="block";
+}
+
+afficherMenu();
+</script>
+</body>
+</html>

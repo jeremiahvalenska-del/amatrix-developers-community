@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administration | Campus Hub RDC</title>
+<style>
+:root{--navy:#0A1931;--blue:#1E6CFF;--bg:#f3f6fc;--white:#fff;--text:#17243b}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+header{background:var(--navy);color:white;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header h1{font-size:20px;margin:0}
+header small{color:#bcd2ff}
+.lang{display:flex;gap:6px}
+.lang button{background:#1a2f5a;color:white;border:1px solid #2a4a7a;padding:6px 10px;border-radius:20px;font-size:12px;cursor:pointer}
+.lang button.active{background:var(--blue)}
+.layout{display:flex;min-height:calc(100vh - 65px)}
+nav{width:260px;background:#101f3b;padding:14px;flex-shrink:0;overflow-y:auto}
+nav button{display:block;width:100%;padding:12px;margin-bottom:6px;border:0;border-radius:9px;background:transparent;color:white;text-align:left;font-size:13px;cursor:pointer;white-space:nowrap}
+nav button.active,nav button:hover{background:var(--blue)}
+main{padding:18px;width:100%;min-width:0;max-width:100vw}
+h2{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card,.panel{background:white;border-radius:13px;padding:16px;margin-bottom:14px;box-shadow:0 3px 14px #1024480d}
+.card strong{display:block;font-size:22px;color:var(--blue);margin-bottom:6px}
+.card span{font-size:12px}
+label{display:block;font-weight:bold;font-size:12px;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:11px;border:1px solid #d7dfed;border-radius:8px;background:#fff;font:inherit;max-width:100%}
+textarea{min-height:120px;resize:vertical}
+button.action{background:var(--blue);color:white;border:0;padding:10px 14px;border-radius:8px;margin:7px 5px 0 0;cursor:pointer;font-size:13px}
+button.secondary{background:#e8eefb;color:#17335f}
+button.danger{background:#b42332;color:white}
+.status{display:inline-block;background:#e0f8e8;color:#176b39;padding:4px 8px;border-radius:20px;font-size:11px}
+.note{font-size:12px;color:#64748b;line-height:1.5}
+.item{padding:11px;border:1px solid #e0e7f2;border-radius:9px;margin:8px 0}
+.item h3{margin:0 0 4px;font-size:14px}
+#message{position:sticky;top:5px;z-index:5}
+.pays-hero{display:grid;grid-template-columns:1.2fr.8fr;gap:12px}
+.pays-card-big{background:linear-gradient(135deg,#0A1931 0%,#1E6CFF 100%);color:white;border-radius:14px;padding:18px;display:flex;gap:14px;align-items:center}
+.pays-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.pays-item{background:white;border-radius:12px;padding:12px;border:2px solid #e0e7f2;cursor:pointer;transition:.2s}
+.pays-item:hover{border-color:var(--blue);transform:translateY(-2px)}
+.pays-item.active{border-color:var(--blue);background:#f0f6ff}
+.agenda-months{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.agenda-months button{padding:6px 10px;border-radius:20px;border:1px solid #d7dfed;background:white;font-size:12px;cursor:pointer}
+.agenda-months button.active{background:var(--blue);color:white;border-color:var(--blue)}
+.weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:10px 0}
+.weekdays div{padding:8px;text-align:center;font-weight:bold;font-size:11px;background:#eef3ff;border-radius:6px}
+@media(max-width:750px){
+.layout{display:block}
+nav{width:100%;display:flex;overflow-x:auto;gap:6px}
+nav button{min-width:140px;width:auto;margin:0}
+.pays-hero{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<div><h1 id="hdrTitle">Campus Hub RDC</h1><small id="hdrSub">Centre d’administration</small></div>
+<div style="display:flex;gap:10px;align-items:center">
+<div class="lang"><button data-lang="fr" class="active" onclick="setLang('fr')">FR</button><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="pt" onclick="setLang('pt')">PT</button></div>
+<span class="status" id="hdrStatus">Interface administration</span>
+</div>
+</header>
+<div class="layout">
+<nav id="menu"></nav>
+<main>
+<div id="message"></div>
+<section id="content"></section>
+</main>
+</div>
+<script>
+// === TRADUCTION COMPLÈTE FR/EN/PT ===
+const i18n={
+fr:{
+dashboard:"Tableau de bord",general:"Gestion générale",pays:"Pays",paysDesc:"Activez ou désactivez les cinq pays autorisés. Pays en 2ème page après Commencer mémoire/exposé/rapport.",universites:"Universités",structure:"Facultés et filières",menuSite:"Menu du site",html:"Cases HTML",yaml:"Configuration YAML",memoire:"Générateur de mémoire",expose:"Générateur d’exposé",stage:"Rapport de stage",bibliotheque:"Bibliothèque",tarifs:"Tarifs et gratuité",paiements:"Paiements et API",contacts:"Contacts et assistance",securite:"Sécurité et sauvegardes",
+overview:"Vue d’ensemble de l’administration",customTexts:"Personnalisez les textes et les images du site.",months:["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],weekdays:["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"],
+paysTitle:"Choisissez votre pays d’études",paysSub:"RDC en première position - Interface impeccable",commencer:"Commencer",
+promoLabel:"Promotion",facultyLabel:"Faculté (saisie libre)",deptLabel:"Département (saisie libre)",filiereLabel:"Filière (saisie libre)",univLabel:"Université (saisie libre)"
+},
+en:{
+dashboard:"Dashboard",general:"General management",pays:"Countries",paysDesc:"Enable or disable the five authorized countries. Country as 2nd page after Start thesis/internship/presentation.",universites:"Universities",structure:"Faculties and programs",menuSite:"Site menu",html:"HTML blocks",yaml:"YAML configuration",memoire:"Thesis generator",expose:"Presentation generator",stage:"Internship report",bibliotheque:"Library",tarifs:"Pricing and free generation",paiements:"Payments and API",contacts:"Contacts and support",securite:"Security and backups",
+overview:"Administration overview",customTexts:"Customize site texts and images.",months:["January","February","March","April","May","June","July","August","September","October","November","December"],weekdays:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+paysTitle:"Choose your study country",paysSub:"DRC in first position - Clean interface",commencer:"Start",
+promoLabel:"Year / Promotion",facultyLabel:"Faculty (free text)",deptLabel:"Department (free text)",filiereLabel:"Program (free text)",univLabel:"University (free text)"
+},
+pt:{
+dashboard:"Painel",general:"Gestão geral",pays:"Países",paysDesc:"Ative ou desative os cinco países autorizados. País como 2ª página após Iniciar memória/estágio/apresentação.",universites:"Universidades",structure:"Faculdades e cursos",menuSite:"Menu do site",html:"Blocos HTML",yaml:"Configuração YAML",memoire:"Gerador de memória",expose:"Gerador de apresentação",stage:"Relatório de estágio",bibliotheque:"Biblioteca",tarifs:"Preços e gratuidade",paiements:"Pagamentos e API",contacts:"Contatos e suporte",securite:"Segurança e backups",
+overview:"Visão geral da administração",customTexts:"Personalize textos e imagens do site.",months:["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],weekdays:["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],
+paysTitle:"Escolha seu país de estudo",paysSub:"RDC em primeira posição - Interface impecável",commencer:"Começar",
+promoLabel:"Turma / Promoção",facultyLabel:"Faculdade (texto livre)",deptLabel:"Departamento (texto livre)",filiereLabel:"Curso (texto livre)",univLabel:"Universidade (texto livre)"
+}
+};
+let currentLang=localStorage.getItem("campushub_lang")||"fr";
+function t(k){return i18n[currentLang][k]||i18n.fr[k]||k;}
+function setLang(l){currentLang=l;localStorage.setItem("campushub_lang",l);document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("active",b.dataset.lang===l));render(currentPage);}
+
+const paysInit=[
+{name:"République démocratique du Congo",short:"RDC",flag:"🇨🇩",enabled:true,order:1,desc:"Kinshasa - 26 provinces"},
+{name:"Angola",short:"Angola",flag:"🇦🇴",enabled:true,order:2,desc:"Luanda"},
+{name:"Burundi",short:"Burundi",flag:"🇧🇮",enabled:true,order:3,desc:"Bujumbura"},
+{name:"Ouganda",short:"Ouganda",flag:"🇺🇬",enabled:true,order:4,desc:"Kampala"},
+{name:"Kenya",short:"Kenya",flag:"🇰🇪",enabled:true,order:5,desc:"Nairobi"}
+];
+const fonctions=["Accueil","Profil","Agenda","Pays","Universités","Facultés","Départements","Filières","Bibliothèque","Livres","Générateur de mémoire","Générateur d’exposé","Générateur de stage","Autres documents","Mes documents","Mes commandes","Paiements","Notifications","Favoris","Galerie","Encadreurs","Parrainage","Assistance","Paramètres","Sécurité"];
+const promotions=["G1","G2","G3","L1","L2","L3","M1","M2","Master","Master 1","Master 2","Doctorat","Autre"];
+
+const defaults={
+siteName:"Campus Hub RDC",title:"Bienvenue sur Campus Hub",subtitle:"Votre plateforme académique",
+whatsapp:"+243 99 208 38 17",email:"campushub@gmail.com",freeGeneration:false,
+countries:paysInit,selectedCountry:"République démocratique du Congo",
+features:fonctions.map(name=>({name,title:name,subtitle:"",enabled:true,html:""})),
+htmlGeneral:"",yaml:"",prices:{"Mémoire":"25000","Exposé":"12000","Rapport de stage":"18000","Autres documents":"8000","Feuille de garde":"2000"},
+paymentProviders:[{name:"Carte bancaire / Visa",enabled:false},{name:"Airtel Money",enabled:false},{name:"M-Pesa",enabled:false}],
+universities:[],structure:[],books:[],agendaMonth:9
+};
+let state;
+try{state=Object.assign({},defaults,JSON.parse(localStorage.getItem("campushub_admin_draft")||"{}"))}catch(e){state={...defaults}}
+if(!state.countries || state.countries.length!==5){state.countries=paysInit;}
+
+function save(){localStorage.setItem("campushub_admin_draft",JSON.stringify(state));notify("Brouillon enregistré.")}
+function notify(s){document.getElementById("message").innerHTML='<div class="panel">'+esc(s)+'</div>';setTimeout(()=>{document.getElementById("message").innerHTML=""},3000)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function field(label,id,value="",type="text",placeholder=""){return `<label for="${id}">${esc(label)}</label><input id="${id}" type="${type}" value="${esc(value)}" placeholder="${esc(placeholder)}">`}
+function area(label,id,value=""){return `<label for="${id}">${esc(label)}</label><textarea id="${id}">${esc(value)}</textarea>`}
+function btn(text,fn,kind="action"){return `<button class="${kind}" onclick="${fn}">${esc(text)}</button>`}
+let currentPage="dashboard";
+
+const pagesMeta={
+dashboard:()=> [t("dashboard"), t("overview")],
+general:()=> [t("general"), t("customTexts")],
+pays:()=> [t("pays"), t("paysDesc")],
+universites:()=> [t("universites"), "Fiches universités - Saisie libre faculté/département"],
+structure:()=> [t("structure"), "Structure académique - Saisie libre"],
+menuSite:()=> [t("menuSite"), "Textes et état des fonctionnalités"],
+html:()=> [t("html"), "Une zone HTML individuelle par fonctionnalité et une zone générale"],
+yaml:()=> [t("yaml"), "Configuration lisible"],
+memoire:()=> [t("memoire"), "Interface générateur - Passe d'abord par Pays"],
+expose:()=> [t("expose"), "Interface exposés - Passe d'abord par Pays"],
+stage:()=> [t("stage"), "Interface rapports - Passe d'abord par Pays"],
+bibliotheque:()=> [t("bibliotheque"), "Catalogue - Bibliothèque science"],
+tarifs:()=> [t("tarifs"), "Valeurs des services"],
+paiements:()=> [t("paiements"), "Prestataires"],
+contacts:()=> [t("contacts"), "Coordonnées"],
+securite:()=> [t("securite"), "Export et sauvegarde"]
+};
+
+function buildMenu(){
+let html="";
+Object.keys(pagesMeta).forEach(id=>{
+let label=t(id);
+if(id==="dashboard") label="📊 "+label;
+if(id==="pays") label="🌍 "+label+" ★ 2ème page";
+if(id==="memoire"||id==="expose"||id==="stage") label="📘 "+label+" → Pays d'abord";
+html+=`<button data-page="${id}" class="${currentPage===id?'active':''}">${esc(label)}</button>`;
+});
+document.getElementById("menu").innerHTML=html;
+document.querySelectorAll("#menu button").forEach(b=>b.addEventListener("click",()=>{currentPage=b.dataset.page;render(currentPage);}));
+}
+
+function render(id){
+currentPage=id;
+buildMenu();
+let meta=pagesMeta[id]();let html=`<div class="panel"><h2>${esc(meta[0])}</h2><p class="note">${esc(meta[1])}</p></div>`;
+
+if(id==="dashboard"){
+html+=`<div class="grid">${[["Pays",state.countries.length],["Universités",state.universities.length],["Fonctionnalités",state.features.length],["Livres",state.books.length]].map(x=>`<div class="card"><strong>${x[1]}</strong><span>${x[0]}</span></div>`).join("")}</div>
+<div class="panel"><h3>Flux corrigé - Pays en 2ème page</h3><p class="note">Quand l'étudiant clique sur <b>Commencer mémoire / exposé / rapport de stage</b>, il est redirigé d'abord vers la page Pays impeccable (RDC 1er, Angola, Burundi, Ouganda, Kenya), puis vers bibliothèque si besoin, puis générateur. Traduction FR/EN/PT active partout.</p>${btn(t("paysTitle"),"render('pays')")}</div>
+<div class="panel"><h3>Agenda - Traduction corrigée</h3><div class="agenda-months">${i18n[currentLang].months.map((m,i)=>`<button class="${state.agendaMonth===i?'active':''}" onclick="state.agendaMonth=${i};save();render('dashboard')">${esc(m)}</button>`).join("")}</div><div class="weekdays">${i18n[currentLang].weekdays.map(d=>`<div>${esc(d)}</div>`).join("")}</div><p class="note">Mois et jours changent selon langue FR/EN/PT - Bug octobre corrigé.</p></div>`;
+}
+if(id==="pays"){
+// PAGE PAYS IMPECCABLE - RDC 1er
+let rdc=state.countries.find(c=>c.name.includes("démocratique"))||state.countries[0];
+let others=state.countries.filter(c=>c!==rdc).sort((a,b)=>a.order-b.order);
+html+=`<div class="panel"><h2>${esc(t("paysTitle"))}</h2><p class="note">${esc(t("paysSub"))}</p></div>`;
+html+=`<div class="pays-hero"><div class="pays-card-big" onclick="selectCountry('${esc(rdc.name)}')"><div style="font-size:48px">${rdc.flag}</div><div><h3 style="margin:0">${esc(rdc.name)}</h3><small>${esc(rdc.desc)}</small><br><span class="status">1ère position - Recommandé</span><br>${btn(t("commencer")+" - "+rdc.short,"selectCountry('"+esc(rdc.name)+"')")}</div></div><div class="panel"><h3>Pays sélectionné</h3><p><b>${esc(state.selectedCountry)}</b></p><p class="note">Ce pays sera utilisé pour Mémoire / Exposé / Rapport. Page impeccable sans changer interface.</p>${btn("Continuer vers générateur","render('memoire')")}</div></div>`;
+html+=`<div class="panel"><h3>Autres pays - Angola, Burundi, Ouganda, Kenya</h3><div class="pays-list">${others.map(c=>`<div class="pays-item ${state.selectedCountry===c.name?'active':''}" onclick="selectCountry('${esc(c.name)}')"><div style="font-size:28px">${c.flag}</div><h4 style="margin:6px 0 2px">${esc(c.name)}</h4><small class="note">${esc(c.desc)}</small><br><span class="status">${c.enabled?"Actif":"Désactivé"}</span><br>${btn(t("commencer")+" - "+c.short,"selectCountry('"+esc(c.name)+"')","secondary")}</div>`).join("")}</div></div>`;
+html+=`<div class="panel"><p class="note">Gestion admin - 5 pays autorisés uniquement</p>${state.countries.map((c,i)=>`<div class="item"><h3>${c.flag} ${esc(c.name)} - Ordre ${c.order}</h3>${btn(c.enabled?"Désactiver":"Activer",`toggleCountry(${i})`)} ${btn("Modifier nom",`editCountry(${i})`,"secondary")}</div>`).join("")}${btn("Enregistrer","save()")}</div>`;
+}
+if(id==="universites"){
+html+=`<div class="panel"><h3>Université - Saisie libre (faculté / département / filière libre)</h3>${field(t("univLabel"),"uniName","", "text","Ex: UNILU")}<label>Pays</label><select id="uniCountry">${state.countries.map(c=>`<option ${state.selectedCountry===c.name?"selected":""}>${esc(c.name)}</option>`).join("")}</select>${field("Statut public ou privé","uniType","","text","Public / Privé")}${field("URL logo","uniLogo")}${field("Adresse","uniAddress")}${field("Site officiel","uniWebsite")}${field("Latitude GPS","uniLat")}${field("Longitude GPS","uniLon")}${area("Description","uniDescription")}${btn("Ajouter","addUniversity()")}</div>`;
+html+=`<div class="panel"><h3>Universités enregistrées</h3>${state.universities.map((u,i)=>`<div class="item"><b>${esc(u.name)}</b> - ${esc(u.country)}<br>${btn("Supprimer",`removeUniversity(${i})`,"danger")}</div>`).join("")||"<p class='note'>Aucune</p>"}</div>`;
+}
+if(id==="structure"){
+html+=`<div class="panel"><h3>${esc(t("facultyLabel"))} - ${esc(t("deptLabel"))} - Saisie libre - Personne écrit elle-même</h3>${field(t("univLabel"),"stUniversity","","text","Tapez université librement")}${field(t("facultyLabel"),"stFaculty","","text","Ex: Faculté des Sciences - Saisie libre")}${field(t("deptLabel"),"stDepartment","","text","Ex: Informatique - Saisie libre, pas inclus dans système")}${field(t("filiereLabel"),"stProgram","","text","Ex: Génie Logiciel - Saisie libre")}<label>${esc(t("promoLabel"))} - Master ajouté</label><select id="stPromotion"><option value="">Choisir promotion</option>${promotions.map(p=>`<option>${esc(p)}</option>`).join("")}</select>${btn("Ajouter","addStructure()")}</div><div class="panel">${state.structure.map((s,i)=>`<div class="item">${esc([s.university,s.faculty,s.department,s.program,s.promotion].filter(Boolean).join(" · "))}${btn("Supprimer",`removeStructure(${i})`,"danger")}</div>`).join("")||"<p class='note'>Aucune structure - Ajoutez faculté unique / département libre</p>"}</div>`;
+}
+if(id==="menuSite"){
+html+=`<div class="panel"><p class="note">Pays inclus comme 2ème page - Chaque fonctionnalité possède ses propres textes</p>${state.features.map((f,i)=>`<div class="item"><h3>${esc(f.name)}</h3><span class="status">${f.enabled?"Actif":"Désactivé"}</span><br>${btn("Modifier titre",`editFeature(${i})`)} ${btn(f.enabled?"Désactiver":"Activer",`toggleFeature(${i})`,"secondary")}</div>`).join("")}${btn("Enregistrer","save()")}</div>`;
+}
+if(id==="html"){
+html+=`<div class="panel"><h3>Case HTML individuelle</h3><label>Fonctionnalité</label><select id="htmlFeature">${state.features.map((f,i)=>`<option value="${i}">${esc(f.name)}</option>`).join("")}</select>${area("Code HTML","featureHtml")}${btn("Charger","loadFeatureHtml()","secondary")}${btn("Enregistrer","saveFeatureHtml()")}</div><div class="panel"><h3>Case HTML générale</h3>${area("Code HTML général","globalHtml",state.htmlGeneral)}${btn("Enregistrer","saveGlobalHtml()")}</div>`;
+}
+if(["memoire","expose","stage"].includes(id)){
+let name=id==="memoire"?"Générateur de mémoire":id==="expose"?"Générateur d’exposé":"Rapport de stage";
+html+=`<div class="panel" style="background:#fff3cd;border:1px solid #ffe69c"><h3>⚠️ Flux: Pays d'abord</h3><p class="note">L'étudiant a d'abord choisi: <b>${esc(state.selectedCountry)}</b> - Page pays impeccable (RDC 1er, Angola, Burundi, Ouganda, Kenya) sans changer interface. Maintenant il est sur ${esc(name)}.</p>${btn("← Retour à la page Pays","render('pays')","secondary")} ${btn("Voir Bibliothèque Science","render('bibliotheque')","secondary")}</div>`;
+html+=`<div class="panel">${field("Titre","svcTitle",state[id+"Title"]||name)}${field("Sous-titre","svcSubtitle",state[id+"Subtitle"]||"")}${area("HTML individuel","svcHtml",state[id+"Html"]||"")}${btn("Enregistrer","saveService('"+id+"')")}</div>`;
+}
+if(id==="bibliotheque"){
+html+=`<div class="panel"><h3>Bibliothèque Science - Redirection depuis générateurs</h3><p class="note">Quand l'étudiant clique bibliothèque, il arrive ici. Science, mémoires, etc.</p>${field("Titre","svcTitle",state["bibliothequeTitle"]||"Bibliothèque")}${area("HTML","svcHtml",state["bibliothequeHtml"]||"")}${btn("Enregistrer","saveService('bibliotheque')")}</div>`;
+}
+if(id==="general"||id==="tarifs"||id==="paiements"||id==="contacts"||id==="securite"||id==="yaml"){
+html+=`<div class="panel">${field("Nom du site","siteName",state.siteName)}${field("Titre","title",state.title)}${btn("Enregistrer","saveGeneral()")}</div>`;
+}
+document.getElementById("content").innerHTML=html;
+document.getElementById("hdrTitle").textContent=i18n[currentLang].dashboard+" | Campus Hub RDC";
+}
+
+function selectCountry(name){state.selectedCountry=name;save();notify("Pays sélectionné: "+name+" - Maintenant vers générateur");render("memoire");}
+function toggleCountry(i){state.countries[i].enabled=!state.countries[i].enabled;save();render("pays")}
+function editCountry(i){let n=prompt("Nouveau nom",state.countries[i].name);if(n){state.countries[i].name=n;save();render("pays")}}
+function toggleFeature(i){state.features[i].enabled=!state.features[i].enabled;save();render("menuSite")}
+function editFeature(i){let f=state.features[i];let t=prompt("Titre",f.title);if(t===null)return;f.title=t;save();render("menuSite")}
+function addUniversity(){let name=document.getElementById("uniName").value;if(!name.trim())return notify("Nom université");state.universities.push({name,country:document.getElementById("uniCountry").value});save();render("universites")}
+function removeUniversity(i){state.universities.splice(i,1);save();render("universites")}
+function addStructure(){state.structure.push({university:document.getElementById("stUniversity").value,faculty:document.getElementById("stFaculty").value,department:document.getElementById("stDepartment").value,program:document.getElementById("stProgram").value,promotion:document.getElementById("stPromotion").value});save();render("structure")}
+function removeStructure(i){state.structure.splice(i,1);save();render("structure")}
+function loadFeatureHtml(){let i=+document.getElementById("htmlFeature").value;document.getElementById("featureHtml").value=state.features[i].html||""}
+function saveFeatureHtml(){let i=+document.getElementById("htmlFeature").value;state.features[i].html=document.getElementById("featureHtml").value;save()}
+function saveGlobalHtml(){state.htmlGeneral=document.getElementById("globalHtml").value;save()}
+function saveService(id){state[id+"Title"]=document.getElementById("svcTitle").value;state[id+"Subtitle"]=document.getElementById("svcSubtitle")?.value||"";state[id+"Html"]=document.getElementById("svcHtml").value;save()}
+function saveGeneral(){state.siteName=document.getElementById("siteName").value;state.title=document.getElementById("title").value;save()}
+
+setLang(currentLang);
+render("pays");
+</script>
+</body>
+</html>

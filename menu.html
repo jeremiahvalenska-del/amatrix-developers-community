@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"><title>Menu Premium - Campus Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;overflow-x:hidden}
+body{font-family:Inter,Arial,sans-serif;background:#f4f7fc;color:#10213f}
+header{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#061936,#0a2a5c);color:#fff;padding:16px 4%;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px #0003}
+.logo{display:flex;align-items:center;gap:10px}.logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#087cff,#634cff);display:flex;align-items:center;justify-content:center;font-size:22px}
+.searchBox{flex:1;max-width:400px;margin-left:auto;display:flex;background:#ffffff18;border:1px solid #ffffff30;padding:6px;border-radius:30px;backdrop-filter:blur(10px)}
+.searchBox input{flex:1;background:transparent;border:0;outline:0;color:#fff;padding:8px 12px}.searchBox input::placeholder{color:#b9c8dd}
+.page{max-width:1200px;margin:0 auto;padding:18px 4% 40px}
+.heroMenu{position:relative;border-radius:24px;overflow:hidden;min-height:220px;display:flex;align-items:center;padding:24px;color:#fff;margin-bottom:20px;background:#061936}
+.heroMenu .bg{position:absolute;inset:0;background:linear-gradient(90deg,#03122bf0,#03122b80),url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80");background-size:cover;background-position:center}
+.heroMenu .ct{position:relative;z-index:2;display:flex;gap:16px;align-items:center;width:100%}
+.avatar{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#087cff,#634cff);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 20px #0004}
+.cat{margin:22px 0 12px;display:flex;align-items:center;gap:8px}
+.cat b{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#7b8aa0}.cat .line{flex:1;height:1px;background:#e8eef7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.card{position:relative;background:#fff;border-radius:18px;padding:16px;border:1px solid #eef2f7;box-shadow:0 10px 25px #0b2d550f;transition:.25s cubic-bezier(.4,0,.2,1);cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px #0b2d5520;border-color:#168cff44}
+.card .icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+.card h4{font-size:13px;line-height:1.2}.card p{font-size:11px;color:#6b7c93;line-height:1.3}
+.card .go{margin-top:auto;padding:7px 12px;border-radius:20px;background:#f1f6ff;border:1px solid #d0e2ff;font-size:11px;text-align:center}
+.blue{background:linear-gradient(135deg,#168cff,#0a6ed9)}.purple{background:linear-gradient(135deg,#7146ef,#4b2bc2)}.orange{background:linear-gradient(135deg,#f09a20,#d67d00)}.green{background:linear-gradient(135deg,#08b879,#067a4e)}.pink{background:linear-gradient(135deg,#ff4d8d,#c02a5a)}.dark{background:linear-gradient(135deg,#0a1931,#1a3a6a)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#0A1931;color:#fff;padding:10px 18px;border-radius:30px;transition:.3s;opacity:0;z-index:99999}#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}.heroMenu{min-height:180px}}
+</style>
+</head><body>
+<header><a href="index.html" style="color:#fff;text-decoration:none;font-size:20px">←</a><div class="logo"><div class="logo-icon">🎓</div><div><b>Campus <span style="color:#1593ff">Hub</span></b><br><small style="color:#9bb3ce;font-size:10px">Menu Premium</small></div></div><div class="searchBox"><input id="q" placeholder="Rechercher rapidement... Université, Filière, Promotion, Document" oninput="filterMenu(this.value)"><span style="padding:8px">🔍</span></div></header>
+
+<div class="page">
+<div class="heroMenu"><div class="bg"></div><div class="ct"><div class="avatar">👨‍🎓</div><div><h2 style="font-size:22px">Espace Étudiant Premium</h2><p style="color:#d6e8ff;font-size:12px;margin-top:4px">Bienvenue - Votre réussite, notre priorité - Navigation indépendante - Promotion ✅ - Traduction complète</p><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><span style="background:#ffffff22;padding:6px 10px;border-radius:20px;font-size:10px">🎓 UNILU</span><span style="background:#ffffff22;padding:6px 10px;border-radius:20px;font-size:10px">💼 Génie Logiciel</span><span style="background:#ffffff22;padding:6px 10px;border-radius:20px;font-size:10px">📚 L3 Promotion</span></div></div></div></div>
+
+<div class="cat"><b>👨‍🎓 Espace Étudiant</b><div class="line"></div></div>
+<div class="grid" id="g1"></div>
+
+<div class="cat"><b>📚 Ressources</b><div class="line"></div></div>
+<div class="grid" id="g2"></div>
+
+<div class="cat"><b>⚡ Générateurs - 10 000 caractères</b><div class="line"></div></div>
+<div class="grid" id="g3"></div>
+
+<div class="cat"><b>📂 Mon Espace</b><div class="line"></div></div>
+<div class="grid" id="g4"></div>
+
+<div class="cat"><b>💬 Support</b><div class="line"></div></div>
+<div class="grid" id="g5"></div>
+
+<div class="cat"><b>🛠️ Administration</b><div class="line"></div></div>
+<div class="grid" id="g6"></div>
+</div>
+
+<div id="toast"></div>
+<script>
+const items=[
+{id:'profil.html',cat:'g1',icon:'👤',c:'blue',t:'Profil',d:'Nom, Prénom, Université, Faculté, Département, Filière, Promotion, Année - Photo',go:'Ouvrir →'},
+{id:'agenda.html',cat:'g1',icon:'📅',c:'purple',t:'Agenda',d:'Calendrier, événements, examens, travaux, rendez-vous, rappels - Promotion L3',go:'Organiser →'},
+{id:'pays.html',cat:'g1',icon:'🌍',c:'green',t:'Pays',d:'RDC, Angola, Burundi, Ouganda, Kenya - Choisissez votre pays',go:'Choisir →'},
+{id:'universites.html',cat:'g1',icon:'🏛️',c:'dark',t:'Universités',d:'Logo, photo, nom, localisation, statut, facultés, départements, filières',go:'Explorer →'},
+{id:'filieres.html',cat:'g1',icon:'🎓',c:'orange',t:'Filières',d:'Université, Faculté, Département, Filière, Promotion L1 L2 L3 Master, Année',go:'Trouver →'},
+
+{id:'bibliotheque.html',cat:'g2',icon:'📚',c:'blue',t:'Bibliothèque',d:'Recherche grande barre, Livres, Mémoires, Exposés, Rapports, E-books, Références',go:'Explorer →'},
+{id:'livres.html',cat:'g2',icon:'📖',c:'purple',t:'Livres',d:'Ouvrages enrichir connaissances - nouveautés, populaires, favoris',go:'Découvrir →'},
+{id:'favoris.html',cat:'g2',icon:'⭐',c:'pink',t:'Favoris',d:'Livres, documents, universités, filières, ressources enregistrées',go:'Voir →'},
+{id:'galerie.html',cat:'g2',icon:'🖼️',c:'green',t:'Galerie',d:'Photos, événements, étudiants, universités, ressources',go:'Voir →'},
+
+{id:'generateur-memoire.html',cat:'g3',icon:'📝',c:'blue',t:'Générateur Mémoire',d:'Zone 10 000 caractères - Sujet, idées, notes, problématique, 10 feuilles garde',go:'Créer →'},
+{id:'generateur-expose.html',cat:'g3',icon:'📑',c:'purple',t:'Générateur Exposé',d:'Zone 10 000 caractères - Sujet, notes, plan, 10 feuilles garde',go:'Créer →'},
+{id:'generateur-stage.html',cat:'g3',icon:'💼',c:'orange',t:'Générateur Stage',d:'Zone 10 000 caractères - Expérience libre - 10 feuilles garde',go:'Créer →'},
+{id:'autres-documents.html',cat:'g3',icon:'📄',c:'dark',t:'Autres Docs',d:'Lettres, demandes, rapports, comptes rendus, projets, docs pro',go:'Créer →'},
+
+{id:'mes-documents.html',cat:'g4',icon:'📂',c:'blue',t:'Mes Documents',d:'Voir, ouvrir, modifier, renommer, télécharger, supprimer',go:'Gérer →'},
+{id:'mes-commandes.html',cat:'g4',icon:'🛒',c:'green',t:'Mes Commandes',d:'Produit, date, montant, paiement, statut - Historique',go:'Voir →'},
+{id:'paiements.html',cat:'g4',icon:'💳',c:'dark',t:'Paiements',d:'Carte, M-Pesa, Orange, Airtel - Choix service, montant, parcours sécurisé',go:'Payer →'},
+{id:'notifications.html',cat:'g4',icon:'🔔',c:'pink',t:'Notifications',d:'Commandes, paiements, documents, rappels, messages, annonces',go:'Voir →'},
+{id:'encadreurs.html',cat:'g4',icon:'👨‍🏫',c:'orange',t:'Encadreurs',d:'Infos encadreurs et suivis associés - Promotion',go:'Voir →'},
+{id:'parrainage.html',cat:'g4',icon:'🤝',c:'purple',t:'Parrainage',d:'Code, lien, partage, invitations, récompenses 5000 FC, historique',go:'Inviter →'},
+
+{id:'assistance.html',cat:'g5',icon:'💬',c:'blue',t:'Assistance',d:'Poser question, aide, contacter, suivre demande - IA prochaine version',go:'Aide →'},
+{id:'parametres.html',cat:'g5',icon:'⚙️',c:'dark',t:'Paramètres',d:'Langue, notifications, compte, confidentialité, apparence, préférences',go:'Régler →'},
+{id:'securite.html',cat:'g5',icon:'🔐',c:'green',t:'Sécurité',d:'Mot de passe, sessions, appareils connectés, déconnexion, protection',go:'Sécuriser →'},
+
+{id:'administration.html',cat:'g6',icon:'🛠️',c:'dark',t:'Administration',d:'Accès réservé - Version ultérieure complète',go:'Admin →'},
+];
+
+function render(list){
+['g1','g2','g3','g4','g5','g6'].forEach(g=>{document.getElementById(g).innerHTML='';});
+list.forEach(it=>{
+let div=document.createElement('a');div.href=it.id;div.className='card';
+div.innerHTML=`<div class="icon ${it.c}">${it.icon}</div><h4>${it.t}</h4><p>${it.d}</p><div class="go">${it.go}</div>`;
+document.getElementById(it.cat).appendChild(div);
+});
+}
+function filterMenu(q){
+q=q.toLowerCase();
+let f=items.filter(i=>i.t.toLowerCase().includes(q)||i.d.toLowerCase().includes(q));
+render(f);
+}
+render(items);
+</script>
+</body></html>

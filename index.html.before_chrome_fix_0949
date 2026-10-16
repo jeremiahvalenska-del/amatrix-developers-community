@@ -1,0 +1,2206 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Campus Hub RDC</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;overflow-x:hidden}
+body{font-family:Inter,Arial,sans-serif;background:#f4f7fc;color:#10213f}
+:root{--blue:#0a2a6e;--blue2:#0a5bd3;--line:#dbe6f3}
+header{background:#061936;color:white;position:sticky;top:0;z-index:9999;box-shadow:0 5px 25px #0004}
+.top{min-height:75px;padding:10px 3%;display:flex;align-items:center;gap:15px}
+.logo{display:flex;align-items:center;gap:10px;min-width:190px}
+.logo-icon{width:47px;height:47px;border-radius:14px;background:linear-gradient(135deg,#087cff,#634cff);display:flex;align-items:center;justify-content:center;font-size:24px}
+.logo b{font-size:22px}.logo b span{color:#1593ff}.logo small{display:block;color:#b9c8dd;font-size:10px}
+nav{flex:1;display:flex;justify-content:center;gap:3px}nav a{color:white;text-decoration:none;font-size:11px;padding:10px 8px;border-radius:9px;cursor:pointer}
+.right{display:flex;gap:7px;align-items:center}
+.langWrap{position:relative}.langBtn{background:#10294d;color:#fff;border:1px solid #456080;border-radius:20px;padding:9px 12px;font-size:12px;cursor:pointer}
+.langList{position:absolute;top:42px;right:0;background:#fff;border-radius:14px;box-shadow:0 12px 30px #0003;border:1px solid var(--line);display:none;min-width:160px;z-index:10003}
+.langList.show{display:block}.langList button{width:100%;text-align:left;padding:10px 12px;border:0;background:#fff;cursor:pointer;font-size:12px;display:flex;gap:8px}
+.menu-btn{background:#168cff;color:#fff;border:0;border-radius:9px;width:47px;height:47px;font-size:24px;cursor:pointer}
+.hero{min-height:610px;position:relative;display:flex;align-items:center;overflow:hidden;background:#061936}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,#03122bf5,#03122b22),url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2000");background-size:cover}
+.hero-content{position:relative;z-index:2;max-width:1300px;width:100%;margin:auto;padding:80px 5%;color:white}
+.badge{display:inline-block;padding:8px 15px;border-radius:30px;background:#168cff33;border:1px solid #72bfff88;font-size:13px;margin-bottom:20px}
+.hero h1{font-size:clamp(40px,6vw,72px);line-height:1.02;max-width:760px}.hero h1 span{color:#1593ff}
+.hero p{max-width:680px;font-size:18px;color:#dce9fa;margin:20px 0}
+.points{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}.points span{background:#ffffff1c;padding:8px 13px;border-radius:20px;font-size:12px}
+.search{max-width:700px;display:flex;background:white;padding:6px;border-radius:17px}.search input{flex:1;border:0;outline:0;padding:15px}.search button{border:0;background:#117ff4;color:white;padding:0 22px;border-radius:12px;cursor:pointer}
+.start{display:inline-block;margin-top:18px;padding:14px 22px;border-radius:13px;background:#168cff;color:white;font-weight:bold;cursor:pointer}
+.documents{max-width:1300px;margin:-60px auto 0;position:relative;z-index:5;padding:0 25px 55px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 12px 35px #0b2d551c;border:1px solid var(--line)}.photo{height:180px}.photo img{width:100%;height:100%;object-fit:cover}.info{padding:20px}.icon{width:46px;height:46px;margin-top:-43px;margin-bottom:13px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px}.blue{background:#168cff}.purple{background:#7146ef}.orange{background:#f09a20}.green{background:#08b879}
+.btn{border:0;padding:9px 16px;border-radius:20px;background:#117ff4;color:white;font-size:12px;cursor:pointer;font-weight:700}.btn2{padding:9px 13px;border-radius:11px;border:1px solid #dbe6f3;background:#fff;cursor:pointer;font-size:12px}
+.stats{background:#061936;color:white;padding:30px 5%}.stats-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr)}.stat{text-align:center;padding:10px}.stat strong{color:#1593ff;font-size:29px;display:block}.stat span{font-size:12px;color:#bdcde1}
+.mission{background:#071b38;color:white;padding:60px 5%}.mission-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}.mission-photo{height:310px;border-radius:25px;overflow:hidden}.mission-photo img{width:100%;height:100%;object-fit:cover}.mission h2{font-size:40px;margin-bottom:18px}.mission h2 span{color:#1593ff}.mission p{color:#becde0;line-height:1.7}
+footer{background:#031127;color:white;padding:40px 5% 20px}.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}footer h3 span{color:#1593ff}footer a,footer p{color:#aebdd1;text-decoration:none;font-size:13px;line-height:2.2;display:block}.bottom{border-top:1px solid #1c3453;margin-top:25px;padding-top:18px;text-align:center;color:#71839d;font-size:11px}
+#overlay{position:fixed;inset:0;background:#0008;z-index:10000;display:none}#overlay.show{display:block}
+#sideMenu{position:fixed;top:0;left:0;bottom:0;width:92%;max-width:380px;background:#fff;z-index:10001;transform:translateX(-100%);transition:.35s;display:flex;flex-direction:column;box-shadow:10px 0 40px #0003}
+#sideMenu.open{transform:translateX(0)}.menuHead{padding:18px;background:var(--blue);color:#fff;display:flex;justify-content:space-between;align-items:center}
+.menuScroll{flex:1;overflow-y:auto;padding:12px;background:#fbfdff}
+.mItem{width:100%;display:flex;gap:12px;padding:12px;border-radius:12px;border:1px solid #eef2f7;background:#fff;margin-bottom:6px;cursor:pointer;text-align:left;align-items:center}
+.mi{width:40px;height:40px;min-width:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+.view{display:none}.view.active{display:block}.page{max-width:1100px;margin:0 auto;padding:16px 4%}.pageCard{background:#fff;border-radius:16px;padding:16px;border:1px solid var(--line);box-shadow:0 8px 20px #0b2d5510;margin-bottom:12px}.heroPage{position:relative;border-radius:22px;overflow:hidden;min-height:190px;display:flex;align-items:center;padding:24px;color:#fff;background:var(--blue);margin-bottom:16px}.heroPage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}.heroPage.ct{position:relative;z-index:2}
+.input{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid #cbdaf0;margin-top:6px;font-size:13px;background:#fff}
+.label{font-size:11px;font-weight:700;color:#334e68;display:flex;align-items:center;gap:6px;margin-top:10px}
+.listItem{padding:12px;border:1.5px solid #dbe6f3;border-radius:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.profileAvatar{width:86px;height:86px;border-radius:50%;background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:42px;border:3px solid #fff;box-shadow:0 4px 15px #0002;overflow:hidden;cursor:pointer;margin:0 auto}
+.profileAvatar img{width:100%;height:100%;object-fit:cover}
+.agendaGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.dayCell{padding:10px 0;text-align:center;border-radius:12px;cursor:pointer;font-size:12px;background:#fff;border:1px solid #eef2f7}
+.dayCell.active{background:var(--blue2);color:#fff;font-weight:800;border-color:var(--blue2)}
+.filterBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.filterPill{padding:8px 12px;border-radius:12px;border:1.5px solid #cbdaf0;background:#fff;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.filterPill.active{border-color:var(--blue2);background:#eef6ff;color:var(--blue2)}
+.secTitle{font-size:14px;font-weight:800;color:var(--blue);margin:18px 0 8px;border-left:4px solid var(--blue2);padding-left:10px}
+.secBox{background:#fbfdff;border:1.5px solid #e3ecf8;border-radius:14px;padding:14px;margin-bottom:14px}
+.modal{position:fixed;inset:0;background:#000c;z-index:10002;display:none;align-items:center;justify-content:center;padding:4%}.modal.show{display:flex}
+.modalBox{background:#fff;border-radius:20px;padding:22px;max-width:460px;width:100%;box-shadow:0 20px 50px #0005}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#0A1931;color:#fff;padding:12px 18px;border-radius:30px;transition:.3s;opacity:0;z-index:99999}#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.payMethod{padding:14px;border:2px solid #e6eaf2;border-radius:14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;background:#fff}
+.payMethod.active{border-color:var(--blue2);background:#eef6ff}
+.assistCard{padding:16px;border-radius:16px;background:#fff;border:1.5px solid #e6eaf2;display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.assistIcon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px}
+@media(max-width:1150px){nav{display:none}.cards{grid-template-columns:repeat(2,1fr)}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.cards{grid-template-columns:1fr}.documents{margin:0;padding:20px 15px 35px}.hero h1{font-size:38px}.mission-inner{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr;gap:0}.grid2{grid-template-columns:1fr}}
+</style>
+<style id="chLanguageSelectorUpgrade">
+/* Agrandissement du sélecteur de langues existant */
+header select[aria-label*="lang" i],
+header select[id*="lang" i],
+header select[name*="lang" i],
+header .language-selector,
+header .lang-selector,
+header .language-switcher,
+header .lang-switcher,
+#languageSelector,
+#languageSelect,
+#langSelect,
+select[id*="language" i],
+select[name*="language" i] {
+  min-height:46px !important;
+  min-width:108px !important;
+  padding:10px 13px !important;
+  border-radius:13px !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+  border:1px solid #438ee8 !important;
+  cursor:pointer;
+  max-width:100%;
+}
+@media(max-width:480px){
+ header select[aria-label*="lang" i],
+ header select[id*="lang" i],
+ header select[name*="lang" i],
+ header .language-selector,
+ header .lang-selector,
+ header .language-switcher,
+ header .lang-switcher,
+ #languageSelector,#languageSelect,#langSelect,
+ select[id*="language" i],select[name*="language" i] {
+   min-height:45px !important;
+   min-width:100px !important;
+   padding:9px 10px !important;
+   font-size:13px !important;
+ }
+}
+</style>
+
+</head><body>
+<header><div class="top"><div class="logo"><div class="logo-icon">🎓</div><div><b>Campus <span>Hub</span></b><small id="slogan">Votre réussite, notre priorité</small></div></div><nav><a onclick="showView('home')" id="nav1">🏠 Accueil</a><a onclick="showView('profil')" id="nav2">👤 Profil</a><a onclick="showView('bibliotheque')" id="nav3">📖 Bibliothèque</a><a onclick="showView('agenda')" id="nav4">📅 Agenda</a></nav><div class="right"><div class="langWrap"><button class="langBtn" id="langBtn" onclick="toggleLang()">🇫🇷 FR ▾</button><div class="langList" id="langList"><button onclick="setLang('fr')">🇫🇷 FR</button><button onclick="setLang('en-us')">🇺🇸 EN-US</button><button onclick="setLang('en-uk')">🇬🇧 EN-UK</button><button onclick="setLang('pt')">🇵🇹 PT</button><button onclick="setLang('es')">🇪🇸 ES</button></div></div><button class="menu-btn" onclick="openMenu()">☰</button></div></div></header>
+<div id="overlay" onclick="closeAll()"></div>
+<aside id="sideMenu"><div class="menuHead"><b id="menuTitle">Campus Hub - 25 fonctionnalités</b><button onclick="closeMenu()" style="width:32px;height:32px;border-radius:8px;border:1px solid #2a4a6b;background:#0f2a4d;color:#fff">×</button></div><div class="menuScroll" id="menuScroll"></div></aside>
+<div id="homeView" class="view active"><main>
+<section class="hero"><div class="hero-bg"></div><div class="hero-content">
+<div class="badge" id="badge">🎓 Bienvenue sur Campus Hub RDC</div>
+<h1><span id="h1a">Vos documents académiques</span> <span style="color:#1593ff" id="h1b">en quelques clics!</span></h1>
+<p id="heroP">Générez vos mémoires de licence, exposés, rapports de stage, documents scientifiques et bien plus encore.</p>
+<div class="points"><span id="p1">⚡ Rapide</span><span id="p2">🔒 Sécurisé</span><span id="p3">📱 Mobile</span><span id="p4">🎓 Étudiants</span></div>
+<div class="search"><input id="search" placeholder="Rechercher une université, une filière ou un document..."><button id="searchBtn" onclick="showView('bibliotheque')">Rechercher</button></div>
+<a class="start" onclick="goPays('memoire')" id="cta">Commencer maintenant →</a>
+</div></section>
+<section class="documents"><div class="cards" id="homeCards"></div></section>
+<section class="stats"><div class="stats-grid"><div class="stat"><strong>15+</strong><span id="s1">Universités partenaires</span></div><div class="stat"><strong>300+</strong><span id="s2">Étudiants accompagnés</span></div><div class="stat"><strong>&lt; 30 min</strong><span id="s3">Délai de génération</span></div><div class="stat"><strong>4,8/5</strong><span id="s4">Note moyenne</span></div></div></section>
+<section class="mission"><div class="mission-inner"><div class="mission-photo"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1300&q=90"></div><div><h2>Campus <span>Hub</span>, <span id="m1">plus qu'une plateforme.</span></h2><p id="m2">Campus Hub accompagne les étudiants dans leurs documents académiques, leurs recherches, leurs études et leur parcours universitaire.</p><br><p><strong id="m3">Votre projet. Votre diplôme. Votre avenir.</strong></p></div></div></section>
+<footer><div class="footer-grid"><div><h3>Campus <span>Hub</span></h3><p id="f1">Votre plateforme académique pour créer, organiser et gérer vos documents universitaires.</p></div><div><h3>Plateforme</h3><a>Mémoire</a><a>Exposés</a><a>Stages</a></div><div><h3>Services</h3><a>Universités</a><a>Filières</a><a>Agenda</a></div><div><h3>Aide</h3><a>Assistance</a><a>Sécurité</a><a>Conditions</a></div></div><div class="bottom">© 2026 Campus Hub RDC</div></footer>
+</main></div>
+<div id="dynamicViews"></div>
+<input type="file" id="photoInput" accept="image/*" style="display:none">
+<div id="eventModal" class="modal" onclick="if(event.target===this)closeEventModal()"><div class="modalBox">
+<h3 id="modalTitle">Ajouter un événement</h3>
+<div style="margin-top:10px"><div class="label" id="l_date">📅 Date</div><input id="ev_date" type="date" class="input"></div>
+<div style="margin-top:8px"><div class="label" id="l_heure">⏰ Heure</div><input id="ev_heure" type="time" class="input"></div>
+<div style="margin-top:8px"><div class="label" id="l_titre">📝 Titre</div><input id="ev_titre" class="input" placeholder="Ex: Examen L1 Informatique"></div>
+<div style="margin-top:8px"><div class="label" id="l_cat">🏷️ Catégorie</div><select id="ev_cat" class="input"><option>Université</option><option>Faculté</option><option>Département</option><option>Promotion</option><option>Année académique</option></select></div>
+<button class="btn" style="width:100%;margin-top:14px;padding:14px" onclick="saveEvent()" id="btnSaveEv">💾 Enregistrer événement</button>
+<button class="btn2" style="width:100%;margin-top:8px" onclick="closeEventModal()" id="btnCancel">Annuler</button>
+</div></div>
+<div id="toast"></div>
+<script>
+const SUPPORT_WA="243992083817";
+const SUPPORT_TEL="+243992083817";
+const SUPPORT_EMAIL="support@campushub-rdc.com";
+const T={
+fr:{slogan:"Votre réussite, notre priorité",nav1:"🏠 Accueil",nav2:"👤 Profil",nav3:"📖 Bibliothèque",nav4:"📅 Agenda",badge:"🎓 Bienvenue sur Campus Hub RDC",h1a:"Vos documents académiques",h1b:"en quelques clics!",heroP:"Générez vos mémoires de licence, exposés, rapports de stage, documents scientifiques et bien plus encore.",p1:"⚡ Rapide",p2:"🔒 Sécurisé",p3:"📱 Mobile",p4:"🎓 Étudiants",searchPh:"Rechercher une université, une filière ou un document...",searchBtn:"Rechercher",cta:"Commencer maintenant →",c1t:"Mémoire de licence",c1d:"Créez un mémoire structuré et adapté aux normes de votre université.",c2t:"Exposés",c2d:"Préparez des exposés clairs, professionnels et prêts à présenter.",c3t:"Rapports de stage",c3d:"Produisez des rapports de stage complets et adaptés à votre domaine.",c4t:"Biotech & Sciences",c4d:"Documents spécialisés pour les sciences, la recherche et la biotechnologie.",b1:"Commencer →",b2:"Commencer →",b3:"Commencer →",b4:"Découvrir →",s1:"Universités partenaires",s2:"Étudiants accompagnés",s3:"Délai de génération",s4:"Note moyenne",m1:"plus qu'une plateforme.",m2:"Campus Hub accompagne les étudiants dans leurs documents académiques, leurs recherches, leurs études et leur parcours universitaire.",m3:"Votre projet. Votre diplôme. Votre avenir.",f1:"Votre plateforme académique pour créer, organiser et gérer vos documents universitaires.",menuTitle:"Campus Hub - 25 fonctionnalités",menu_home:"Accueil",menu_profil:"Profil",menu_agenda:"Agenda",menu_pays:"Pays",menu_universites:"Universités",menu_facultes:"Facultés",menu_filieres:"Filières",menu_bibliotheque:"Bibliothèque",menu_livres:"Livres",menu_gen_memoire:"Générateur de mémoire",menu_gen_expose:"Générateur d'exposé",menu_gen_stage:"Générateur de rapport de stage",menu_autres:"Autres documents",menu_mes_docs:"Mes documents",menu_commandes:"Mes commandes",menu_paiements:"Paiements",menu_notifs:"Notifications",menu_favoris:"Favoris",menu_galerie:"Galerie",menu_encadreurs:"Encadreurs",menu_parrainage:"Parrainage",menu_assistance:"Assistance",menu_parametres:"Paramètres",menu_securite:"Sécurité",menu_admin:"Administration",btnAddPhoto:"📷 Ajouter photo",btnEditProfil:"Modifier mon profil",l_nom:"Nom",l_prenom:"Prénom",l_univ:"Université",l_fac:"Faculté",l_dept:"Département",l_promo:"Promotion",l_annee:"Année académique",l_bio:"Biographie",btnRetour:"Retour Accueil",btnEnregistrer:"Enregistrer",agendaTitle:"Mon agenda universitaire",agendaSub:"Organise tes cours, examens et deadlines",agendaPlan:"Planifie ton année universitaire de 2026 à 2040",btnAjouterEvent:"Ajouter un événement",filtres:"Filtres :",univ:"Université",fac:"Faculté",dept:"Département",promo:"Promotion",anneeAcad:"Année académique",categorie:"Catégorie",l_date:"📅 Date",l_heure:"⏰ Heure",l_titre:"📝 Titre",l_cat:"🏷️ Catégorie",btnSaveEv:"💾 Enregistrer événement",btnCancel:"Annuler",modalTitle:"Ajouter un événement",months:["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],weekdays:["L","M","M","J","V","S","D"],genTitleMemoire:"Générateur de mémoire",genTitleExpose:"Générateur d'exposé",genTitleStage:"Générateur de rapport de stage",genPays:"Pays",genFac:"Faculté",genDept:"Département",genFil:"Filière",genUniv:"Université",genPromo:"Promotion",genBtn:"Générer document",genBack:"Retour Pays",exFac:"Ex: Sciences",exDept:"Ex: Informatique",exFil:"Ex: Génie Logiciel",exUniv:"Ex: UNILU",cmdTitle:"Mes commandes",cmdEmpty:"Aucune commande pour l'instant",cmdStatusPaye:"Payé",cmdStatusAttente:"En attente",cmdStatusPret:"Prêt",payTitle:"Paiement sécurisé",paySub:"Choisis ta méthode de paiement",payAmount:"Montant à payer",payMethodMPesa:"M-Pesa",payMethodAirtel:"Airtel Money",payMethodOrange:"Orange Money",payMethodVisa:"Visa / Mastercard",payBtn:"Payer maintenant",paySecure:"Paiement sécurisé 256-bit • Aucun PIN demandé sur le site",assistTitle:"Assistance Campus Hub",assistSub:"Nous sommes là pour t'aider 7j/7",assistWA:"Chat sur WhatsApp",assistWADesc:"Réponse rapide sur WhatsApp",assistCall:"Appel téléphonique",assistCallDesc:"Parler directement à un conseiller",assistEmail:"Email",assistEmailDesc:"Envoie-nous un message",assistFAQ:"Questions fréquentes",notifTitle:"Notifications"},
+"en-us":{slogan:"Your success, our priority",nav1:"🏠 Home",nav2:"👤 Profile",nav3:"📖 Library",nav4:"📅 Agenda",badge:"🎓 Welcome to Campus Hub DRC",h1a:"Your academic documents",h1b:"in just a few clicks!",heroP:"Generate your thesis, presentations, internship reports and more.",p1:"⚡ Fast",p2:"🔒 Secure",p3:"📱 Mobile",p4:"🎓 Students",searchPh:"Search university, program or document...",searchBtn:"Search",cta:"Start now →",c1t:"Bachelor Thesis",c1d:"Create a structured thesis.",c2t:"Presentations",c2d:"Prepare clear presentations.",c3t:"Internship Reports",c3d:"Produce complete reports.",c4t:"Biotech & Sciences",c4d:"Specialized documents.",b1:"Start →",b2:"Start →",b3:"Start →",b4:"Discover →",s1:"Partner Universities",s2:"Students Supported",s3:"Generation Time",s4:"Average Rating",m1:"more than a platform.",m2:"Campus Hub supports students.",m3:"Your project. Your degree. Your future.",f1:"Your academic platform.",menuTitle:"Campus Hub - 25 features",menu_home:"Home",menu_profil:"Profile",menu_agenda:"Agenda",menu_pays:"Countries",menu_universites:"Universities",menu_facultes:"Faculties",menu_filieres:"Programs",menu_bibliotheque:"Library",menu_livres:"Books",menu_gen_memoire:"Thesis Generator",menu_gen_expose:"Presentation Generator",menu_gen_stage:"Internship Report Generator",menu_autres:"Other Documents",menu_mes_docs:"My Documents",menu_commandes:"My Orders",menu_paiements:"Payments",menu_notifs:"Notifications",menu_favoris:"Favorites",menu_galerie:"Gallery",menu_encadreurs:"Supervisors",menu_parrainage:"Referral",menu_assistance:"Support",menu_parametres:"Settings",menu_securite:"Security",menu_admin:"Administration",btnAddPhoto:"📷 Add photo",btnEditProfil:"Edit my profile",l_nom:"Last Name",l_prenom:"First Name",l_univ:"University",l_fac:"Faculty",l_dept:"Department",l_promo:"Year",l_annee:"Academic Year",l_bio:"Biography",btnRetour:"Back to Home",btnEnregistrer:"Save",agendaTitle:"My University Agenda",agendaSub:"Organize your courses, exams and deadlines",agendaPlan:"Plan your academic year from 2026 to 2040",btnAjouterEvent:"Add an event",filtres:"Filters:",univ:"University",fac:"Faculty",dept:"Department",promo:"Year",anneeAcad:"Academic Year",categorie:"Category",l_date:"📅 Date",l_heure:"⏰ Time",l_titre:"📝 Title",l_cat:"🏷️ Category",btnSaveEv:"💾 Save event",btnCancel:"Cancel",modalTitle:"Add an event",months:["January","February","March","April","May","June","July","August","September","October","November","December"],weekdays:["M","T","W","T","F","S","S"],genTitleMemoire:"Thesis Generator",genTitleExpose:"Presentation Generator",genTitleStage:"Internship Report Generator",genPays:"Country",genFac:"Faculty",genDept:"Department",genFil:"Program",genUniv:"University",genPromo:"Year",genBtn:"Generate document",genBack:"Back",exFac:"Ex: Science",exDept:"Ex: Computer Science",exFil:"Ex: Software Eng.",exUniv:"Ex: UNILU",cmdTitle:"My Orders",cmdEmpty:"No orders yet",cmdStatusPaye:"Paid",cmdStatusAttente:"Pending",cmdStatusPret:"Ready",payTitle:"Secure Payment",paySub:"Choose your payment method",payAmount:"Amount to pay",payMethodMPesa:"M-Pesa",payMethodAirtel:"Airtel Money",payMethodOrange:"Orange Money",payMethodVisa:"Visa / Mastercard",payBtn:"Pay now",paySecure:"Secure 256-bit payment • No PIN requested on site",assistTitle:"Campus Hub Support",assistSub:"We're here to help 7/7",assistWA:"Chat on WhatsApp",assistWADesc:"Fast reply on WhatsApp",assistCall:"Phone Call",assistCallDesc:"Talk directly to advisor",assistEmail:"Email",assistEmailDesc:"Send us a message",assistFAQ:"FAQ",notifTitle:"Notifications"},
+pt:{slogan:"Seu sucesso, nossa prioridade",nav1:"🏠 Início",nav2:"👤 Perfil",nav3:"📖 Biblioteca",nav4:"📅 Agenda",badge:"🎓 Bem-vindo ao Campus Hub RDC",h1a:"Seus documentos acadêmicos",h1b:"em poucos cliques!",heroP:"Gere sua monografia, apresentações, relatórios de estágio e muito mais.",p1:"⚡ Rápido",p2:"🔒 Seguro",p3:"📱 Móvel",p4:"🎓 Estudantes",searchPh:"Pesquisar universidade, curso ou documento...",searchBtn:"Pesquisar",cta:"Começar agora →",c1t:"Monografia",c1d:"Crie uma monografia estruturada.",c2t:"Apresentações",c2d:"Prepare apresentações claras.",c3t:"Relatórios de estágio",c3d:"Produza relatórios completos.",c4t:"Biotec & Ciências",c4d:"Documentos especializados.",b1:"Começar →",b2:"Começar →",b3:"Começar →",b4:"Descobrir →",s1:"Universidades parceiras",s2:"Estudantes apoiados",s3:"Tempo de geração",s4:"Avaliação média",m1:"mais que uma plataforma.",m2:"Campus Hub acompanha os estudantes.",m3:"Seu projeto. Seu diploma. Seu futuro.",f1:"Sua plataforma acadêmica.",menuTitle:"Campus Hub - 25 funcionalidades",menu_home:"Início",menu_profil:"Perfil",menu_agenda:"Agenda",menu_pays:"Países",menu_universites:"Universidades",menu_facultes:"Faculdades",menu_filieres:"Cursos",menu_bibliotheque:"Biblioteca",menu_livres:"Livros",menu_gen_memoire:"Gerador de monografia",menu_gen_expose:"Gerador de apresentação",menu_gen_stage:"Gerador de relatório de estágio",menu_autres:"Outros documentos",menu_mes_docs:"Meus documentos",menu_commandes:"Meus pedidos",menu_paiements:"Pagamentos",menu_notifs:"Notificações",menu_favoris:"Favoritos",menu_galerie:"Galeria",menu_encadreurs:"Orientadores",menu_parrainage:"Indicação",menu_assistance:"Assistência",menu_parametres:"Configurações",menu_securite:"Segurança",menu_admin:"Administração",btnAddPhoto:"📷 Adicionar foto",btnEditProfil:"Editar meu perfil",l_nom:"Nome",l_prenom:"Sobrenome",l_univ:"Universidade",l_fac:"Faculdade",l_dept:"Departamento",l_promo:"Turma",l_annee:"Ano acadêmico",l_bio:"Biografia",btnRetour:"Voltar ao início",btnEnregistrer:"Salvar",agendaTitle:"Minha agenda universitária",agendaSub:"Organize suas aulas, exames e prazos",agendaPlan:"Planeje seu ano acadêmico de 2026 a 2040",btnAjouterEvent:"Adicionar evento",filtres:"Filtros:",univ:"Universidade",fac:"Faculdade",dept:"Departamento",promo:"Turma",anneeAcad:"Ano acadêmico",categorie:"Categoria",l_date:"📅 Data",l_heure:"⏰ Hora",l_titre:"📝 Título",l_cat:"🏷️ Categoria",btnSaveEv:"💾 Salvar evento",btnCancel:"Cancelar",modalTitle:"Adicionar evento",months:["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],weekdays:["S","T","Q","Q","S","S","D"],genTitleMemoire:"Gerador de monografia",genTitleExpose:"Gerador de apresentação",genTitleStage:"Gerador de relatório de estágio",genPays:"País",genFac:"Faculdade",genDept:"Departamento",genFil:"Curso",genUniv:"Universidade",genPromo:"Turma",genBtn:"Gerar documento",genBack:"Voltar",exFac:"Ex: Ciências",exDept:"Ex: Informática",exFil:"Ex: Eng. Software",exUniv:"Ex: UNILU",cmdTitle:"Meus pedidos",cmdEmpty:"Nenhum pedido ainda",cmdStatusPaye:"Pago",cmdStatusAttente:"Pendente",cmdStatusPret:"Pronto",payTitle:"Pagamento seguro",paySub:"Escolha seu método de pagamento",payAmount:"Valor a pagar",payMethodMPesa:"M-Pesa",payMethodAirtel:"Airtel Money",payMethodOrange:"Orange Money",payMethodVisa:"Visa / Mastercard",payBtn:"Pagar agora",paySecure:"Pagamento seguro 256-bit",assistTitle:"Suporte Campus Hub",assistSub:"Estamos aqui para ajudar 7/7",assistWA:"Conversar no WhatsApp",assistWADesc:"Resposta rápida no WhatsApp",assistCall:"Ligação",assistCallDesc:"Falar com conselheiro",assistEmail:"Email",assistEmailDesc:"Envie mensagem",assistFAQ:"Perguntas frequentes",notifTitle:"Notificações"},
+es:{slogan:"Tu éxito, nuestra prioridad",nav1:"🏠 Inicio",nav2:"👤 Perfil",nav3:"📖 Biblioteca",nav4:"📅 Agenda",badge:"🎓 Bienvenido a Campus Hub RDC",h1a:"Tus documentos académicos",h1b:"¡en pocos clics!",heroP:"Genera tu tesis, exposiciones, informes de prácticas y mucho más.",p1:"⚡ Rápido",p2:"🔒 Seguro",p3:"📱 Móvil",p4:"🎓 Estudiantes",searchPh:"Buscar universidad, carrera o documento...",searchBtn:"Buscar",cta:"Empezar ahora →",c1t:"Tesis de licenciatura",c1d:"Crea una tesis estructurada.",c2t:"Exposiciones",c2d:"Prepara exposiciones claras.",c3t:"Informes de prácticas",c3d:"Produce informes completos.",c4t:"Biotec & Ciencias",c4d:"Documentos especializados.",b1:"Empezar →",b2:"Empezar →",b3:"Empezar →",b4:"Descubrir →",s1:"Universidades asociadas",s2:"Estudiantes acompañados",s3:"Tiempo de generación",s4:"Calificación promedio",m1:"más que una plataforma.",m2:"Campus Hub acompaña a los estudiantes.",m3:"Tu proyecto. Tu título. Tu futuro.",f1:"Tu plataforma académica.",menuTitle:"Campus Hub - 25 funcionalidades",menu_home:"Inicio",menu_profil:"Perfil",menu_agenda:"Agenda",menu_pays:"Países",menu_universites:"Universidades",menu_facultes:"Facultades",menu_filieres:"Carreras",menu_bibliotheque:"Biblioteca",menu_livres:"Libros",menu_gen_memoire:"Generador de tesis",menu_gen_expose:"Generador de exposición",menu_gen_stage:"Generador de informe de prácticas",menu_autres:"Otros documentos",menu_mes_docs:"Mis documentos",menu_commandes:"Mis pedidos",menu_paiements:"Pagos",menu_notifs:"Notificaciones",menu_favoris:"Favoritos",menu_galerie:"Galería",menu_encadreurs:"Tutores",menu_parrainage:"Patrocinio",menu_assistance:"Asistencia",menu_parametres:"Configuración",menu_securite:"Seguridad",menu_admin:"Administración",btnAddPhoto:"📷 Añadir foto",btnEditProfil:"Editar mi perfil",l_nom:"Apellido",l_prenom:"Nombre",l_univ:"Universidad",l_fac:"Facultad",l_dept:"Departamento",l_promo:"Promoción",l_annee:"Año académico",l_bio:"Biografía",btnRetour:"Volver al inicio",btnEnregistrer:"Guardar",agendaTitle:"Mi agenda universitaria",agendaSub:"Organiza tus clases, exámenes y plazos",agendaPlan:"Planifica tu año universitario de 2026 a 2040",btnAjouterEvent:"Añadir evento",filtres:"Filtros:",univ:"Universidad",fac:"Facultad",dept:"Departamento",promo:"Promoción",anneeAcad:"Año académico",categorie:"Categoría",l_date:"📅 Fecha",l_heure:"⏰ Hora",l_titre:"📝 Título",l_cat:"🏷️ Categoría",btnSaveEv:"💾 Guardar evento",btnCancel:"Cancelar",modalTitle:"Añadir evento",months:["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],weekdays:["L","M","X","J","V","S","D"],genTitleMemoire:"Generador de tesis",genTitleExpose:"Generador de exposición",genTitleStage:"Generador de informe de prácticas",genPays:"País",genFac:"Facultad",genDept:"Departamento",genFil:"Carrera",genUniv:"Universidad",genPromo:"Promoción",genBtn:"Generar documento",genBack:"Volver",exFac:"Ex: Ciencias",exDept:"Ex: Informática",exFil:"Ex: Ing. Software",exUniv:"Ex: UNILU",cmdTitle:"Mis pedidos",cmdEmpty:"Sin pedidos aún",cmdStatusPaye:"Pagado",cmdStatusAttente:"Pendiente",cmdStatusPret:"Listo",payTitle:"Pago seguro",paySub:"Elige tu método de pago",payAmount:"Monto a pagar",payMethodMPesa:"M-Pesa",payMethodAirtel:"Airtel Money",payMethodOrange:"Orange Money",payMethodVisa:"Visa / Mastercard",payBtn:"Pagar ahora",paySecure:"Pago seguro 256-bit",assistTitle:"Soporte Campus Hub",assistSub:"Estamos aquí para ayudarte 7/7",assistWA:"Chatear en WhatsApp",assistWADesc:"Respuesta rápida en WhatsApp",assistCall:"Llamada telefónica",assistCallDesc:"Hablar con asesor",assistEmail:"Email",assistEmailDesc:"Envíanos mensaje",assistFAQ:"Preguntas frecuentes",notifTitle:"Notificaciones"}
+};
+let menuData=[
+{id:'home',labelKey:'menu_home',icon:'🏠',color:'#0a2a6e'},
+{id:'profil',labelKey:'menu_profil',icon:'👤',color:'#0a5bd3'},
+{id:'agenda',labelKey:'menu_agenda',icon:'📅',color:'#7146ef'},
+{id:'pays',labelKey:'menu_pays',icon:'🌍',color:'#08b879'},
+{id:'universites',labelKey:'menu_universites',icon:'🎓',color:'#0a2a6e'},
+{id:'facultes',labelKey:'menu_facultes',icon:'🏫',color:'#0a5bd3'},
+{id:'filieres',labelKey:'menu_filieres',icon:'📚',color:'#f09a20'},
+{id:'bibliotheque',labelKey:'menu_bibliotheque',icon:'📖',color:'#0a5bd3'},
+{id:'livres',labelKey:'menu_livres',icon:'📘',color:'#7146ef'},
+{id:'gen-memoire',labelKey:'menu_gen_memoire',icon:'📝',color:'#0a5bd3'},
+{id:'gen-expose',labelKey:'menu_gen_expose',icon:'📄',color:'#7146ef'},
+{id:'gen-stage',labelKey:'menu_gen_stage',icon:'💼',color:'#f09a20'},
+{id:'autres',labelKey:'menu_autres',icon:'📑',color:'#0a2a6e'},
+{id:'mes-docs',labelKey:'menu_mes_docs',icon:'🗂️',color:'#0a5bd3'},
+{id:'commandes',labelKey:'menu_commandes',icon:'🛒',color:'#08b879'},
+{id:'paiements',labelKey:'menu_paiements',icon:'💳',color:'#0a2a6e'},
+{id:'notifs',labelKey:'menu_notifs',icon:'🔔',color:'#ff4d8d'},
+{id:'favoris',labelKey:'menu_favoris',icon:'⭐',color:'#ff4d8d'},
+{id:'galerie',labelKey:'menu_galerie',icon:'🖼️',color:'#08b879'},
+{id:'encadreurs',labelKey:'menu_encadreurs',icon:'👨‍🏫',color:'#f09a20'},
+{id:'parrainage',labelKey:'menu_parrainage',icon:'🎁',color:'#7146ef'},
+{id:'assistance',labelKey:'menu_assistance',icon:'💬',color:'#0a5bd3'},
+{id:'parametres',labelKey:'menu_parametres',icon:'⚙️',color:'#0a2a6e'},
+{id:'securite',labelKey:'menu_securite',icon:'🔒',color:'#08b879'},
+{id:'admin',labelKey:'menu_admin',icon:'🛠️',color:'#0a2a6e'}
+];
+let operational=['home','profil','agenda','bibliotheque','pays','gen-memoire','gen-expose','gen-stage','paiements','admin','commandes','notifs','assistance','favoris'];
+let profil=JSON.parse(localStorage.getItem('profil')||'null');
+let events=JSON.parse(localStorage.getItem('agenda_events')||'[]');
+let orders=JSON.parse(localStorage.getItem('orders')||'[]');
+let curLang=localStorage.getItem('lang')||'fr';
+let calMonth=9,calYear=2026,nextGen='memoire',activeFilter='promo',selectedPay='mpesa';
+
+function toggleLang(){document.getElementById('langList').classList.toggle('show');}
+function setLang(v){curLang=v;localStorage.setItem('lang',v);document.getElementById('langList').classList.remove('show');document.getElementById('langBtn').textContent={fr:'🇫🇷 FR','en-us':'🇺🇸 EN-US','en-uk':'🇬🇧 EN-UK',pt:'🇵🇹 PT',es:'🇪🇸 ES'}[v]+' ▾';applyLang();renderMenu();showView(window._lastView||'home');}
+function closeAll(){document.getElementById('langList')?.classList.remove('show');closeMenu();}
+function applyLang(){
+ let d=T[curLang]||T.fr;
+ let ids=['slogan','nav1','nav2','nav3','nav4','badge','h1a','h1b','heroP','p1','p2','p3','p4','searchBtn','cta','c1t','c1d','c2t','c2d','c3t','c3d','c4t','c4d','b1','b2','b3','b4','s1','s2','s3','s4','m1','m2','m3','f1','menuTitle','modalTitle','l_date','l_heure','l_titre','l_cat','btnSaveEv','btnCancel'];
+ ids.forEach(id=>{let el=document.getElementById(id);if(el&&d[id])el.textContent=d[id];});
+ document.getElementById('search').placeholder=d.searchPh;
+}
+function toast(m){let e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3000);}
+function renderHome(){
+ document.getElementById('homeCards').innerHTML=`
+ <article class="card"><div class="photo"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1000&q=90"></div><div class="info"><div class="icon blue">📘</div><h3 id="c1t"></h3><p id="c1d" style="font-size:12px;color:#5a6b84;margin:6px 0"></p><button class="btn" id="b1" onclick="goPays('memoire')"></button></div></article>
+ <article class="card"><div class="photo"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=90"></div><div class="info"><div class="icon purple">📝</div><h3 id="c2t"></h3><p id="c2d" style="font-size:12px;color:#5a6b84;margin:6px 0"></p><button class="btn" id="b2" onclick="goPays('expose')"></button></div></article>
+ <article class="card"><div class="photo"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=90"></div><div class="info"><div class="icon orange">💼</div><h3 id="c3t"></h3><p id="c3d" style="font-size:12px;color:#5a6b84;margin:6px 0"></p><button class="btn" id="b3" onclick="goPays('stage')"></button></div></article>
+ <article class="card"><div class="photo"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1000&q=90"></div><div class="info"><div class="icon green">🧬</div><h3 id="c4t"></h3><p id="c4d" style="font-size:12px;color:#5a6b84;margin:6px 0"></p><button class="btn" id="b4" onclick="showView('bibliotheque')"></button></div></article>`;
+}
+function renderMenu(){
+ let d=T[curLang]||T.fr;let h='';
+ menuData.forEach(m=>{
+  let op=operational.includes(m.id);
+  let label=d[m.labelKey]||m.labelKey;
+  h+=`<button class="mItem${window._lastView===m.id?' active':''}" onclick="openPage('${m.id}')"><div class="mi" style="background:${m.color}">${m.icon}</div><div style="flex:1"><b style="font-size:12px">${label}</b><br><small style="font-size:9px;color:${op?'#08b879':'#7b8aa0'}">${op?'● Opérationnel':'○ Bientôt'}</small></div><div>›</div></button>`;
+ });
+ document.getElementById('menuScroll').innerHTML=h;
+}
+function openMenu(){closeAll();document.getElementById('sideMenu').classList.add('open');document.getElementById('overlay').classList.add('show');renderMenu();}
+function closeMenu(){document.getElementById('sideMenu').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function openPage(id){closeMenu();setTimeout(()=>showView(id),100);}
+function goPays(type){nextGen=type;showView('pays');}
+function selectPays(name){localStorage.setItem('campus_selected_country',name);toast(name+' sélectionné');showView(nextGen==='memoire'?'gen-memoire':nextGen==='expose'?'gen-expose':'gen-stage');}
+
+function showView(id){
+ window._lastView=id;
+ // NOUVEAUX MODULES PRIORITAIRES
+ if(id==='assistance' || id==='aide'){
+   if(typeof window.openAssistance==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openAssistance(); return;
+   }
+ }
+ if(id==='notifs' || id==='notifications'){
+   if(typeof window.openNotifications==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openNotifications(); return;
+   }
+ }
+
+ // NOUVEAUX MODULES PRIORITAIRES
+ if(id==='assistance' || id==='aide'){
+   if(typeof window.openAssistance==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openAssistance(); return;
+   }
+ }
+ if(id==='notifs' || id==='notifications'){
+   if(typeof window.openNotifications==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openNotifications(); return;
+   }
+ }
+
+ // INTERCEPT PARAMETRES -> ouvre le vrai module injecté
+ if(id==='parametres' || id==='securite'){
+   if(typeof window.openParametres==='function' || typeof window.showParametres==='function'){
+     const fn = window.openParametres || window.showParametres;
+     // Cache homeView et dynamicViews
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     // Cache les sections natives
+     document.querySelectorAll('body > section, body > main').forEach(el=>{ el.style.display='none'; });
+     const sv=document.getElementById('chSettingsView');
+     if(sv){ sv.style.display='block'; sv.style.display='block'; }
+     fn();
+     return;
+   }
+ }
+
+ // NOUVEAUX MODULES PRIORITAIRES
+ if(id==='assistance' || id==='aide'){
+   if(typeof window.openAssistance==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openAssistance(); return;
+   }
+ }
+ if(id==='notifs' || id==='notifications'){
+   if(typeof window.openNotifications==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     window.openNotifications(); return;
+   }
+ }
+
+ // ENCADREURS + PARRAINAGE + ASSISTANCE + PAYS + SECURITE + NOTIFS
+ if(id==='encadreurs' && typeof window.openEncadreurs==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chSupervisorsView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openEncadreurs(); return;
+ }
+ if(id==='parrainage' && typeof window.openParrainage==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chReferralView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openParrainage(); return;
+ }
+ if(id==='assistance' || id==='aide'){
+   if(typeof window.openAssistance==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     document.querySelectorAll('body > section, body > main').forEach(el=>{
+       if(el.id!=='chAssistanceView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+     });
+     window.openAssistance(); return;
+   }
+ }
+ if(id==='notifications' || id==='notifs'){
+   if(typeof window.openNotifications==='function'){
+     const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+     const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+     document.querySelectorAll('body > section, body > main').forEach(el=>{
+       if(el.id!=='chNotificationsView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+     });
+     window.openNotifications(); return;
+   }
+ }
+ if(id==='pays' && typeof window.openPays==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chCountriesView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openPays(); return;
+ }
+ if(id==='securite' && typeof window.openSecurite==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chSecurityView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openSecurite(); return;
+ }
+
+      }
+ if(id==='parrainage' && typeof window.openParrainage==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chReferralView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openParrainage(); return;
+ }
+ 
+  if(id==='parrainage' && typeof window.openParrainage==='function'){
+   const hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+   const dv=document.getElementById('dynamicViews'); if(dv) dv.innerHTML='';
+   document.querySelectorAll('body > section, body > main').forEach(el=>{
+     if(el.id!=='chReferralView' && el.id!=='chMenuDrawer' && el.id!=='chMenuOverlay') el.style.display='none';
+   });
+   window.openParrainage(); return;
+ }
+ 
+  // Essaie de cliquer sur un bouton de navigation existant.
+  const selectors=[
+   '[data-page="'+page+'"]',
+   '[data-view="'+page+'"]',
+   '[data-target="'+page+'"]',
+   '[data-section="'+page+'"]',
+   '#menu-'+page,
+   '#nav-'+page,
+   '#'+page+'MenuButton'
+  ];
+  for(const selector of selectors){
+   const candidates=[...document.querySelectorAll(selector)];
+   const target=candidates.find(el=>!el.classList.contains('ch-item')&&
+      !drawer.contains(el)&&el!==openBtn);
+   if(target){target.click();return}
+  }
+  alert('La page « '+page+' » n’est pas encore reliée à une fonction existante. Le menu est prêt, mais cette page doit être connectée à son module.');
+ }
+ drawer.querySelectorAll('.ch-item').forEach(item=>{
+  item.addEventListener('click',()=>navigate(item.dataset.page));
+ });
+})();
+</script>
+<!-- FIN DU MENU CAMPUS HUB -->
+
+
+<!-- CAMPUS HUB RDC : PARAMÈTRES AVANCÉS -->
+<style id="chSettingsStyles">
+#chSettingsView{
+ display:none;min-height:100vh;padding:20px 14px 45px;
+ background:#f1f8f7;color:#153c43;
+ font-family:Arial,sans-serif;box-sizing:border-box
+}
+#chSettingsView *{box-sizing:border-box}
+#chSettingsView .set-wrap{max-width:800px;margin:auto}
+#chSettingsView .set-hero{
+ padding:25px 20px;border-radius:24px;color:white;
+ background:linear-gradient(135deg,#073b4c,#087f8c,#20a995);
+ box-shadow:0 12px 30px #073b4c16
+}
+#chSettingsView .set-back{
+ padding:9px 13px;border:1px solid #ffffff70;
+ background:#ffffff17;color:white;border-radius:11px;
+ cursor:pointer;margin-bottom:17px
+}
+#chSettingsView .set-hero h1{
+ font-size:27px;margin:0 0 10px
+}
+#chSettingsView .set-hero p{
+ color:#ddfff6;font-size:13px;line-height:1.7;margin:0
+}
+#chSettingsView .set-badge{
+ display:inline-block;margin-top:15px;padding:8px 12px;
+ border-radius:30px;background:#ffffff20;font-size:11px
+}
+#chSettingsView .set-card{
+ background:white;border:1px solid #e0eeea;
+ border-radius:19px;padding:18px;margin-top:15px;
+ box-shadow:0 7px 24px #073b4c08
+}
+#chSettingsView .set-card h2{
+ margin:0 0 7px;font-size:16px;color:#103e45
+}
+#chSettingsView .set-desc{
+ margin:0 0 14px;color:#77908e;font-size:12px;line-height:1.6
+}
+#chSettingsView .set-row{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;padding:14px 0;border-bottom:1px solid #edf3f1
+}
+#chSettingsView .set-row:last-child{border-bottom:0}
+#chSettingsView .set-info{flex:1;min-width:0}
+#chSettingsView .set-name{
+ display:block;font-size:13px;font-weight:700;line-height:1.5
+}
+#chSettingsView .set-help{
+ display:block;margin-top:4px;color:#78908f;
+ font-size:11px;line-height:1.5
+}
+#chSettingsView .set-switch{
+ appearance:none;-webkit-appearance:none;flex-shrink:0;
+ width:46px;height:26px;border-radius:30px;
+ background:#cbd8d5;position:relative;cursor:pointer;
+ transition:background .2s;margin:0
+}
+#chSettingsView .set-switch:before{
+ content:"";position:absolute;left:3px;top:3px;
+ width:20px;height:20px;border-radius:50%;
+ background:white;box-shadow:0 2px 5px #0002;
+ transition:transform .2s
+}
+#chSettingsView .set-switch:checked{background:#099b8e}
+#chSettingsView .set-switch:checked:before{transform:translateX(20px)}
+#chSettingsView .set-switch:focus-visible{
+ outline:3px solid #72d7c5;outline-offset:3px
+}
+#chSettingsView .set-field{margin-top:14px}
+#chSettingsView .set-field label{
+ display:block;font-size:12px;font-weight:700;margin-bottom:8px
+}
+#chSettingsView .set-field select,
+#chSettingsView .set-field input{
+ width:100%;padding:13px;border:1px solid #dcebe7;
+ border-radius:12px;background:#fbfefd;color:#153c43;
+ font-size:13px;outline-color:#099b8e
+}
+#chSettingsView .set-buttons{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px
+}
+#chSettingsView .set-btn{
+ border:0;border-radius:12px;padding:14px 10px;
+ font-size:12px;font-weight:800;cursor:pointer
+}
+#chSettingsView .set-save{
+ background:linear-gradient(135deg,#087f8c,#099b8e);color:white
+}
+#chSettingsView .set-reset{
+ background:#eaf4f1;color:#355d5b
+}
+#chSettingsView .set-status{
+ margin-top:13px;padding:12px;border-radius:12px;
+ background:#e4f8ef;color:#176448;font-size:12px;line-height:1.6
+}
+#chSettingsView .set-status[hidden]{display:none}
+#chSettingsView .set-note{
+ margin-top:14px;padding:12px;border-radius:12px;
+ background:#fff7e6;color:#785b23;font-size:11px;line-height:1.7
+}
+@media(max-width:380px){
+ #chSettingsView{padding:12px 9px 30px}
+ #chSettingsView .set-card{padding:14px}
+ #chSettingsView .set-hero{padding:20px 16px}
+ #chSettingsView .set-hero h1{font-size:23px}
+}
+</style>
+
+<section id="chSettingsView" aria-label="Paramètres Campus Hub">
+ <div class="set-wrap">
+
+  <header class="set-hero">
+   <button type="button" class="set-back" id="chSetBack">← Retour</button>
+   <h1>⚙️ Paramètres</h1>
+   <p>Personnalise ton expérience Campus Hub. Active ou désactive les options selon tes préférences.</p>
+   <div class="set-badge">CENTRE DE CONFIGURATION</div>
+  </header>
+
+  <div class="set-card">
+   <h2>🎨 Apparence</h2>
+   <p class="set-desc">Personnalise l'affichage de ton espace étudiant.</p>
+
+   <div class="set-field">
+    <label for="chSetTheme">Thème de l'application</label>
+    <select id="chSetTheme" data-setting="theme">
+     <option value="light">☀️ Mode clair</option>
+     <option value="dark">🌙 Mode sombre</option>
+     <option value="system">📱 Préférence de l'appareil</option>
+    </select>
+   </div>
+
+   <div class="set-field">
+    <label for="chSetLanguage">Langue préférée</label>
+    <select id="chSetLanguage" data-setting="language">
+     <option value="fr">Français</option>
+     <option value="en-US">English (US)</option>
+     <option value="en-GB">English (UK)</option>
+     <option value="pt">Português</option>
+     <option value="es">Español</option>
+     <option value="ar">العربية</option>
+     <option value="de">Deutsch</option>
+    </select>
+   </div>
+
+   <div class="set-row">
+    <div class="set-info">
+     <span class="set-name">Animations de l'interface</span>
+     <span class="set-help">Autoriser les animations visuelles.</span>
+    </div>
+    <input class="set-switch" type="checkbox" data-setting="animations" checked aria-label="Animations">
+   </div>
+  </div>
+
+  <div class="set-card">
+   <h2>🔔 Notifications</h2>
+   <p class="set-desc">Choisis les informations que tu souhaites recevoir.</p>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Notifications générales</span><span class="set-help">Informations importantes de Campus Hub.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="notifications" checked aria-label="Notifications générales">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Alertes de commande</span><span class="set-help">Mises à jour sur tes commandes.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="orderAlerts" checked aria-label="Alertes de commande">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Rappels de l'agenda</span><span class="set-help">Rappels pour les activités et échéances.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="agendaReminders" checked aria-label="Rappels de l'agenda">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Actualités et nouveautés</span><span class="set-help">Annonces sur les nouvelles fonctionnalités.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="newsAlerts" aria-label="Actualités">
+   </div>
+  </div>
+
+  <div class="set-card">
+   <h2>🛡️ Confidentialité et sécurité</h2>
+   <p class="set-desc">Configure les préférences de confidentialité de ton interface.</p>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Verrouillage de session</span><span class="set-help">Activer cette option enregistre ta préférence. Un véritable verrouillage nécessite un système d'authentification.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="sessionLock" aria-label="Verrouillage de session">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Masquer les aperçus des documents</span><span class="set-help">Préférence d'affichage des aperçus dans les modules compatibles.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="hidePreviews" aria-label="Masquer les aperçus">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Confirmer avant une action importante</span><span class="set-help">Enregistre une préférence de confirmation pour les modules compatibles.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="confirmActions" checked aria-label="Confirmer les actions">
+   </div>
+  </div>
+
+  <div class="set-card">
+   <h2>📚 Outils étudiants</h2>
+   <p class="set-desc">Active ou désactive tes préférences pour les services académiques.</p>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Suggestions de la bibliothèque</span><span class="set-help">Autoriser les recommandations de lecture dans les modules compatibles.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="bookSuggestions" checked aria-label="Suggestions de livres">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Enregistrement automatique des brouillons</span><span class="set-help">Préférence destinée aux générateurs qui prennent en charge cette fonction.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="autoSaveDrafts" checked aria-label="Enregistrement automatique">
+   </div>
+
+   <div class="set-row">
+    <div class="set-info"><span class="set-name">Afficher les favoris</span><span class="set-help">Activer l'affichage des favoris dans les modules compatibles.</span></div>
+    <input class="set-switch" type="checkbox" data-setting="showFavorites" checked aria-label="Afficher les favoris">
+   </div>
+  </div>
+
+  <div class="set-card">
+   <h2>🧩 Préférences des fonctionnalités</h2>
+   <p class="set-desc">Ces interrupteurs enregistrent les préférences d'affichage. Pour bloquer réellement l'accès à un module, il faudra relier ces options à la navigation et aux autorisations du site.</p>
+
+   <div class="set-row"><div class="set-info"><span class="set-name">Bibliothèque</span><span class="set-help">Afficher cette fonctionnalité dans les modules compatibles.</span></div><input class="set-switch" type="checkbox" data-feature="bibliotheque" checked aria-label="Bibliothèque activée"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Agenda</span><span class="set-help">Afficher cette fonctionnalité dans les modules compatibles.</span></div><input class="set-switch" type="checkbox" data-feature="agenda" checked aria-label="Agenda activé"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Générateur de mémoire</span><span class="set-help">Préférence d'affichage du générateur.</span></div><input class="set-switch" type="checkbox" data-feature="memoire" checked aria-label="Mémoire activé"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Générateur d'exposé</span><span class="set-help">Préférence d'affichage du générateur.</span></div><input class="set-switch" type="checkbox" data-feature="expose" checked aria-label="Exposé activé"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Rapport de stage</span><span class="set-help">Préférence d'affichage du générateur.</span></div><input class="set-switch" type="checkbox" data-feature="stage" checked aria-label="Stage activé"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Paiements</span><span class="set-help">Préférence d'affichage du module de paiement.</span></div><input class="set-switch" type="checkbox" data-feature="paiements" checked aria-label="Paiements activés"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Galerie</span><span class="set-help">Préférence d'affichage de la galerie.</span></div><input class="set-switch" type="checkbox" data-feature="galerie" checked aria-label="Galerie activée"></div>
+   <div class="set-row"><div class="set-info"><span class="set-name">Parrainage</span><span class="set-help">Préférence d'affichage du parrainage.</span></div><input class="set-switch" type="checkbox" data-feature="parrainage" checked aria-label="Parrainage activé"></div>
+  </div>
+
+  <div class="set-card">
+   <h2>💾 Enregistrer les paramètres</h2>
+   <p class="set-desc">Les préférences sont enregistrées dans le stockage local du navigateur sur cet appareil.</p>
+   <div class="set-buttons">
+    <button class="set-btn set-save" type="button" id="chSetSave">✓ Enregistrer</button>
+    <button class="set-btn set-reset" type="button" id="chSetReset">↺ Réinitialiser</button>
+   </div>
+   <div class="set-status" id="chSetStatus" role="status" hidden></div>
+   <div class="set-note">Important : ces réglages sont locaux à ce navigateur. Ils ne remplacent pas les permissions administrateur, l'authentification, la sauvegarde serveur ou le système réel de notifications.</div>
+  </div>
+
+ </div>
+</section>
+
+<script id="chSettingsScript">
+(function(){
+ const view=document.getElementById('chSettingsView');
+ if(!view||view.dataset.initialized==='yes')return;
+ view.dataset.initialized='yes';
+ const KEY='campushub_settings_v1';
+ const DEFAULTS={
+  theme:'light',language:'fr',
+  animations:true,notifications:true,orderAlerts:true,
+  agendaReminders:true,newsAlerts:false,sessionLock:false,
+  hidePreviews:false,confirmActions:true,bookSuggestions:true,
+  autoSaveDrafts:true,showFavorites:true,
+  features:{
+   bibliotheque:true,agenda:true,memoire:true,expose:true,
+   stage:true,paiements:true,galerie:true,parrainage:true
+  }
+ };
+ let settings=JSON.parse(JSON.stringify(DEFAULTS));
+
+ function readSaved(){
+  try{
+   const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+   if(saved&&typeof saved==='object'){
+    Object.keys(DEFAULTS).forEach(k=>{
+     if(k==='features'){
+      if(saved.features&&typeof saved.features==='object')
+       Object.assign(settings.features,saved.features);
+     }else if(Object.prototype.hasOwnProperty.call(saved,k)){
+      settings[k]=saved[k];
+     }
+    });
+   }
+  }catch(e){}
+ }
+
+ function collect(){
+  view.querySelectorAll('[data-setting]').forEach(el=>{
+   settings[el.dataset.setting]=el.type==='checkbox'?el.checked:el.value;
+  });
+  view.querySelectorAll('[data-feature]').forEach(el=>{
+   settings.features[el.dataset.feature]=el.checked;
+  });
+ }
+
+ function render(){
+  view.querySelectorAll('[data-setting]').forEach(el=>{
+   const v=settings[el.dataset.setting];
+   if(el.type==='checkbox')el.checked=!!v;
+   else if(v!==undefined)el.value=v;
+  });
+  view.querySelectorAll('[data-feature]').forEach(el=>{
+   el.checked=settings.features[el.dataset.feature]!==false;
+  });
+ }
+
+ function message(text){
+  const el=document.getElementById('chSetStatus');
+  el.hidden=false;el.textContent=text;
+ }
+
+ function applyTheme(){
+  const mode=settings.theme;
+  let dark=mode==='dark';
+  if(mode==='system'){
+   dark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  view.dataset.theme=dark?'dark':'light';
+  if(dark){
+   view.style.background='#10252b';
+   view.style.color='#e5f5f0';
+   view.querySelectorAll('.set-card').forEach(el=>{
+    el.style.background='#19343b';
+    el.style.borderColor='#2c4b50';
+   });
+   view.querySelectorAll('.set-card h2,.set-name').forEach(el=>{
+    el.style.color='#e5f5f0';
+   });
+  }else{
+   view.style.background='#f1f8f7';
+   view.style.color='#153c43';
+   view.querySelectorAll('.set-card').forEach(el=>{
+    el.style.background='white';
+    el.style.borderColor='#e0eeea';
+   });
+   view.querySelectorAll('.set-card h2,.set-name').forEach(el=>{
+    el.style.color='#103e45';
+   });
+  }
+  view.querySelectorAll('.set-desc,.set-help').forEach(el=>{
+   el.style.color=dark?'#b1c9c7':'#78908f';
+  });
+  view.querySelectorAll('.set-field select,.set-field input').forEach(el=>{
+   el.style.background=dark?'#10252b':'#fbfefd';
+   el.style.color=dark?'#e5f5f0':'#153c43';
+   el.style.borderColor=dark?'#35555b':'#dcebe7';
+  });
+  document.documentElement.style.scrollBehavior=
+   settings.animations?'smooth':'auto';
+ }
+
+ function save(){
+  collect();
+  try{
+   localStorage.setItem(KEY,JSON.stringify(settings));
+   applyTheme();
+   message('✓ Paramètres enregistrés avec succès sur cet appareil.');
+  }catch(e){
+   message('Impossible d’enregistrer les paramètres. Vérifie le stockage du navigateur.');
+  }
+ }
+
+ document.getElementById('chSetSave').addEventListener('click',save);
+
+ document.getElementById('chSetReset').addEventListener('click',()=>{
+  settings=JSON.parse(JSON.stringify(DEFAULTS));
+  render();applyTheme();
+  try{localStorage.setItem(KEY,JSON.stringify(settings));}catch(e){}
+  message('Les paramètres par défaut ont été restaurés.');
+ });
+
+ view.querySelectorAll('[data-setting], [data-feature]').forEach(el=>{
+  el.addEventListener('change',()=>{
+   collect();
+   try{localStorage.setItem(KEY,JSON.stringify(settings));}catch(e){}
+   applyTheme();
+   message('Modification enregistrée sur cet appareil.');
+  });
+ });
+
+ document.getElementById('chSetBack').addEventListener('click',()=>{
+  view.style.display='none';
+  // Restaure l'accueil Campus Hub
+  const home=document.getElementById('homeView');
+  if(home) home.style.display='';
+  const dyn=document.getElementById('dynamicViews');
+  if(dyn) dyn.style.display='';
+  document.querySelectorAll('body > section, body > main').forEach(el=>{ el.style.display=''; });
+  if(typeof window.showView==='function') window.showView('home');
+  else window.scrollTo({top:0,behavior:'smooth'});
+ });
+
+ window.openParametres=function(){
+  document.querySelectorAll('body > section, body > main').forEach(el=>{
+   if(el!==view && !el.contains(view) &&
+      !['chMenuDrawer','chMenuOverlay'].includes(el.id)){
+    if(el.dataset.keepVisible!=='yes')el.style.display='none';
+   }
+  });
+  view.style.display='block';
+  render();applyTheme();
+  window.scrollTo({top:0,behavior:'smooth'});
+ };
+ window.showParametres=window.openParametres;
+
+ readSaved();
+ render();
+})();
+</script>
+<!-- FIN PARAMÈTRES CAMPUS HUB -->
+
+
+<!-- CAMPUS HUB : ASSISTANCE ET NOTIFICATIONS -->
+<style id="chHelpNotificationStyles">
+.chx-view{
+ display:none;min-height:100vh;padding:18px 13px 42px;
+ background:#f1f8f7;color:#153c43;
+ font-family:Arial,sans-serif;box-sizing:border-box
+}
+.chx-view *{box-sizing:border-box}
+.chx-wrap{max-width:800px;margin:auto}
+.chx-hero{
+ padding:24px 19px;border-radius:23px;color:white;
+ background:linear-gradient(135deg,#073b4c,#087f8c,#20a995);
+ box-shadow:0 12px 30px #073b4c18
+}
+.chx-back{
+ border:1px solid #ffffff70;background:#ffffff18;color:white;
+ padding:9px 13px;border-radius:11px;cursor:pointer;margin-bottom:16px
+}
+.chx-hero h1{font-size:26px;margin:0 0 10px}
+.chx-hero p{font-size:13px;line-height:1.7;color:#dffff6;margin:0}
+.chx-badge{
+ display:inline-block;margin-top:15px;padding:8px 12px;
+ border-radius:30px;background:#ffffff20;font-size:11px
+}
+.chx-card{
+ margin-top:15px;padding:17px;border-radius:18px;
+ background:white;border:1px solid #e0eeea;
+ box-shadow:0 7px 24px #073b4c08
+}
+.chx-card h2{font-size:16px;margin:0 0 8px;color:#103e45}
+.chx-muted{font-size:12px;color:#77908e;line-height:1.7;margin:0 0 14px}
+.chx-input,.chx-select,.chx-textarea{
+ width:100%;min-width:0;padding:13px;border:1px solid #dcebe7;
+ border-radius:12px;background:#fbfefd;color:#153c43;
+ font:inherit;font-size:13px;outline-color:#099b8e
+}
+.chx-textarea{min-height:115px;resize:vertical}
+.chx-label{display:block;font-size:12px;font-weight:700;margin:14px 0 7px}
+.chx-btn{
+ border:0;border-radius:12px;padding:13px 15px;
+ background:linear-gradient(135deg,#087f8c,#099b8e);
+ color:white;font-weight:800;font-size:12px;cursor:pointer
+}
+.chx-btn-light{background:#e5f5f0;color:#155c58}
+.chx-btn-danger{background:#fff0ee;color:#a34238}
+.chx-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.chx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.chx-tile{
+ border:1px solid #e0eeea;background:white;color:#153c43;
+ border-radius:15px;padding:14px 12px;text-align:left;cursor:pointer
+}
+.chx-tile strong{display:block;font-size:13px;margin-bottom:6px}
+.chx-tile span{font-size:11px;line-height:1.5;color:#77908e}
+.chx-tile .chx-emoji{display:block;font-size:23px;margin-bottom:10px}
+.chx-status{
+ margin-top:12px;padding:12px;border-radius:12px;
+ background:#e6f8ef;color:#176448;font-size:12px;line-height:1.6
+}
+.chx-status[hidden]{display:none}
+.chx-list{display:grid;gap:10px}
+.chx-notif{
+ padding:14px;border:1px solid #e0eeea;border-radius:15px;
+ display:flex;gap:11px;background:#fff
+}
+.chx-notif.unread{background:#edfaf6;border-color:#a9e2d2}
+.chx-notif-icon{
+ flex-shrink:0;width:39px;height:39px;border-radius:12px;
+ background:#ddf5ed;display:grid;place-items:center;font-size:20px
+}
+.chx-notif-body{flex:1;min-width:0}
+.chx-notif-body strong{display:block;font-size:13px;line-height:1.5}
+.chx-notif-body p{font-size:12px;line-height:1.6;color:#64817f;margin:5px 0}
+.chx-notif-body small{font-size:10px;color:#819592}
+.chx-notif-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.chx-notif-actions button{
+ border:0;border-radius:9px;background:#e4f5ef;color:#145d56;
+ padding:8px;font-size:10px;font-weight:700;cursor:pointer
+}
+.chx-empty{text-align:center;padding:25px 10px;color:#77908e;font-size:13px}
+.chx-count{
+ display:inline-grid;place-items:center;min-width:24px;height:24px;
+ padding:0 7px;border-radius:20px;background:#e4f9f1;
+ color:#087f72;font-size:11px;font-weight:900
+}
+@media(max-width:380px){
+ .chx-view{padding:12px 9px 30px}
+ .chx-card{padding:13px}
+ .chx-hero{padding:20px 15px}
+ .chx-hero h1{font-size:23px}
+ .chx-grid{gap:7px}
+ .chx-tile{padding:11px 9px}
+}
+</style>
+
+<!-- PAGE ASSISTANCE -->
+<section id="chSupportView" class="chx-view" aria-label="Assistance Campus Hub">
+ <div class="chx-wrap">
+  <header class="chx-hero">
+   <button class="chx-back" type="button" id="chSupportBack">← Retour</button>
+   <h1>💬 Centre d'assistance</h1>
+   <p>Besoin d'aide ? Consulte les réponses rapides ou prépare une demande pour notre équipe.</p>
+   <div class="chx-badge">CAMPUS HUB · CENTRE D'AIDE</div>
+  </header>
+
+  <div class="chx-card">
+   <h2>Comment pouvons-nous t'aider ?</h2>
+   <p class="chx-muted">Recherche une question ou sélectionne une rubrique.</p>
+   <input class="chx-input" id="chSupportSearch" type="search"
+    placeholder="🔎 Rechercher une aide..." aria-label="Rechercher une aide">
+  </div>
+
+  <div class="chx-card">
+   <h2>Rubriques d'aide</h2>
+   <div class="chx-grid" id="chSupportTopics">
+    <button class="chx-tile" data-topic="compte">
+     <span class="chx-emoji">👤</span><strong>Compte et profil</strong>
+     <span>Profil, accès et informations personnelles.</span>
+    </button>
+    <button class="chx-tile" data-topic="bibliotheque">
+     <span class="chx-emoji">📚</span><strong>Bibliothèque</strong>
+     <span>Livres, recherches et documents.</span>
+    </button>
+    <button class="chx-tile" data-topic="generateurs">
+     <span class="chx-emoji">🎓</span><strong>Générateurs</strong>
+     <span>Mémoires, exposés et rapports de stage.</span>
+    </button>
+    <button class="chx-tile" data-topic="paiements">
+     <span class="chx-emoji">💳</span><strong>Paiements</strong>
+     <span>Montants, opérateurs et suivi de transaction.</span>
+    </button>
+    <button class="chx-tile" data-topic="commandes">
+     <span class="chx-emoji">📦</span><strong>Commandes</strong>
+     <span>Suivre une demande ou un document.</span>
+    </button>
+    <button class="chx-tile" data-topic="technique">
+     <span class="chx-emoji">🛠️</span><strong>Problème technique</strong>
+     <span>Page bloquée, affichage ou navigation.</span>
+    </button>
+   </div>
+  </div>
+
+  <div class="chx-card">
+   <h2>Questions fréquentes</h2>
+   <div id="chSupportFaq">
+    <details data-search="compte profil informations">
+     <summary>Comment gérer mon profil ?</summary>
+     <p class="chx-muted">Ouvre Profil depuis le menu. Si la page n'est pas encore disponible, contacte l'assistance.</p>
+    </details>
+    <details data-search="bibliothèque livre télécharger pdf">
+     <summary>Comment trouver un livre ?</summary>
+     <p class="chx-muted">Ouvre Bibliothèque et utilise sa recherche. Le téléchargement dépend de la disponibilité du document et des autorisations associées.</p>
+    </details>
+    <details data-search="mémoire exposé rapport générateur">
+     <summary>Que faire si un générateur ne fonctionne pas ?</summary>
+     <p class="chx-muted">Vérifie les champs obligatoires, puis réessaie. Si le problème persiste, décris-le dans le formulaire ci-dessous.</p>
+    </details>
+    <details data-search="paiement transaction mobile money argent">
+     <summary>Comment vérifier un paiement ?</summary>
+     <p class="chx-muted">Vérifie d'abord l'état de la transaction auprès de ton opérateur ou du prestataire officiel. Une demande affichée dans le navigateur ne prouve pas qu'un paiement a été effectué.</p>
+    </details>
+    <details data-search="commande document suivi">
+     <summary>Comment suivre une commande ?</summary>
+     <p class="chx-muted">Consulte la rubrique Commandes si elle est disponible. Garde ta référence de commande pour toute demande d'aide.</p>
+    </details>
+    <details data-search="mot de passe sécurité connexion">
+     <summary>Comment protéger mon compte ?</summary>
+     <p class="chx-muted">Ne partage jamais ton mot de passe ou ton code PIN Mobile Money. Utilise uniquement les pages officielles pour toute confirmation sensible.</p>
+    </details>
+   </div>
+  </div>
+
+  <div class="chx-card">
+   <h2>Contacter l'assistance</h2>
+   <p class="chx-muted">Décris le problème. Le formulaire enregistre ta demande sur cet appareil ; l'envoi à l'équipe nécessite un service connecté.</p>
+
+   <form id="chSupportForm">
+    <label class="chx-label" for="chSupportName">Nom ou identifiant (facultatif)</label>
+    <input class="chx-input" id="chSupportName" maxlength="100" autocomplete="name">
+
+    <label class="chx-label" for="chSupportCategory">Catégorie</label>
+    <select class="chx-select" id="chSupportCategory">
+     <option>Compte et profil</option>
+     <option>Bibliothèque</option>
+     <option>Générateurs académiques</option>
+     <option>Paiements</option>
+     <option>Commandes</option>
+     <option>Problème technique</option>
+     <option>Autre demande</option>
+    </select>
+
+    <label class="chx-label" for="chSupportMessage">Description du problème</label>
+    <textarea class="chx-textarea" id="chSupportMessage" maxlength="3000"
+     required placeholder="Explique ce qui se passe et ce que tu souhaites obtenir..."></textarea>
+
+    <div class="chx-actions">
+     <button class="chx-btn" type="submit">Enregistrer ma demande</button>
+    </div>
+   </form>
+   <div id="chSupportStatus" class="chx-status" role="status" hidden></div>
+   <div id="chSupportHistory" class="chx-muted" style="margin-top:14px"></div>
+  </div>
+
+  <div class="chx-card">
+   <h2>Autres moyens de contact</h2>
+   <p class="chx-muted">Configure les coordonnées officielles avant d'utiliser ces boutons.</p>
+   <div class="chx-actions">
+    <a class="chx-btn" id="chSupportWhatsApp" href="#" target="_blank" rel="noopener"
+     style="text-decoration:none;display:none">WhatsApp</a>
+    <a class="chx-btn chx-btn-light" id="chSupportCall" href="#"
+     style="text-decoration:none;display:none">Appeler</a>
+    <a class="chx-btn chx-btn-light" id="chSupportEmail" href="#"
+     style="text-decoration:none;display:none">Gmail</a>
+   </div>
+   <p class="chx-muted" id="chSupportContactNote" style="margin-top:12px">
+    Les contacts officiels ne sont pas encore configurés.
+   </p>
+  </div>
+ </div>
+</section>
+
+<!-- PAGE NOTIFICATIONS -->
+<section id="chNotificationsView" class="chx-view" aria-label="Notifications Campus Hub">
+ <div class="chx-wrap">
+  <header class="chx-hero">
+   <button class="chx-back" type="button" id="chNotificationsBack">← Retour</button>
+   <h1>🔔 Notifications</h1>
+   <p>Retrouve ici les alertes et informations importantes de ton espace étudiant.</p>
+   <div class="chx-badge">Non lues : <span id="chNotifUnreadHero">0</span></div>
+  </header>
+
+  <div class="chx-card">
+   <h2>Centre de notifications</h2>
+   <p class="chx-muted">Les notifications enregistrées sur cet appareil sont affichées ci-dessous.</p>
+   <input class="chx-input" type="search" id="chNotifSearch"
+    placeholder="🔎 Rechercher une notification..." aria-label="Rechercher une notification">
+   <label class="chx-label" for="chNotifFilter">Filtrer par catégorie</label>
+   <select class="chx-select" id="chNotifFilter">
+    <option value="all">Toutes les notifications</option>
+    <option value="commande">Commandes</option>
+    <option value="paiement">Paiements</option>
+    <option value="document">Documents</option>
+    <option value="agenda">Agenda</option>
+    <option value="systeme">Système et actualités</option>
+   </select>
+   <div class="chx-actions">
+    <button class="chx-btn" type="button" id="chNotifReadAll">✓ Tout marquer comme lu</button>
+    <button class="chx-btn chx-btn-light" type="button" id="chNotifRefresh">↻ Actualiser</button>
+    <button class="chx-btn chx-btn-danger" type="button" id="chNotifClear">Supprimer les notifications</button>
+   </div>
+   <p class="chx-muted" id="chNotifCount" style="margin-top:13px">0 notification</p>
+  </div>
+
+  <div class="chx-card">
+   <h2>Mes alertes</h2>
+   <div id="chNotifList" class="chx-list"></div>
+   <div id="chNotifEmpty" class="chx-empty" hidden>
+    <div style="font-size:35px;margin-bottom:10px">🔕</div>
+    Aucune notification correspondant à ta recherche.
+   </div>
+  </div>
+
+  <div class="chx-card">
+   <h2>Préférences de notifications</h2>
+   <p class="chx-muted">Ces choix sont enregistrés localement. Les alertes automatiques du serveur nécessitent une intégration supplémentaire.</p>
+   <label class="chx-label"><input type="checkbox" id="chNotifPrefOrders" checked> Alertes de commandes</label>
+   <label class="chx-label"><input type="checkbox" id="chNotifPrefPayments" checked> Alertes de paiements</label>
+   <label class="chx-label"><input type="checkbox" id="chNotifPrefDocs" checked> Alertes de documents</label>
+   <label class="chx-label"><input type="checkbox" id="chNotifPrefAgenda" checked> Rappels d'agenda</label>
+   <label class="chx-label"><input type="checkbox" id="chNotifPrefNews"> Actualités</label>
+   <button class="chx-btn" type="button" id="chNotifSavePrefs">Enregistrer mes préférences</button>
+   <div id="chNotifPrefStatus" class="chx-status" hidden></div>
+  </div>
+ </div>
+</section>
+
+<script id="chHelpNotificationScript">
+(function(){
+ const SUPPORT_KEY='campushub_support_requests_v1';
+ const NOTIF_KEY='campushub_notifications_v1';
+ const PREF_KEY='campushub_notification_preferences_v1';
+ const $=id=>document.getElementById(id);
+
+ function read(key,fallback){
+  try{
+   const v=JSON.parse(localStorage.getItem(key)||'null');
+   return v===null?fallback:v;
+  }catch(e){return fallback}
+ }
+ function write(key,value){
+  try{localStorage.setItem(key,JSON.stringify(value));return true}
+  catch(e){return false}
+ }
+ function showStatus(id,text){
+  const el=$(id);if(el){el.hidden=false;el.textContent=text}
+ }
+ function openOnly(id){
+  const view=$(id);if(!view)return;
+  document.querySelectorAll('body > section, body > main').forEach(el=>{
+   if(el!==view&&!['chMenuDrawer','chMenuOverlay'].includes(el.id)&&
+      el.dataset.keepVisible!=='yes')el.style.display='none';
+  });
+  view.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+ }
+
+ /* ASSISTANCE */
+ const supportView=$('chSupportView');
+ function renderSupportHistory(){
+  const rows=read(SUPPORT_KEY,[]);
+  const box=$('chSupportHistory');
+  if(!rows.length){box.textContent='Aucune demande enregistrée sur cet appareil.';return}
+  box.replaceChildren();
+  rows.slice(0,5).forEach(r=>{
+   const d=document.createElement('div');
+   d.style.cssText='padding:10px 0;border-bottom:1px solid #e0eeea';
+   const strong=document.createElement('strong');
+   strong.textContent=r.category+' · '+r.reference;
+   const p=document.createElement('p');
+   p.textContent=r.date+' — '+r.message;
+   d.append(strong,p);box.appendChild(d);
+  });
+ }
+
+ $('chSupportForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const message=$('chSupportMessage').value.trim();
+  if(!message){showStatus('chSupportStatus','Décris le problème avant d’envoyer la demande.');return}
+  const rows=read(SUPPORT_KEY,[]);
+  const item={
+   reference:'AIDE-'+Date.now().toString(36).toUpperCase(),
+   date:new Date().toLocaleString('fr-FR'),
+   name:$('chSupportName').value.trim(),
+   category:$('chSupportCategory').value,
+   message:message,
+   status:'Enregistrée localement'
+  };
+  rows.unshift(item);
+  if(!write(SUPPORT_KEY,rows.slice(0,30))){
+   showStatus('chSupportStatus','Le stockage est indisponible. Copie ta demande avant de quitter cette page.');
+   return;
+  }
+  $('chSupportMessage').value='';
+  showStatus('chSupportStatus','Demande '+item.reference+' enregistrée sur cet appareil. Elle n’a pas encore été transmise à l’équipe.');
+  renderSupportHistory();
+ });
+
+ $('chSupportSearch').addEventListener('input',()=>{
+  const q=$('chSupportSearch').value.toLocaleLowerCase('fr');
+  supportView.querySelectorAll('#chSupportFaq details').forEach(el=>{
+   el.hidden=!((el.innerText+' '+(el.dataset.search||'')).toLocaleLowerCase('fr').includes(q));
+  });
+  supportView.querySelectorAll('[data-topic]').forEach(el=>{
+   el.hidden=!el.innerText.toLocaleLowerCase('fr').includes(q);
+  });
+ });
+
+ $('chSupportTopics').addEventListener('click',e=>{
+  const b=e.target.closest('[data-topic]');if(!b)return;
+  const map={
+   compte:'Compte et profil',
+   bibliotheque:'Bibliothèque',
+   generateurs:'Générateurs académiques',
+   paiements:'Paiements',
+   commandes:'Commandes',
+   technique:'Problème technique'
+  };
+  $('chSupportCategory').value=map[b.dataset.topic]||'Autre demande';
+  $('chSupportMessage').focus();
+ });
+
+ /*
+  * Coordonnées facultatives :
+  * Configure les valeurs ci-dessous avec les coordonnées officielles.
+  * Ne pas inventer de numéro ni d'adresse de contact.
+  */
+ const CONTACT={
+  whatsapp:'+243992083817',
+  phone:'+243992083817',
+  email:'support@campushub-rdc.com'
+ };
+ function setupContact(id,value,kind){
+  const el=$(id);
+  if(!value)return;
+  if(kind==='whatsapp')el.href='https://wa.me/'+value.replace(/\D/g,'');
+  if(kind==='phone')el.href='tel:'+value;
+  if(kind==='email')el.href='mailto:'+value;
+  el.style.display='inline-block';
+  $('chSupportContactNote').textContent='Utilise uniquement les coordonnées officielles configurées par Campus Hub.';
+ }
+ setupContact('chSupportWhatsApp',CONTACT.whatsapp,'whatsapp');
+ setupContact('chSupportCall',CONTACT.phone,'phone');
+ setupContact('chSupportEmail',CONTACT.email,'email');
+
+ $('chSupportBack').addEventListener('click',()=>{supportView.style.display='none'; const hv=document.getElementById('homeView'); if(hv) hv.style.display=''; if(typeof window.showView==='function') window.showView('home'); else window.scrollTo(0,0);});
+ window.openAssistance=()=>openOnly('chSupportView');
+ window.showAssistance=window.openAssistance;
+ renderSupportHistory();
+
+ /* NOTIFICATIONS */
+ let notifications=read(NOTIF_KEY,[]);
+ if(!Array.isArray(notifications))notifications=[];
+ const defaults=[
+  {id:'welcome',category:'systeme',icon:'🎓',title:'Bienvenue sur Campus Hub',message:'Retrouve ici les notifications de ton espace étudiant.',date:new Date().toISOString(),read:false}
+ ];
+ if(!notifications.length){
+  notifications=defaults;
+  write(NOTIF_KEY,notifications);
+ }
+ const prefDefaults={commande:true,paiement:true,document:true,agenda:true,systeme:false};
+ let prefs=Object.assign({},prefDefaults,read(PREF_KEY,{}));
+
+ function unreadCount(){return notifications.filter(n=>!n.read).length}
+ function updateBadges(){
+  const count=unreadCount();
+  $('chNotifUnreadHero').textContent=count;
+  $('chNotifCount').textContent=notifications.length+' notification(s) · '+count+' non lue(s)';
+  const menuButton=document.querySelector('#chMenuDrawer [data-page="notifications"]');
+  if(menuButton){
+   let badge=menuButton.querySelector('.chx-menu-badge');
+   if(!badge){
+    badge=document.createElement('span');
+    badge.className='chx-menu-badge';
+    badge.style.cssText='font-size:10px;font-weight:900;color:#087f72;background:#ddf5ed;border-radius:15px;padding:4px 7px';
+    menuButton.appendChild(badge);
+   }
+   badge.textContent=count>0?String(count):'';
+   badge.hidden=count===0;
+  }
+ }
+
+ function renderNotifications(){
+  const list=$('chNotifList');list.replaceChildren();
+  const q=$('chNotifSearch').value.trim().toLocaleLowerCase('fr');
+  const filter=$('chNotifFilter').value;
+  const visible=notifications.filter(n=>{
+   const matchCategory=filter==='all'||n.category===filter;
+   const text=(n.title+' '+n.message+' '+n.category).toLocaleLowerCase('fr');
+   return matchCategory&&text.includes(q);
+  });
+  $('chNotifEmpty').hidden=visible.length!==0;
+  visible.forEach(n=>{
+   const card=document.createElement('article');
+   card.className='chx-notif'+(!n.read?' unread':'');
+   const icon=document.createElement('div');
+   icon.className='chx-notif-icon';icon.textContent=n.icon||'🔔';
+   const body=document.createElement('div');body.className='chx-notif-body';
+   const title=document.createElement('strong');title.textContent=n.title||'Notification';
+   const msg=document.createElement('p');msg.textContent=n.message||'';
+   const date=document.createElement('small');
+   const dt=new Date(n.date);
+   date.textContent=(Number.isNaN(dt.getTime())?'':dt.toLocaleString('fr-FR'))+
+    (n.read?' · Lue':' · Non lue');
+   const actions=document.createElement('div');actions.className='chx-notif-actions';
+   if(!n.read){
+    const readBtn=document.createElement('button');
+    readBtn.type='button';readBtn.textContent='Marquer comme lue';
+    readBtn.addEventListener('click',()=>{
+     n.read=true;write(NOTIF_KEY,notifications);renderNotifications();
+    });
+    actions.appendChild(readBtn);
+   }
+   body.append(title,msg,date,actions);
+   card.append(icon,body);list.appendChild(card);
+  });
+  updateBadges();
+ }
+
+ $('chNotifSearch').addEventListener('input',renderNotifications);
+ $('chNotifFilter').addEventListener('change',renderNotifications);
+ $('chNotifRefresh').addEventListener('click',()=>{
+  notifications=read(NOTIF_KEY,[]);
+  renderNotifications();
+ });
+ $('chNotifReadAll').addEventListener('click',()=>{
+  notifications.forEach(n=>n.read=true);
+  write(NOTIF_KEY,notifications);renderNotifications();
+ });
+ $('chNotifClear').addEventListener('click',()=>{
+  if(!confirm('Supprimer toutes les notifications enregistrées sur cet appareil ?'))return;
+  notifications=[];write(NOTIF_KEY,notifications);renderNotifications();
+ });
+ $('chNotifSavePrefs').addEventListener('click',()=>{
+  prefs={
+   commande:$('chNotifPrefOrders').checked,
+   paiement:$('chNotifPrefPayments').checked,
+   document:$('chNotifPrefDocs').checked,
+   agenda:$('chNotifPrefAgenda').checked,
+   systeme:$('chNotifPrefNews').checked
+  };
+  write(PREF_KEY,prefs);
+  showStatus('chNotifPrefStatus','Préférences enregistrées sur cet appareil.');
+ });
+ function renderPrefs(){
+  $('chNotifPrefOrders').checked=prefs.commande;
+  $('chNotifPrefPayments').checked=prefs.paiement;
+  $('chNotifPrefDocs').checked=prefs.document;
+  $('chNotifPrefAgenda').checked=prefs.agenda;
+  $('chNotifPrefNews').checked=prefs.systeme;
+ }
+ $('chNotificationsBack').addEventListener('click',()=>{ const v=$('chNotificationsView'); if(v) v.style.display='none'; const hv=document.getElementById('homeView'); if(hv) hv.style.display=''; if(typeof window.showView==='function') window.showView('home'); else window.scrollTo(0,0);});
+
+ window.openNotifications=()=>openOnly('chNotificationsView');
+ window.showNotifications=window.openNotifications;
+
+ /* API locale pour les autres modules du site.
+    Exemple : CampusHubNotify('paiement','Paiement reçu','Une transaction a été confirmée.'); */
+ window.CampusHubNotify=function(category,title,message){
+  const known=['commande','paiement','document','agenda','systeme'];
+  if(!known.includes(category))category='systeme';
+  if(prefs[category]===false)return false;
+  const icons={commande:'📦',paiement:'💳',document:'📄',agenda:'📅',systeme:'🔔'};
+  const item={
+   id:'N-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),
+   category:category,icon:icons[category],
+   title:String(title||'Nouvelle notification').slice(0,160),
+   message:String(message||'').slice(0,1500),
+   date:new Date().toISOString(),read:false
+  };
+  notifications.unshift(item);
+  notifications=notifications.slice(0,100);
+  write(NOTIF_KEY,notifications);
+  renderNotifications();
+  return item.id;
+ };
+
+ renderPrefs();
+ renderNotifications();
+})();
+</script>
+<!-- FIN ASSISTANCE ET NOTIFICATIONS CAMPUS HUB -->
+
+
+<!-- CAMPUS HUB RDC — PARRAINAGE -->
+<style id="chReferralStyles">
+#chReferralView{--chp:#087f8c;--chp2:#0a5263;--chbg:#f2f8f8;position:relative;z-index:10;display:none;min-height:100vh;background:var(--chbg);color:#15333b;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:35px}
+#chReferralView *{box-sizing:border-box}
+#chReferralView .chp-top{background:linear-gradient(135deg,#063b49,#087f8c 65%,#23a89b);color:white;padding:23px 17px 29px;border-radius:0 0 27px 27px}
+#chReferralView .chp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+#chReferralView .chp-back{border:1px solid #ffffff60;background:#ffffff16;color:white;border-radius:12px;padding:9px 12px;font-weight:700;cursor:pointer}
+#chReferralView .chp-brand{font-size:13px;font-weight:800;letter-spacing:.8px}
+#chReferralView .chp-tag{display:inline-block;border:1px solid #ffffff55;background:#ffffff15;padding:6px 10px;border-radius:30px;font-size:11px;margin-bottom:12px}
+#chReferralView h1{font-size:clamp(25px,7vw,34px);line-height:1.12;margin:0 0 12px}
+#chReferralView .chp-top p{font-size:14px;line-height:1.6;color:#e1f7f5;margin:0;max-width:570px}
+#chReferralView .chp-container{width:min(100% - 26px,960px);margin:0 auto}
+#chReferralView .chp-reward{margin-top:-15px;position:relative;background:white;border:1px solid #dceceb;border-radius:19px;padding:17px;box-shadow:0 8px 26px #073f4910;display:flex;align-items:center;justify-content:space-between;gap:10px}
+#chReferralView .chp-reward small{color:#60777c;font-weight:700}
+#chReferralView .chp-reward strong{display:block;color:#087f8c;font-size:27px;margin-top:3px}
+#chReferralView .chp-gift{font-size:35px;background:#e5f7f4;border-radius:15px;padding:10px}
+#chReferralView .chp-section-title{font-size:18px;font-weight:850;margin:25px 0 12px}
+#chReferralView .chp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#chReferralView .chp-stat,#chReferralView .chp-card{background:white;border:1px solid #deebea;border-radius:17px;padding:15px;min-width:0}
+#chReferralView .chp-stat .ico{font-size:21px}
+#chReferralView .chp-stat b{display:block;font-size:24px;color:#124c58;margin:6px 0 2px;overflow-wrap:anywhere}
+#chReferralView .chp-stat span{font-size:12px;color:#60777c}
+#chReferralView .chp-card{margin-top:12px}
+#chReferralView .chp-label{display:block;font-size:13px;font-weight:750;margin:12px 0 7px}
+#chReferralView input,#chReferralView select,#chReferralView textarea{width:100%;min-width:0;border:1px solid #cbdedc;border-radius:11px;background:#fbfefe;padding:12px;font:inherit;font-size:14px;color:#183d44;outline:none}
+#chReferralView input:focus,#chReferralView select:focus,#chReferralView textarea:focus{border-color:#087f8c;box-shadow:0 0 0 3px #087f8c17}
+#chReferralView .chp-code{font-size:23px!important;font-weight:900!important;letter-spacing:2px;text-align:center;color:#087f8c!important;background:#effaf8!important}
+#chReferralView .chp-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px}
+#chReferralView .chp-btn{border:0;border-radius:11px;padding:12px 14px;font-weight:800;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}
+#chReferralView .chp-primary{background:#087f8c;color:white}
+#chReferralView .chp-dark{background:#103f4a;color:white}
+#chReferralView .chp-light{background:#e5f5f3;color:#075e69}
+#chReferralView .chp-warn{background:#fff2df;color:#8a4b00}
+#chReferralView .chp-btn:active{transform:scale(.98)}
+#chReferralView .chp-muted{color:#657d81;font-size:12px;line-height:1.6}
+#chReferralView .chp-progress{height:9px;border-radius:20px;background:#e6efee;overflow:hidden;margin:10px 0}
+#chReferralView .chp-progress>div{height:100%;width:0;background:linear-gradient(90deg,#087f8c,#36c3a5);border-radius:20px;transition:width .3s}
+#chReferralView .chp-tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 8px}
+#chReferralView .chp-tab{white-space:nowrap;border:1px solid #d8e8e6;background:white;color:#416269;border-radius:30px;padding:9px 13px;font-size:12px;font-weight:800;cursor:pointer}
+#chReferralView .chp-tab.active{background:#087f8c;color:white;border-color:#087f8c}
+#chReferralView .chp-list{display:grid;gap:9px}
+#chReferralView .chp-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#f7fbfb;border:1px solid #e4efee;border-radius:12px}
+#chReferralView .chp-row b{font-size:13px;display:block;overflow-wrap:anywhere}
+#chReferralView .chp-row small{font-size:11px;color:#698084;display:block;margin-top:4px}
+#chReferralView .chp-pill{font-size:10px;font-weight:850;padding:6px 8px;border-radius:20px;background:#e7f5ee;color:#16734e;white-space:nowrap}
+#chReferralView .chp-pill.pending{background:#fff2d9;color:#8a5a00}
+#chReferralView .chp-pill.cancel{background:#ffe9e8;color:#9a3430}
+#chReferralView .chp-empty{text-align:center;padding:22px 10px;color:#6b8185;font-size:13px}
+#chReferralView .chp-rule{display:grid;gap:12px}
+#chReferralView .chp-rule-item{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55}
+#chReferralView .chp-rule-item span:first-child{background:#e5f7f4;border-radius:10px;padding:7px}
+#chReferralView .chp-toast{position:fixed;z-index:99999;bottom:20px;left:50%;transform:translateX(-50%);background:#123d46;color:white;padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px #0002;font-size:13px;max-width:90%;display:none}
+#chReferralView .chp-notice{border-radius:12px;background:#fff7e5;color:#76501a;border:1px solid #f2e0b5;padding:12px;font-size:12px;line-height:1.6;margin-top:12px}
+#chReferralView .chp-hidden{display:none!important}
+@media(min-width:650px){#chReferralView .chp-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#chReferralView .chp-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}#chReferralView .chp-main-grid .chp-card{margin-top:0}#chReferralView .chp-top{padding:28px 25px 35px}}
+@media(max-width:360px){#chReferralView .chp-grid{gap:8px}#chReferralView .chp-stat{padding:11px}#chReferralView .chp-stat b{font-size:21px}#chReferralView .chp-btn{padding:11px;font-size:12px}}
+</style>
+
+<section id="chReferralView" aria-label="Parrainage Campus Hub">
+  <header class="chp-top">
+    <div class="chp-container">
+      <div class="chp-nav">
+        <button class="chp-back" onclick="closeCampusHubReferral()" type="button">← Retour</button>
+        <div class="chp-brand">CAMPUS HUB RDC</div>
+      </div>
+      <span class="chp-tag">🎁 PROGRAMME AMBASSADEUR</span>
+      <h1>Partage le savoir.<br>Gagne des récompenses.</h1>
+      <p>Invite tes amis étudiants sur Campus Hub. Lorsqu’une commande admissible de ton filleul est validée, tu peux gagner une récompense selon les règles du programme.</p>
+    </div>
+  </header>
+
+  <div class="chp-container">
+    <div class="chp-reward">
+      <div><small>RÉCOMPENSE PAR COMMANDE ADMISSIBLE</small><strong>5 000 FC</strong><small>Mémoire · Exposé · Rapport de stage</small></div>
+      <div class="chp-gift">🎁</div>
+    </div>
+
+    <h2 class="chp-section-title">📊 Mon tableau de bord</h2>
+    <div class="chp-grid">
+      <div class="chp-stat"><div class="ico">👥</div><b id="chpRefCount">0</b><span>Filleuls enregistrés</span></div>
+      <div class="chp-stat"><div class="ico">📚</div><b id="chpOrderCount">0</b><span>Commandes admissibles validées</span></div>
+      <div class="chp-stat"><div class="ico">⏳</div><b id="chpPendingAmount">0 FC</b><span>Récompenses en attente</span></div>
+      <div class="chp-stat"><div class="ico">💰</div><b id="chpEarnedAmount">0 FC</b><span>Récompenses validées</span></div>
+    </div>
+
+    <div class="chp-main-grid" style="margin-top:20px">
+      <div class="chp-card">
+        <h2 style="font-size:17px;margin:0 0 7px">🔗 Mon lien de parrainage</h2>
+        <p class="chp-muted">Partage ton code avec tes amis. Ils doivent s’inscrire à l’aide de ce lien pour que le parrainage puisse être vérifié.</p>
+        <label class="chp-label" for="chpReferralCode">Mon code personnel</label>
+        <input id="chpReferralCode" class="chp-code" readonly>
+        <div class="chp-actions">
+          <button type="button" class="chp-btn chp-primary" onclick="chpCopyCode()">📋 Copier le code</button>
+          <button type="button" class="chp-btn chp-light" onclick="chpCopyLink()">🔗 Copier le lien</button>
+        </div>
+        <div class="chp-actions">
+          <button type="button" class="chp-btn chp-dark" onclick="chpShareWhatsApp()">WhatsApp ↗</button>
+          <button type="button" class="chp-btn chp-light" onclick="chpShareNative()">Partager ↗</button>
+        </div>
+        <p class="chp-muted" id="chpReferralLinkHint" style="margin-bottom:0">Le lien sera basé sur l’adresse actuelle de ton site.</p>
+      </div>
+
+      <div class="chp-card">
+        <h2 style="font-size:17px;margin:0 0 7px">🚀 Ma progression</h2>
+        <p class="chp-muted">Suis le nombre de filleuls nécessaires pour atteindre ton prochain objectif.</p>
+        <label class="chp-label" for="chpGoal">Objectif personnel</label>
+        <select id="chpGoal" onchange="chpSaveGoal()">
+          <option value="3">3 commandes admissibles</option>
+          <option value="5">5 commandes admissibles</option>
+          <option value="10">10 commandes admissibles</option>
+          <option value="20">20 commandes admissibles</option>
+        </select>
+        <div style="display:flex;justify-content:space-between;gap:8px;margin-top:16px;font-size:12px">
+          <strong id="chpProgressLabel">0 / 3 commandes</strong><strong id="chpProgressPercent">0 %</strong>
+        </div>
+        <div class="chp-progress"><div id="chpProgressBar"></div></div>
+        <p class="chp-muted" id="chpProgressHint">Invite tes premiers filleuls pour commencer.</p>
+        <button type="button" class="chp-btn chp-light" onclick="chpShowRules()">Consulter les règles</button>
+      </div>
+    </div>
+
+    <h2 class="chp-section-title">👥 Mes filleuls</h2>
+    <div class="chp-card">
+      <div class="chp-grid" style="margin-bottom:14px">
+        <div><label class="chp-label" for="chpFriendName">Nom du filleul</label><input id="chpFriendName" maxlength="80" placeholder="Nom de l'étudiant"></div>
+        <div><label class="chp-label" for="chpFriendContact">E-mail ou identifiant</label><input id="chpFriendContact" maxlength="120" placeholder="Contact ou identifiant"></div>
+      </div>
+      <div class="chp-actions">
+        <button type="button" class="chp-btn chp-primary" onclick="chpAddReferral()">＋ Ajouter un filleul</button>
+        <button type="button" class="chp-btn chp-light" onclick="chpExportReferrals()">Exporter mes données</button>
+      </div>
+      <p class="chp-muted">Cet ajout sert uniquement à ton suivi personnel sur cet appareil. Il ne confirme pas une inscription réelle ni une commande.</p>
+      <div class="chp-tabs" style="margin-top:13px">
+        <button type="button" class="chp-tab active" data-chpfilter="all" onclick="chpSetFilter('all',this)">Tous</button>
+        <button type="button" class="chp-tab" data-chpfilter="pending" onclick="chpSetFilter('pending',this)">En attente</button>
+        <button type="button" class="chp-tab" data-chpfilter="qualified" onclick="chpSetFilter('qualified',this)">Admissibles</button>
+      </div>
+      <div id="chpReferralList" class="chp-list"><div class="chp-empty">Aucun filleul enregistré.</div></div>
+    </div>
+
+    <h2 class="chp-section-title">💳 Mes récompenses</h2>
+    <div class="chp-card">
+      <div class="chp-list" id="chpRewardHistory"><div class="chp-empty">Aucune récompense pour le moment.</div></div>
+      <div class="chp-notice">Les récompenses affichées dans cette version sont des données locales de démonstration. Elles ne constituent pas une dette de Campus Hub et ne peuvent pas être encaissées avant la validation officielle par le serveur.</div>
+      <h3 style="font-size:15px;margin:20px 0 5px">Demander un retrait</h3>
+      <label class="chp-label" for="chpWithdrawAmount">Montant souhaité (FC)</label>
+      <input id="chpWithdrawAmount" type="number" min="5000" step="5000" placeholder="Ex. 5000">
+      <label class="chp-label" for="chpWithdrawMethod">Mode de paiement souhaité</label>
+      <select id="chpWithdrawMethod">
+        <option value="">Choisir un mode</option>
+        <option>Airtel Money</option><option>M-Pesa</option><option>Orange Money</option><option>MTN MoMo</option><option>Virement bancaire</option>
+      </select>
+      <label class="chp-label" for="chpWithdrawContact">Compte de réception (facultatif)</label>
+      <input id="chpWithdrawContact" maxlength="100" placeholder="À renseigner uniquement dans le système sécurisé">
+      <div class="chp-actions"><button type="button" class="chp-btn chp-primary" onclick="chpRequestWithdrawal()">Envoyer une demande</button></div>
+      <p class="chp-muted">La demande est enregistrée localement à titre de suivi. Aucun paiement réel n’est déclenché par cette page.</p>
+      <div id="chpWithdrawHistory" class="chp-list" style="margin-top:12px"></div>
+    </div>
+
+    <h2 class="chp-section-title">🏆 Classement des parrains</h2>
+    <div class="chp-card">
+      <p class="chp-muted">Ce classement local montre tes propres statistiques. Un classement général fiable nécessite les données du serveur Campus Hub.</p>
+      <div class="chp-row"><div><b>🥇 Ton compte</b><small>Commandes admissibles validées</small></div><span class="chp-pill" id="chpMyRank">0 commande(s)</span></div>
+    </div>
+
+    <h2 class="chp-section-title">📜 Comment ça marche ?</h2>
+    <div class="chp-card chp-rule" id="chpReferralRules">
+      <div class="chp-rule-item"><span>1️⃣</span><div><b>Partage ton code</b><br>Envoie ton lien à tes amis étudiants.</div></div>
+      <div class="chp-rule-item"><span>2️⃣</span><div><b>Ton ami s’inscrit</b><br>Le code doit être attribué à son compte lors de l’inscription officielle.</div></div>
+      <div class="chp-rule-item"><span>3️⃣</span><div><b>Une commande est vérifiée</b><br>Le mémoire, l’exposé ou le rapport de stage doit être admissible, payé et validé selon les règles officielles.</div></div>
+      <div class="chp-rule-item"><span>4️⃣</span><div><b>La récompense est confirmée</b><br>Le serveur enregistre la récompense et permet de suivre son statut.</div></div>
+      <div class="chp-notice">Une seule récompense par commande admissible. Les auto-parrainages, comptes fictifs, commandes annulées et tentatives de fraude doivent être exclus par le serveur. Les critères définitifs et le seuil de retrait doivent être publiés dans les conditions officielles du programme.</div>
+    </div>
+    <div class="chp-card">
+      <h3 style="margin:0 0 8px;font-size:16px">⚙️ Paramètres du programme</h3>
+      <label class="chp-label" for="chpDisplayName">Nom affiché dans ce tableau de bord</label>
+      <input id="chpDisplayName" maxlength="80" placeholder="Mon profil étudiant">
+      <div class="chp-actions">
+        <button type="button" class="chp-btn chp-primary" onclick="chpSaveProfile()">Enregistrer</button>
+        <button type="button" class="chp-btn chp-warn" onclick="chpResetLocal()">Réinitialiser mes données locales</button>
+      </div>
+      <p class="chp-muted">Ne saisis pas de mot de passe ni de code secret de portefeuille dans ce module.</p>
+    </div>
+  </div>
+  <div id="chpToast" class="chp-toast" role="status" aria-live="polite"></div>
+</section>
+
+<script id="chReferralScript">
+(function(){
+  "use strict";
+  const KEY="campushub_referral_demo_v1";
+  const $=id=>document.getElementById(id);
+  const money=n=>new Intl.NumberFormat("fr-FR").format(Number(n)||0)+" FC";
+  const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  let filter="all",toastTimer;
+  function load(){
+    try{
+      const d=JSON.parse(localStorage.getItem(KEY)||"{}");
+      return {code:d.code||("CH"+Math.random().toString(36).slice(2,8).toUpperCase()),name:d.name||"",goal:Number(d.goal)||3,referrals:Array.isArray(d.referrals)?d.referrals:[],withdrawals:Array.isArray(d.withdrawals)?d.withdrawals:[]};
+    }catch(e){return {code:"CH"+Math.random().toString(36).slice(2,8).toUpperCase(),name:"",goal:3,referrals:[],withdrawals:[]};}
+  }
+  let data=load();
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){notify("Impossible de sauvegarder. Vérifie l’espace disponible du navigateur.");}}
+  function notify(msg){const el=$("chpToast");if(!el)return;el.textContent=msg;el.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display="none",2600);}
+  function eligible(){return data.referrals.filter(r=>r.status==="qualified");}
+  function totalEarned(){return eligible().reduce((n,r)=>n+Number(r.reward||5000),0);}
+  function totalPending(){return data.referrals.filter(r=>r.status==="pending").length*5000;}
+  function link(){const u=new URL(location.href);u.searchParams.set("ref",data.code);return u.href;}
+  function render(){
+    if(!$("chReferralView"))return;
+    $("chpReferralCode").value=data.code;
+    $("chpDisplayName").value=data.name;
+    $("chpGoal").value=String(data.goal);
+    $("chpRefCount").textContent=data.referrals.length;
+    $("chpOrderCount").textContent=eligible().length;
+    $("chpPendingAmount").textContent=money(totalPending());
+    $("chpEarnedAmount").textContent=money(totalEarned());
+    const pct=Math.min(100,Math.round(eligible().length/Math.max(1,data.goal)*100));
+    $("chpProgressLabel").textContent=eligible().length+" / "+data.goal+" commandes";
+    $("chpProgressPercent").textContent=pct+" %";
+    $("chpProgressBar").style.width=pct+"%";
+    $("chpProgressHint").textContent=pct>=100?"Objectif atteint ! Tu peux te fixer un nouvel objectif.":"Encore "+Math.max(0,data.goal-eligible().length)+" commande(s) admissible(s) pour atteindre cet objectif.";
+    $("chpMyRank").textContent=eligible().length+" commande(s)";
+    const rows=data.referrals.filter(r=>filter==="all"||(filter==="pending"&&r.status==="pending")||(filter==="qualified"&&r.status==="qualified"));
+    $("chpReferralList").innerHTML=rows.length?rows.map(r=>'<div class="chp-row"><div><b>'+safe(r.name)+'</b><small>'+safe(r.contact||"Contact non renseigné")+' · '+safe(r.date)+'</small></div><div style="text-align:right"><span class="chp-pill '+(r.status==="pending"?"pending":r.status==="rejected"?"cancel":"")+'">'+(r.status==="pending"?"En attente":r.status==="rejected"?"Non admissible":"Admissible")+'</span><br><small>'+money(r.status==="qualified"?Number(r.reward||5000):0)+'</small></div></div>').join(""):'<div class="chp-empty">Aucun filleul dans cette catégorie.</div>';
+    $("chpRewardHistory").innerHTML=eligible().length?eligible().map(r=>'<div class="chp-row"><div><b>Récompense de parrainage</b><small>'+safe(r.name)+' · '+safe(r.date)+'</small></div><div style="text-align:right"><b>'+money(r.reward||5000)+'</b><small>Validation locale</small></div></div>').join(""):'<div class="chp-empty">Aucune récompense validée. Les commandes doivent être confirmées par le serveur pour obtenir une récompense réelle.</div>';
+    $("chpWithdrawHistory").innerHTML=data.withdrawals.length?data.withdrawals.slice().reverse().map(w=>'<div class="chp-row"><div><b>Demande de retrait</b><small>'+safe(w.method)+' · '+safe(w.date)+'</small></div><div style="text-align:right"><b>'+money(w.amount)+'</b><br><span class="chp-pill pending">À vérifier</span></div></div>').join(""):'';
+    $("chpReferralLinkHint").textContent="Lien : "+link();
+  }
+  window.openParrainage=function(){
+    const view=$("chReferralView");if(!view)return;
+    document.querySelectorAll("body > section, body > main").forEach(el=>{if(el!==view)el.style.display="none";});
+    view.style.display="block";render();window.scrollTo({top:0,behavior:"smooth"});
+  };
+  window.showParrainage=window.openParrainage;
+  window.closeCampusHubReferral=function(){
+    const view=$("chReferralView");if(view)view.style.display="none";
+    let found=false;
+    document.querySelectorAll("body > section, body > main").forEach(el=>{
+      if(el!==view && (el.id==="home"||el.id==="accueil"||el.id==="homePage"||el.id==="dynamicViews")){el.style.display="";found=true;}
+    });
+    if(!found){ document.querySelectorAll('body > section, body > main, #homeView, #dynamicViews').forEach(el=>{ if(el.id!=='chReferralView') el.style.display=''; }); }
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+  window.chpCopyCode=async function(){try{await navigator.clipboard.writeText(data.code);notify("Code copié !");}catch(e){fallbackCopy(data.code);}};
+  window.chpCopyLink=async function(){try{await navigator.clipboard.writeText(link());notify("Lien copié !");}catch(e){fallbackCopy(link());}};
+  function fallbackCopy(t){const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");notify("Copié !");}catch(e){notify("Copie impossible : sélectionne le texte.");}x.remove();}
+  window.chpShareWhatsApp=function(){location.href="https://wa.me/?text="+encodeURIComponent("Rejoins Campus Hub RDC avec mon code de parrainage "+data.code+" : "+link());};
+  window.chpShareNative=async function(){if(navigator.share){try{await navigator.share({title:"Campus Hub RDC",text:"Rejoins Campus Hub avec mon code "+data.code, url:link()});}catch(e){}}else{window.chpCopyLink();}};
+  window.chpAddReferral=function(){
+    const name=$("chpFriendName").value.trim(),contact=$("chpFriendContact").value.trim();
+    if(name.length<2){notify("Entre le nom du filleul.");return;}
+    if(data.referrals.some(r=>contact&&r.contact.toLowerCase()===contact.toLowerCase())){notify("Ce contact est déjà enregistré.");return;}
+    data.referrals.push({id:Date.now().toString(36),name,contact,date:new Date().toLocaleDateString("fr-FR"),status:"pending",reward:0});
+    save();$("chpFriendName").value="";$("chpFriendContact").value="";render();notify("Filleul ajouté au suivi local.");
+  };
+  window.chpSetFilter=function(f,el){filter=f;document.querySelectorAll("#chReferralView .chp-tab").forEach(b=>b.classList.remove("active"));if(el)el.classList.add("active");render();};
+  window.chpSaveGoal=function(){data.goal=Number($("chpGoal").value)||3;save();render();};
+  window.chpShowRules=function(){$("chpReferralRules").scrollIntoView({behavior:"smooth",block:"start"});};
+  window.chpSaveProfile=function(){data.name=$("chpDisplayName").value.trim();save();notify("Profil local enregistré.");};
+  window.chpExportReferrals=function(){
+    const blob=new Blob([JSON.stringify({code:data.code,referrals:data.referrals,withdrawals:data.withdrawals},null,2)],{type:"application/json"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="campushub-parrainage.json";a.click();URL.revokeObjectURL(a.href);notify("Export préparé.");
+  };
+  window.chpRequestWithdrawal=function(){
+    const amount=Number($("chpWithdrawAmount").value),method=$("chpWithdrawMethod").value,contact=$("chpWithdrawContact").value.trim();
+    if(!Number.isFinite(amount)||amount<5000||amount%5000!==0){notify("Entre un montant positif par multiples de 5 000 FC.");return;}
+    if(!method){notify("Choisis un mode de paiement.");return;}
+    if(amount>totalEarned()){notify("Le montant dépasse les récompenses validées dans ce suivi local.");return;}
+    data.withdrawals.push({amount,method,contact,date:new Date().toLocaleDateString("fr-FR"),status:"pending"});
+    save();render();$("chpWithdrawAmount").value="";notify("Demande locale enregistrée, aucun paiement effectué.");
+  };
+  window.chpResetLocal=function(){
+    if(!confirm("Effacer les filleuls, objectifs et demandes de retrait enregistrés sur cet appareil ?"))return;
+    data={code:"CH"+Math.random().toString(36).slice(2,8).toUpperCase(),name:"",goal:3,referrals:[],withdrawals:[]};save();render();notify("Données locales réinitialisées.");
+  };
+  /* API de démonstration pour le test visuel. À remplacer par des événements serveur vérifiés. */
+  window.CampusHubReferralDemo={
+    getCode:()=>data.code,
+    getLink:()=>link(),
+    getStats:()=>({referrals:data.referrals.length,qualified:eligible().length,pendingFC:totalPending(),earnedFC:totalEarned()}),
+    demoQualify:(id)=>{const r=data.referrals.find(x=>x.id===id);if(!r)return false;r.status="qualified";r.reward=5000;save();render();return true;}
+  };
+  const params=new URLSearchParams(location.search);
+  const ref=params.get("ref");
+  if(ref && ref!==data.code){try{sessionStorage.setItem("campushub_referred_by",ref);}catch(e){}}
+  save();render();
+})();
+</script>
+<!-- FIN PARRAINAGE CAMPUS HUB -->
+
+
+<style id="chSecurityStyles">
+#chSecurityView {
+  --sec-blue:#1677ff;
+  --sec-cyan:#18c9d2;
+  --sec-bg:#071426;
+  display:none;
+  min-height:100vh;
+  background:var(--sec-bg);
+  color:#f3f7ff;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-bottom:35px;
+}
+#chSecurityView *{box-sizing:border-box}
+#chSecurityView button,
+#chSecurityView input,
+#chSecurityView select,
+#chSecurityView textarea{font:inherit}
+#chSecurityView button{cursor:pointer}
+#chSecurityView .sec-wrap{width:min(960px,calc(100% - 26px));margin:auto}
+#chSecurityView .sec-nav{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:17px max(13px,calc((100% - 960px)/2));
+ background:#091c32;border-bottom:1px solid #203b5d
+}
+#chSecurityView .sec-brand{font-size:19px;font-weight:900}
+#chSecurityView .sec-brand span{color:#35b7ff}
+#chSecurityView .sec-back{
+ background:#112a45;border:1px solid #315577;color:white;
+ border-radius:11px;padding:9px 13px;font-weight:750
+}
+#chSecurityView .sec-hero{
+ margin-top:19px;padding:25px 20px;border-radius:23px;
+ background:linear-gradient(125deg,#103d79,#1265ba 58%,#087c91);
+ border:1px solid #3288dc;position:relative;overflow:hidden
+}
+#chSecurityView .sec-hero:after{
+ content:"🔐";position:absolute;right:10px;bottom:-24px;
+ font-size:100px;opacity:.12;pointer-events:none
+}
+#chSecurityView .sec-tag{
+ display:inline-block;background:#ffffff18;border:1px solid #ffffff55;
+ padding:6px 10px;border-radius:30px;font-size:11px;font-weight:800
+}
+#chSecurityView h1{font-size:clamp(28px,6vw,42px);line-height:1.1;margin:15px 0 10px}
+#chSecurityView .sec-hero p{font-size:13px;line-height:1.7;color:#e1efff;max-width:550px}
+#chSecurityView .sec-score{
+ display:flex;align-items:center;gap:14px;background:#0b2038;
+ border:1px solid #244361;border-radius:17px;padding:16px;margin-top:15px
+}
+#chSecurityView .sec-score-icon{font-size:30px}
+#chSecurityView .sec-score strong{display:block;font-size:16px}
+#chSecurityView .sec-muted{color:#9eb4ce;font-size:12px;line-height:1.6}
+#chSecurityView .sec-heading{font-size:19px;font-weight:850;margin:26px 0 12px}
+#chSecurityView .sec-grid{display:grid;grid-template-columns:1fr;gap:12px}
+#chSecurityView .sec-card{
+ background:linear-gradient(145deg,#0d223a,#09192b);
+ border:1px solid #1c3c5c;border-radius:17px;padding:16px;min-width:0
+}
+#chSecurityView .sec-card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+#chSecurityView .sec-icon{
+ width:43px;height:43px;display:grid;place-items:center;
+ border-radius:13px;background:#123d69;font-size:22px;flex-shrink:0
+}
+#chSecurityView .sec-card h3{font-size:15px;margin:0 0 4px}
+#chSecurityView .sec-card p{font-size:12px;color:#a5bbd3;line-height:1.6;margin:0}
+#chSecurityView .sec-btn{
+ border:0;border-radius:10px;padding:11px 13px;font-size:12px;
+ font-weight:850;background:linear-gradient(120deg,#087cff,#13a9d8);
+ color:white;margin-top:13px
+}
+#chSecurityView .sec-btn-secondary{
+ border:1px solid #2a4d6c;border-radius:10px;padding:10px 12px;
+ font-size:12px;font-weight:800;background:#122b46;color:#e8f4ff;margin-top:10px
+}
+#chSecurityView .sec-label{display:block;font-size:12px;font-weight:750;margin:13px 0 7px}
+#chSecurityView input,#chSecurityView select,#chSecurityView textarea{
+ display:block;width:100%;background:#061426;border:1px solid #294966;
+ border-radius:10px;padding:12px;color:white;outline:none;font-size:13px
+}
+#chSecurityView input:focus,#chSecurityView select:focus,#chSecurityView textarea:focus{
+ border-color:#27a5ff;box-shadow:0 0 0 3px #1685ff20
+}
+#chSecurityView .sec-row{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ padding:12px 0;border-bottom:1px solid #1c354e
+}
+#chSecurityView .sec-row:last-child{border-bottom:0}
+#chSecurityView .sec-row strong{display:block;font-size:12px}
+#chSecurityView .sec-row small{display:block;font-size:11px;color:#9eb4ce;margin-top:4px}
+#chSecurityView .sec-pill{
+ display:inline-block;white-space:nowrap;border-radius:30px;
+ padding:6px 9px;background:#153e39;color:#8bf1c1;font-size:10px;font-weight:850
+}
+#chSecurityView .sec-pill.pending{background:#453619;color:#ffd789}
+#chSecurityView .sec-toggle{width:43px;height:25px;position:relative;flex-shrink:0}
+#chSecurityView .sec-toggle input{opacity:0;width:0;height:0}
+#chSecurityView .sec-slider{
+ position:absolute;inset:0;border-radius:30px;background:#405168;transition:.2s
+}
+#chSecurityView .sec-slider:before{
+ content:"";position:absolute;width:17px;height:17px;left:4px;top:4px;
+ background:white;border-radius:50%;transition:.2s
+}
+#chSecurityView .sec-toggle input:checked+.sec-slider{background:#087cff}
+#chSecurityView .sec-toggle input:checked+.sec-slider:before{transform:translateX(18px)}
+#chSecurityView .sec-notice{
+ padding:13px;border:1px solid #70562b;border-radius:12px;
+ background:#302717;color:#ffdf9d;font-size:12px;line-height:1.65;margin-top:14px
+}
+#chSecurityView .sec-history{display:grid;gap:9px}
+#chSecurityView .sec-event{
+ background:#0a1c30;border:1px solid #1c3956;border-radius:12px;
+ padding:12px;display:flex;gap:10px;font-size:12px;line-height:1.5
+}
+#chSecurityView .sec-event-icon{font-size:19px}
+#chSecurityView .sec-empty{font-size:12px;color:#9eb4ce;text-align:center;padding:18px}
+#chSecurityView .sec-toast{
+ display:none;position:fixed;z-index:999999;bottom:20px;left:50%;
+ transform:translateX(-50%);background:#eaf6ff;color:#09233c;
+ padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px #0006;
+ font-size:12px;max-width:90%
+}
+#chSecurityView .sec-footer{
+ text-align:center;border-top:1px solid #18334e;margin-top:25px;
+ padding:20px 12px;color:#91aac4;font-size:11px
+}
+@media(min-width:600px){
+ #chSecurityView .sec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #chSecurityView .sec-hero{padding:32px}
+}
+</style>
+
+<section id="chSecurityView">
+ <header class="sec-nav">
+  <div>
+   <div class="sec-brand">Campus <span>Hub</span></div>
+   <div class="sec-muted">Centre de sécurité</div>
+  </div>
+  <button class="sec-back" onclick="closeCampusHubSecurity()">← Retour</button>
+ </header>
+
+ <main class="sec-wrap">
+  <section class="sec-hero">
+   <span class="sec-tag">🛡️ PROTECTION DU COMPTE</span>
+   <h1>Ta sécurité,<br>notre priorité.</h1>
+   <p>Consulte les options de protection de ton compte Campus Hub et découvre les réglages qui nécessitent une connexion sécurisée au serveur.</p>
+  </section>
+
+  <section class="sec-score">
+   <div class="sec-score-icon">🔐</div>
+   <div>
+    <strong id="secStatusTitle">Vérification de la protection</strong>
+    <div class="sec-muted" id="secStatusText">Les options locales ne remplacent pas une protection serveur.</div>
+   </div>
+  </section>
+
+  <h2 class="sec-heading">🛡️ Protection du compte</h2>
+  <div class="sec-grid">
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">🔑</div><div><h3>Mot de passe</h3><p>Accès aux paramètres de changement du mot de passe.</p></div></div>
+    <button class="sec-btn" onclick="secOpenPanel('password')">Gérer le mot de passe</button>
+   </article>
+
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">📲</div><div><h3>Double authentification</h3><p>Préparer une deuxième vérification à la connexion.</p></div></div>
+    <span class="sec-pill pending">Configuration serveur requise</span><br>
+    <button class="sec-btn" onclick="secExplain('La double authentification doit être configurée et vérifiée côté serveur. Ce bouton ne l’active pas réellement.')">Configurer la protection</button>
+   </article>
+
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">📱</div><div><h3>Appareils et sessions</h3><p>Prévoir la consultation des appareils connectés.</p></div></div>
+    <button class="sec-btn" onclick="secExplain('La liste réelle des sessions nécessite un système de connexion côté serveur. Aucune session réelle ne peut être identifiée depuis cette page seule.')">Consulter les sessions</button>
+   </article>
+
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">🚪</div><div><h3>Déconnexion</h3><p>Fermer la session du compte connecté.</p></div></div>
+    <button class="sec-btn" onclick="secLogout()">Se déconnecter</button>
+   </article>
+  </div>
+
+  <h2 class="sec-heading">⚙️ Préférences de sécurité</h2>
+  <div class="sec-card">
+   <div class="sec-row">
+    <div><strong>Alertes de sécurité locales</strong><small>Afficher les messages de cette page.</small></div>
+    <label class="sec-toggle"><input id="secAlerts" type="checkbox" checked onchange="secSavePrefs()"><span class="sec-slider"></span></label>
+   </div>
+   <div class="sec-row">
+    <div><strong>Confirmation avant action</strong><small>Demander une confirmation pour les actions sensibles de cette interface.</small></div>
+    <label class="sec-toggle"><input id="secConfirm" type="checkbox" checked onchange="secSavePrefs()"><span class="sec-slider"></span></label>
+   </div>
+   <div class="sec-row">
+    <div><strong>Rappels de confidentialité</strong><small>Afficher des conseils de protection des données.</small></div>
+    <label class="sec-toggle"><input id="secPrivacy" type="checkbox" checked onchange="secSavePrefs()"><span class="sec-slider"></span></label>
+   </div>
+   <p class="sec-notice">Ces interrupteurs enregistrent des préférences d'affichage sur cet appareil. Ils ne désactivent aucune protection serveur et ne modifient pas les autorisations du compte.</p>
+  </div>
+
+  <h2 class="sec-heading">🧾 Historique de sécurité</h2>
+  <div class="sec-card">
+   <p class="sec-muted">Historique des actions réalisées dans cette interface sur cet appareil. Il ne s'agit pas d'un journal serveur.</p>
+   <div id="secHistory" class="sec-history" style="margin-top:13px"></div>
+   <button class="sec-btn-secondary" onclick="secClearHistory()">Effacer l'historique local</button>
+  </div>
+
+  <h2 class="sec-heading">🔒 Confidentialité des données</h2>
+  <div class="sec-grid">
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">👁️</div><div><h3>Visibilité du profil</h3><p>Choisis une préférence de visibilité à enregistrer localement.</p></div></div>
+    <label class="sec-label" for="secVisibility">Visibilité souhaitée</label>
+    <select id="secVisibility" onchange="secSavePrefs()">
+     <option value="private">Privé</option>
+     <option value="students">Étudiants connectés</option>
+     <option value="public">Public</option>
+    </select>
+   </article>
+   <article class="sec-card">
+    <div class="sec-card-head"><div class="sec-icon">🧹</div><div><h3>Données locales</h3><p>Efface les préférences et l'historique de cette interface.</p></div></div>
+    <button class="sec-btn" onclick="secEraseLocal()">Effacer les données locales</button>
+   </article>
+  </div>
+
+  <h2 class="sec-heading">🚨 Signaler un problème</h2>
+  <div class="sec-card">
+   <p class="sec-muted">Prépare un signalement à transmettre à l'équipe d'assistance Campus Hub.</p>
+   <label class="sec-label" for="secIssue">Type de problème</label>
+   <select id="secIssue">
+    <option>Connexion inhabituelle</option>
+    <option>Problème d'accès au compte</option>
+    <option>Confidentialité des données</option>
+    <option>Problème avec l'administration</option>
+    <option>Autre problème de sécurité</option>
+   </select>
+   <label class="sec-label" for="secDescription">Description du problème</label>
+   <textarea id="secDescription" rows="4" maxlength="1500" placeholder="Décris le problème sans écrire ton mot de passe ni un code secret."></textarea>
+   <button class="sec-btn" onclick="secSubmitReport()">Préparer le signalement</button>
+   <p class="sec-muted" style="margin-top:10px">Le signalement est préparé sur ton appareil. Son envoi réel nécessite une intégration avec l'assistance du site.</p>
+  </div>
+
+  <div class="sec-notice">
+   <strong>Important :</strong> n'enregistre jamais de mots de passe, codes PIN, codes OTP ou secrets de portefeuille dans les notes locales du navigateur. Pour une protection réelle, utilise HTTPS, des sessions sécurisées, des contrôles d'accès côté serveur et une authentification correctement mise en œuvre.
+  </div>
+ </main>
+
+ <footer class="sec-footer">Campus Hub RDC · Centre de sécurité<br>Protéger son compte, c'est protéger ses données.</footer>
+ <div id="secToast" class="sec-toast" role="status" aria-live="polite"></div>
+</section>
+
+<script id="chSecurityScript">
+(function(){
+ "use strict";
+ const $=id=>document.getElementById(id);
+ const PREF="campushub_security_preferences_v1";
+ const HIST="campushub_security_history_v1";
+ let toastTimer;
+
+ function read(key,fallback){
+  try{const x=JSON.parse(localStorage.getItem(key));return x??fallback;}
+  catch(e){return fallback;}
+ }
+ function write(key,value){
+  try{localStorage.setItem(key,JSON.stringify(value));return true;}
+  catch(e){return false;}
+ }
+ function toast(message){
+  const el=$("secToast");if(!el)return;
+  el.textContent=message;el.style.display="block";
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.style.display="none",3000);
+ }
+ function log(message,icon="🔐"){
+  const history=read(HIST,[]);
+  history.push({message,icon,date:new Date().toLocaleString("fr-FR")});
+  write(HIST,history.slice(-30));
+  renderHistory();
+ }
+ function renderHistory(){
+  const items=read(HIST,[]);
+  $("secHistory").innerHTML=items.length?items.slice().reverse().map(x=>
+   '<div class="sec-event"><span class="sec-event-icon">'+escapeHtml(x.icon)+'</span><div><strong>'+escapeHtml(x.message)+'</strong><br><span class="sec-muted">'+escapeHtml(x.date)+'</span></div></div>'
+  ).join(""):'<div class="sec-empty">Aucun événement local enregistré.</div>';
+ }
+ function escapeHtml(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ }
+ function loadPrefs(){
+  const p=read(PREF,{alerts:true,confirm:true,privacy:true,visibility:"private"});
+  $("secAlerts").checked=p.alerts!==false;
+  $("secConfirm").checked=p.confirm!==false;
+  $("secPrivacy").checked=p.privacy!==false;
+  $("secVisibility").value=p.visibility||"private";
+  const enabled=[p.alerts!==false,p.confirm!==false,p.privacy!==false].filter(Boolean).length;
+  $("secStatusTitle").textContent=enabled+"/3 préférences activées";
+  $("secStatusText").textContent="Préférences locales enregistrées. La protection réelle du compte reste à configurer sur le serveur.";
+ }
+ window.secSavePrefs=function(){
+  const ok=write(PREF,{
+   alerts:$("secAlerts").checked,
+   confirm:$("secConfirm").checked,
+   privacy:$("secPrivacy").checked,
+   visibility:$("secVisibility").value
+  });
+  loadPrefs();
+  log("Préférences de sécurité modifiées","⚙️");
+  toast(ok?"Préférences enregistrées sur cet appareil.":"Enregistrement impossible.");
+ };
+ window.secExplain=function(message){
+  if(read(PREF,{confirm:true}).confirm!==false&&!confirm("Continuer ?"))return;
+  alert(message);
+  log("Consultation d'une option de sécurité","ℹ️");
+ };
+ window.secOpenPanel=function(type){
+  if(type==="password"){
+   alert("Le changement réel du mot de passe doit passer par un formulaire connecté à une API sécurisée. Cette page ne demande et ne stocke aucun mot de passe.");
+   log("Consultation de la gestion du mot de passe","🔑");
+  }
+ };
+ window.secLogout=function(){
+  if(read(PREF,{confirm:true}).confirm!==false&&!confirm("Veux-tu quitter cette interface de sécurité ?"))return;
+  log("Demande de déconnexion depuis la page Sécurité","🚪");
+  if(typeof window.logoutCampusHub==="function"){
+   window.logoutCampusHub();
+  }else if(typeof window.logout==="function"){
+   window.logout();
+  }else{
+   alert("Aucune fonction de déconnexion du compte n'est connectée. Retour à l'accueil.");
+   window.closeCampusHubSecurity();
+  }
+ };
+ window.secClearHistory=function(){
+  if(read(PREF,{confirm:true}).confirm!==false&&!confirm("Effacer l'historique local de cette page ?"))return;
+  write(HIST,[]);
+  renderHistory();
+  toast("Historique local effacé.");
+ };
+ window.secEraseLocal=function(){
+  if(!confirm("Effacer les préférences et l'historique de cette page sur cet appareil ?"))return;
+  localStorage.removeItem(PREF);
+  localStorage.removeItem(HIST);
+  loadPrefs();
+  renderHistory();
+  toast("Données locales effacées.");
+ };
+ window.secSubmitReport=function(){
+  const type=$("secIssue").value;
+  const description=$("secDescription").value.trim();
+  if(description.length<10){toast("Décris le problème en au moins 10 caractères.");return;}
+  const report={type,description,date:new Date().toISOString()};
+  const reports=read("campushub_security_reports_v1",[]);
+  reports.push(report);
+  if(!write("campushub_security_reports_v1",reports)){
+   toast("Impossible d'enregistrer le signalement.");
+   return;
+  }
+  log("Signalement préparé : "+type,"🚨");
+  const content="Campus Hub — Signalement de sécurité\nType : "+type+"\nDescription : "+description+"\nDate : "+new Date().toLocaleString("fr-FR");
+  if(confirm("Signalement enregistré localement.\n\nOK : copier le texte pour le transmettre à l'assistance.\nAnnuler : fermer.")){
+   if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(content).then(()=>toast("Signalement copié.")).catch(()=>alert(content));
+   }else{alert(content);}
+  }
+  $("secDescription").value="";
+ };
+ window.openSecurite=function(){
+  const view=$("chSecurityView");if(!view)return;
+  document.querySelectorAll("body > section, body > main").forEach(el=>{
+   if(el!==view)el.style.display="none";
+  });
+  view.style.display="block";
+  loadPrefs();
+  renderHistory();
+  window.scrollTo({top:0,behavior:"smooth"});
+ };
+ window.showSecurite=window.openSecurite;
+ window.closeCampusHubSecurity=function(){
+  $("chSecurityView").style.display="none";
+  let home=null;
+  for(const id of ["home","accueil","homePage","dynamicViews"]){
+   const el=document.getElementById(id);
+   if(el&&el!==$("chSecurityView")){home=el;break;}
+  }
+  if(home)home.style.display="";
+  else{
+   const el=Array.from(document.querySelectorAll("body > section,body > main")).find(x=>x!==$("chSecurityView"));
+   if(el)el.style.display="";
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+ };
+ loadPrefs();
+ renderHistory();
+})();
+</script>
+<!-- FIN MODULE SECURITE CAMPUS HUB -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="chMenuOverlay" onclick="closeChMenu()"></div>
+<nav id="chMenuDrawer">
+ <div class="ch-menu-header">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+   <div><h2 style="margin:0;font-size:20px;font-weight:900">Campus Hub</h2><p style="margin:4px 0 0;font-size:12px;opacity:.8">RDC • Menu principal</p></div>
+   <button onclick="closeChMenu()" style="width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2);color:white;font-size:18px">✕</button>
+  </div>
+ </div>
+ <div class="ch-menu-list">
+  <button class="ch-menu-item" data-page="home">🏠 Accueil</button>
+  <button class="ch-menu-item" data-page="profil">👤 Profil</button>
+  <button class="ch-menu-item" data-page="agenda">📅 Agenda</button>
+  <button class="ch-menu-item" data-page="pays">🌍 Pays</button>
+  <button class="ch-menu-item" data-page="universites">🏛️ Universités</button>
+  <button class="ch-menu-item" data-page="encadreurs">👨‍🏫 Encadreurs</button>
+  <button class="ch-menu-item" data-page="bibliotheque">📚 Bibliothèque</button>
+  <button class="ch-menu-item" data-page="parrainage">🎁 Parrainage <span style="margin-left:auto;background:#ffc107;color:#000;padding:2px 6px;border-radius:6px;font-size:11px">5000 FC</span></button>
+  <button class="ch-menu-item" data-page="commandes">🛒 Commandes</button>
+  <button class="ch-menu-item" data-page="paiements">💳 Paiements</button>
+  <button class="ch-menu-item" data-page="notifications">🔔 Notifications</button>
+  <button class="ch-menu-item" data-page="assistance">🆘 Assistance</button>
+  <button class="ch-menu-item" data-page="parametres">⚙️ Paramètres</button>
+ </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+<!-- PARAMETRES PREMIUM -->
+
+
+
+
+
+
+<!-- ===================== PARAMETRES ===================== -->
+
+
+<!-- ===================== ENCADREUR ===================== -->
+
+
+<script id="chSupervisorsScript">
+(function(){
+const $=id=>document.getElementById(id);
+const FAV_KEY="campushub_encadreurs_favoris_v1", REQ_KEY="campushub_encadreurs_demandes_v1";
+let toastTimer=null,currentProfile=null,favorites=[],requests=[];
+function read(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(m){const el=$("supToast");el.textContent=m;el.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display="none",2500)}
+const demo=[
+ {id:"demo1",name:"Informatique - Génie Logiciel",university:"UNILU",country:"RDC",faculty:"Sciences",department:"Informatique",specialty:"Informatique",topics:"Génie logiciel, BDD, SI",verified:false,photo:"https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80"},
+ {id:"demo2",name:"Biotechnologie Moléculaire",university:"UNIKIN",country:"RDC",faculty:"Sciences",department:"Biotechnologie",specialty:"Biotechnologie",topics:"Biologie moléculaire, Microbiologie",verified:true,photo:"https://images.unsplash.com/photo-1581093458791-9d15482442f7?auto=format&fit=crop&w=200&q=80"},
+ {id:"demo3",name:"Méthodologie Scientifique",university:"UNILUB",country:"RDC",faculty:"Sciences",department:"Sciences",specialty:"Sciences",topics:"Rédaction scientifique, Méthodo",verified:true,photo:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"},
+ {id:"demo4",name:"Santé Publique",university:"ULPGL",country:"RDC",faculty:"Médecine",department:"Médecine",specialty:"Médecine",topics:"Santé publique, Recherche",verified:false,photo:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=200&q=80"},
+ {id:"demo5",name:"Économie Appliquée",university:"UPC",country:"RDC",faculty:"Économie",department:"Gestion",specialty:"Économie",topics:"Éco appliquée, Analyse données",verified:true,photo:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80"},
+ {id:"demo6",name:"Droit Public",university:"UCC",country:"RDC",faculty:"Droit",department:"Droit",specialty:"Droit",topics:"Droit public, Méthodo juridique",verified:false,photo:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80"}
+];
+favorites=read(FAV_KEY,[]);requests=read(REQ_KEY,[]);
+function getProfiles(){return demo}
+function render(){
+ const q=($("supSearch").value||"").toLowerCase(); const c=$("supCountry").value; const sp=$("supSpecialty").value;
+ const profiles=getProfiles().filter(p=>{
+  const t=[p.name,p.university,p.country,p.faculty,p.department,p.specialty,p.topics].join(" ").toLowerCase();
+  return (!q||t.includes(q))&&(!c||p.country===c)&&(!sp||p.specialty===sp);
+ });
+ $("supStatTotal").textContent=profiles.length; $("supStatVerified").textContent=profiles.filter(p=>p.verified).length;
+ $("supStatFavorites").textContent=favorites.length; $("supStatRequests").textContent=requests.length;
+ $("supDirectoryGrid").innerHTML=profiles.length?profiles.map(p=>`
+  <div class="sup-card">
+   <div class="sup-card-top"><img class="sup-avatar" src="${esc(p.photo)}" loading="lazy"><button class="sup-fav ${favorites.includes(p.id)?"":""}" onclick="supToggleFavorite('${p.id}')">${favorites.includes(p.id)?"❤️":"🤍"}</button></div>
+   <div class="sup-card-body">
+    <h3>${esc(p.name)}</h3>
+    <div class="sup-university">🏛️ ${esc(p.university)} · 🌍 ${esc(p.country)}</div>
+    <span class="sup-tag">${esc(p.specialty)}</span><span class="sup-tag" style="background:${p.verified?'#dcfce7':'#fef3c7'}">${p.verified?'✓ Vérifié':'⚠ Démo'}</span>
+    <div class="sup-card-actions"><button class="sup-secondary" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px" onclick="supOpenProfile('${p.id}')">Voir</button><button class="sup-primary" onclick="supRequestProfile('${p.id}')">Choisir</button></div>
+   </div>
+  </div>`).join(""):'<div class="sup-empty">Aucun profil. Modifie ta recherche.</div>';
+ const sel=$("supChosen"); const prev=sel.value;
+ sel.innerHTML='<option value="">Pas encore choisi</option>'+getProfiles().map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>').join("");
+ if(prev) sel.value=prev;
+ renderRequests();
+}
+function renderRequests(){
+ $("supRequestsList").innerHTML=requests.length?requests.slice().reverse().map(r=>`
+  <div class="sup-request" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-top:8px">
+   <div style="font-weight:800;font-size:13px">${esc(r.title)}</div>
+   <div style="font-size:11px;color:#64748b;margin-top:4px">${esc(r.type)} · ${esc(r.university)} · ${esc(r.date)}</div>
+   <button style="margin-top:8px;background:white;border:1px solid #e2e8f0;padding:6px 10px;border-radius:8px;font-size:11px" onclick="supDeleteRequest('${r.id}')">Supprimer</button>
+  </div>`).join(""):'<div class="sup-empty">Aucune demande pour le moment.</div>';
+}
+window.supRender=render;
+window.supToggleFavorite=function(id){ if(favorites.includes(id)) favorites=favorites.filter(x=>x!==id); else favorites.push(id); save(FAV_KEY,favorites); render(); toast("Favoris mis à jour"); }
+window.supShowFavorites=function(){
+ const all=getProfiles().filter(p=>favorites.includes(p.id));
+ $("supDirectoryGrid").innerHTML=all.length?all.map(p=>`<div class="sup-card"><div class="sup-card-body"><h3>${esc(p.name)}</h3><button class="sup-primary" onclick="supRequestProfile('${p.id}')">Choisir</button></div></div>`).join(""):'<div class="sup-empty">Pas de favoris</div>';
+}
+window.supOpenProfile=function(id){
+ currentProfile=getProfiles().find(p=>p.id===id); if(!currentProfile) return;
+ $("supModalName").textContent=currentProfile.name;
+ $("supModalContent").innerHTML=`<b>Université:</b> ${esc(currentProfile.university)}<br><b>Pays:</b> ${esc(currentProfile.country)}<br><b>Spécialité:</b> ${esc(currentProfile.specialty)}<br><b>Domaines:</b> ${esc(currentProfile.topics)}`;
+ $("supProfileModal").classList.add("open");
+}
+window.supCloseProfile=function(){$("supProfileModal").classList.remove("open")}
+window.supChooseFromModal=function(){ if(currentProfile){supRequestProfile(currentProfile.id); supCloseProfile()} }
+window.supRequestProfile=function(id){
+ const p=getProfiles().find(x=>x.id===id); if(!p) return;
+ $("supChosen").value=p.id; $("supRequestForm").scrollIntoView({behavior:"smooth"}); toast("Encadreur sélectionné");
+}
+window.supResetForm=function(){ if(confirm("Effacer?")) $("supRequestForm").reset(); }
+$("supRequestForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const sel=getProfiles().find(p=>p.id===$("supChosen").value);
+ const req={id:"req_"+Date.now(), student:$("supStudent").value.trim(), university:$("supUniversity").value.trim(), department:$("supDepartment").value.trim(), type:$("supType").value, title:$("supTitle").value.trim(), supervisor:sel?sel.name:"", date:new Date().toLocaleDateString("fr-FR")};
+ requests.push(req); save(REQ_KEY,requests); render(); this.reset(); toast("Demande enregistrée ✓");
+});
+window.supDeleteRequest=function(id){ if(!confirm("Supprimer?")) return; requests=requests.filter(r=>r.id!==id); save(REQ_KEY,requests); render(); }
+window.supExportRequests=function(){
+ const blob=new Blob([JSON.stringify(requests,null,2)],{type:"application/json"}); const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="demandes.json"; a.click(); URL.revokeObjectURL(url);
+}
+window.openEncadreurs=function(){
+ const v=$("chSupervisorsView"); if(!v) return;
+ document.getElementById('homeView').style.display='none';
+ document.querySelectorAll('[id$="View"]').forEach(el=>{ if(el.id!=='chSupervisorsView'&&el.id!=='homeView'&&!el.id.includes('Menu')) el.style.display='none'; });
+ v.style.display='block'; render(); window.scrollTo(0,0);
+}
+window.closeCampusHubEncadreurs=function(){ $("chSupervisorsView").style.display='none'; document.getElementById('homeView').style.display=''; window.scrollTo(0,0); }
+render();
+})();
+</script>
+
+<!-- PARAMETRES PREMIUM -->
+
+
+<script id="chParametresScript">
+function togglePar(el){el.classList.toggle('active');localStorage.setItem('ch_'+el.dataset.key, el.classList.contains('active'))}
+window.openParametres=function(){
+ document.getElementById('homeView').style.display='none';
+ document.querySelectorAll('[id$="View"]').forEach(e=>{if(e.id!=='chParametresView'&&!e.id.includes('Menu')) e.style.display='none'});
+ document.getElementById('chParametresView').style.display='block';window.scrollTo(0,0);
+}
+</script>
+
+
+<script id="safeMenuHook">
+// Safe - n'écrase pas ton menu existant
+(function(){
+function hideAll(){ document.querySelectorAll('[id$="View"]').forEach(v=>{ if(v.id!=='chMenuDrawer' && v.id!=='chMenuOverlay') v.style.display='none'; }); }
+window.openEncadreurs = window.openEncadreurs || function(){
+  hideAll(); const v=document.getElementById('chSupervisorsView'); if(v){ v.style.display='block'; window.scrollTo(0,0); }
+};
+window.openParametres = window.openParametres || function(){
+  hideAll(); const v=document.getElementById('chParametresView'); if(v){ v.style.display='block'; window.scrollTo(0,0); }
+};
+window.chNavigate = window.chNavigate || function(page){
+  if(page==='encadreurs' || page==='encadreur') return openEncadreurs();
+  if(page==='parametres') return openParametres();
+  if(page==='home'){ hideAll(); document.getElementById('homeView').style.display=''; }
+};
+window.closeCampusHubEncadreurs = window.closeCampusHubEncadreurs || function(){
+  document.getElementById('chSupervisorsView').style.display='none';
+  document.getElementById('homeView').style.display='';
+};
+console.log('✅ Menu safe hook OK - vert/blanc isolé');
+})();
+</script>
+
+</body></html>

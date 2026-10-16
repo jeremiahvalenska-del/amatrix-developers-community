@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Générateur Mémoire - Campus Hub</title><link rel="stylesheet" href="style-pages.css"></head><body>
+<header><a href="menu.html">←</a><div class="logo"><b>Campus <span>Hub</span></b></div></header>
+<div class="page"><div class="hero"><div class="bg" style="background-image:url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800')"></div><div class="ct"><h1>Générateur de Mémoire</h1><p>Construisez votre travail à partir de votre sujet et de vos informations - 10 000 caractères</p></div></div>
+<div class="pageCard">
+<h3>Zone de rédaction - 10 000 caractères max</h3><p style="font-size:11px;color:#6b7c93">Sujet, idées, notes, consignes, problématique, informations, objectifs, observations, sources fournies</p>
+<textarea id="zone" class="input" style="height:180px" maxlength="10000" placeholder="Collez ici sujet, idées, notes, consignes, problématique, objectifs, observations, sources... 10 000 caractères max" oninput="document.getElementById('count').textContent=this.value.length+'/10000'"></textarea><div style="text-align:right;font-size:10px;color:#7b8aa0"><span id="count">0/10000</span></div>
+<br><h4>Informations étudiantes - Promotion ✅</h4><br>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div><label>Nom</label><input class="input"></div>
+<div><label>Université</label><input class="input" value="UNILU"></div>
+<div><label>Faculté</label><input class="input"></div>
+<div><label>Département</label><input class="input"></div>
+<div><label>Filière</label><input class="input"></div>
+<div><label>Promotion : [________________]</label><input class="input" placeholder="L1, L2, L3, Licence 1, Licence 2, Licence 3, Master 1, Master 2 - libre - Ex: L3"></div>
+<div><label>Année</label><input class="input" placeholder="2024-2025"></div>
+<div><label>Directeur/encadreur</label><input class="input"></div>
+<div style="grid-column:1/-1"><label>Sujet</label><input class="input"></div>
+</div><br>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+<div><label>Pages</label><select class="input"><option>50</option><option>80</option><option>100</option></select></div>
+<div><label>Modèle</label><select class="input"><option>Classique</option><option>Moderne</option></select></div>
+<div><label>Feuille garde</label><select class="input"><option>Modèle 1</option><option>Modèle 2</option><option>Modèle 3</option><option>Modèle 4</option><option>Modèle 5</option><option>Modèle 6</option><option>Modèle 7</option><option>Modèle 8</option><option>Modèle 9</option><option>Modèle 10</option></select></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px"><span class="tag">Table matières</span><span class="tag">Introduction</span><span class="tag">Chapitres</span><span class="tag">Conclusion</span><span class="tag">Bibliographie</span><span class="tag">Annexes</span><span class="tag">Mise en page</span><span class="tag">Correction orthographique</span></div>
+<br><div style="display:flex;gap:8px"><button class="btn">Aperçu</button><button class="btn">Modification</button><button class="btn">Sauvegarde</button><button class="btn" style="background:#08b879">Téléchargement</button><a href="paiements.html" class="btn2" style="text-decoration:none">Payer</a></div>
+<br><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><div class="listItem" style="justify-content:center">Garde 1</div><div class="listItem" style="justify-content:center">Garde 2</div><div class="listItem" style="justify-content:center">Garde 3</div><div class="listItem" style="justify-content:center">Garde 4</div><div class="listItem" style="justify-content:center">Garde 5</div><div class="listItem" style="justify-content:center">Garde 6</div><div class="listItem" style="justify-content:center">Garde 7</div><div class="listItem" style="justify-content:center">Garde 8</div><div class="listItem" style="justify-content:center">Garde 9</div><div class="listItem" style="justify-content:center">Garde 10</div></div>
+</div></div></body></html>
