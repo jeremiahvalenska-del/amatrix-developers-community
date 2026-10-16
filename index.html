@@ -99,4 +99,24 @@ function buildMessage(d){let tags=`🔔 @+243851395271 @+243833576117 @+24390077
 let lastMsg='';function copyAndOpenGroup(){navigator.clipboard.writeText(lastMsg).then(()=>{toast('📋 Copié! Ouverture groupe...');setTimeout(()=>window.open(GROUP_LINK,'_blank'),600);}).catch(()=>{window.open(GROUP_LINK,'_blank');});}
 function submitRecrutement(){let data={nom:document.getElementById('f_nom').value.trim(),age:document.getElementById('f_age').value.trim(),villepays:document.getElementById('f_villepays').value.trim(),whatsapp:document.getElementById('f_whatsapp').value.trim(),gmail:document.getElementById('f_gmail').value.trim(),numero:document.getElementById('f_numero').value.trim(),niveau:document.getElementById('f_niveau').value,langages:document.getElementById('f_langages').value.trim(),acquises:document.getElementById('f_acquises').value.trim(),aapprendre:document.getElementById('f_aapprendre').value.trim(),outils:document.getElementById('f_outils').value.trim(),projets:document.getElementById('f_projets').value.trim(),liens:document.getElementById('f_liens').value.trim(),techno:document.getElementById('f_techno').value.trim(),pourquoi:document.getElementById('f_pourquoi').value.trim(),objectifs:document.getElementById('f_objectifs').value.trim(),heures:document.getElementById('f_heures').value.trim(),signature:document.getElementById('f_signature').value.trim(),id:Date.now(),date:new Date().toLocaleString('fr-FR'),statut:'En attente',visibility:'public',photo:''};if(!data.nom||!data.age||!data.villepays||!data.whatsapp||!data.gmail||!data.niveau||!data.signature){toast('❌ Remplis tous les *');return}let file=document.getElementById('f_photo').files[0];let finish=(pd)=>{if(pd)data.photo=pd;members.push(data);saveAll();lastMsg=buildMessage(data);document.getElementById('waText').textContent=lastMsg;document.getElementById('waPreview').style.display='block';document.getElementById('waAdminLink').href=`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(lastMsg)}`;updateRealCounters();renderMembers();addLog(`Nouvelle inscription ${data.nom}`);navigator.clipboard.writeText(lastMsg).then(()=>{toast(`✅ ${data.nom} ajouté! Total réel: ${members.length}`);setTimeout(()=>window.open(GROUP_LINK,'_blank'),800);}).catch(()=>{window.open(GROUP_LINK,'_blank');});};if(file){let r=new FileReader();r.onload=e=>finish(e.target.result);r.readAsDataURL(file);}else finish(null);}
 updateRealCounters();renderMembers();renderAdminLogin();applyLogos();
-</script></body></html>
+</script>
+<script id="ADMIN_CODE_HIDDEN">
+ // PATCH SECURITE - cache pass/numero sur page administrative
+ const _origRenderAdmins = window.renderAdmins || null;
+ function secureRenderAdmins(){
+   const list = document.getElementById('adminsListFull');
+   if(!list) return;
+   // On affiche sans pass/numero
+   list.innerHTML = (window.adminsList || []).map(a => `
+     <div class="card" style="background:#0f2a55;display:flex;gap:10px;align-items:center">
+       <div style="width:40px;height:40px;border-radius:50%;background:#0a1f44;display:grid;place-items:center;overflow:hidden">${a.photo ? `<img src="${a.photo}" style="width:100%;height:100%;object-fit:cover">` : '👤'}</div>
+       <div><b>${a.nom}</b><br><small style="color:#7fa0c0">${a.role}</small><br><small style="color:#00ff88">${a.active ? 'Actif' : 'Inactif'}</small></div>
+       <div style="margin-left:auto"><small style="color:#ff7a00">Code caché 🔒</small></div>
+     </div>
+   `).join('');
+ }
+ // Lance le patch après chargement
+ setTimeout(()=>{ if(window.adminsList){ secureRenderAdmins(); } }, 800);
+</script>
+
+</body></html>
