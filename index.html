@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMATRIX community - Ensemble pour un meilleur avenir</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui}
+body{background:#f8fbff;color:#0f274a}
+a{text-decoration:none;color:inherit}
+.header{background:#0a1e42;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 24px;position:sticky;top:0;z-index:99}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;line-height:1}
+.logo i{width:36px;height:36px;background:linear-gradient(135deg,#2affd2,#0f6fff);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#0a1e42;font-weight:900;font-style:normal}
+.logo small{display:block;font-weight:500;font-size:10px;color:#7fb0ff;letter-spacing:.5px}
+.nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nav a{padding:8px 12px;border-radius:10px;font-size:12px;color:#b9d0f0;background:#122a5a}
+.nav a.active{background:#0f6fff;color:#fff;font-weight:700}
+.hero{background:linear-gradient(100deg,#081c43 0%,#0e2e6e 50%,#0a8cb8 100%);color:#fff;display:grid;grid-template-columns:1.1fr .9fr;min-height:440px;overflow:hidden}
+.hl{padding:50px 28px;z-index:2}
+.badge{background:#0e4a8a;border:1px solid #1d6fbf;border-radius:20px;padding:6px 12px;font-size:11px;display:inline-flex;gap:6px;color:#a9d2ff;margin-bottom:16px}
+.hl h1{font-size:44px;line-height:.95;font-weight:900;letter-spacing:-1px}
+.hl h1 span{color:#2affd2}
+.hl p{margin:16px 0 22px;color:#c8ddff;font-size:14px;line-height:1.5;max-width:440px}
+.btn-green{background:#00d084;color:#0a1e42;padding:12px 20px;border-radius:24px;font-weight:800;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.hr{position:relative;overflow:hidden}
+.hr img{width:100%;height:100%;object-fit:cover}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:18px 24px;background:#fff}
+.card{border:1px solid #e3ecf7;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 6px 20px rgba(10,30,66,.06)}
+.ci{height:130px;position:relative}
+.ci img{width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;top:10px;right:10px;background:#00d084;color:#0a1e42;font-size:10px;padding:4px 8px;border-radius:12px;font-weight:700}
+.cb{padding:14px 16px}
+.cb h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.cb p{font-size:12.5px;color:#5a7599;line-height:1.4;margin-bottom:12px}
+.btn{padding:9px 14px;border-radius:20px;font-size:12px;font-weight:700;display:inline-flex;gap:6px;border:none;cursor:pointer}
+.btn-g{background:#e8f8ef;color:#0a8a4a;border:1px solid #c6efdb}
+.btn-b{background:#e8efff;color:#1246a8;border:1px solid #c9d8ff}
+.btn-p{background:#eee8ff;color:#5a2eb8;border:1px solid #d9ccff}
+.impact{background:linear-gradient(180deg,#eaf4ff 0%,#f0f7ff 100%);padding:22px 24px;display:grid;grid-template-columns:1.2fr 2.8fr;gap:18px;border-top:1px solid #e3ecf7;border-bottom:1px solid #e3ecf7}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.st{background:#fff;border:1px solid #dbe8f8;border-radius:14px;padding:14px;text-align:center}
+.st b{font-size:22px;display:block;color:#0a1e42}
+.st span{font-size:11px;color:#6b8ab5}
+.news{padding:22px 24px;background:#fff;display:grid;grid-template-columns:280px 1fr;gap:20px}
+.ng{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.nc{border:1px solid #e3ecf7;border-radius:14px;overflow:hidden;background:#fff}
+.nc img{width:100%;height:110px;object-fit:cover}
+.nm{padding:10px 12px}
+.why{background:linear-gradient(100deg,#0c224a 0%,#123a7a 100%);color:#fff;padding:26px 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.why ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.why li{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.ico{width:34px;height:34px;border-radius:50%;background:#0e8a7a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.footer{background:#061636;color:#8fb0d8;padding:24px;display:grid;grid-template-columns:1.2fr .8fr .8fr .9fr;gap:20px;font-size:12px}
+.footer a{color:#8fb0d8;display:block;margin:6px 0}
+.copy{grid-column:1/-1;border-top:1px solid #122a5a;padding-top:12px;margin-top:10px;font-size:10px;display:flex;justify-content:space-between}
+.admin{position:fixed;right:16px;bottom:16px;background:#0a1e42;border:1px solid #1e4a9a;color:#fff;padding:14px;border-radius:14px;display:none;z-index:999;min-width:300px}
+.admin.show{display:block}
+.admin input{width:100%;padding:9px;border-radius:8px;border:1px solid #1e3a6b;background:#081636;color:#fff;margin-top:8px;font-size:13px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.impact{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}.ng{grid-template-columns:1fr}.why{grid-template-columns:1fr}.footer{grid-template-columns:1fr 1fr}.nav{display:none}.hl h1{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo"><i>A</i><div><b>AMATRIX community</b><small>Ensemble pour un meilleur avenir</small></div></div>
+<div class="nav"><a class="active">🏠 Accueil</a><a onclick="go('form')">📋 Formulaire</a><a onclick="go('group')">👥 Recrutement</a><a onclick="go('hub')">💬 Chaîne</a><span onclick="unlock()" style="cursor:pointer;background:#122a5a;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center">🔐</span></div>
+</div>
+<div class="hero"><div class="hl"><div class="badge">🔔 Bienvenue dans AMATRIX community</div><h1>Construis ton<br><span>avenir avec nous</span></h1><p>Une communauté dynamique, solidaire et engagée pour t'accompagner dans ta formation, ton développement et la réalisation de tes projets.</p><button class="btn-green" onclick="go('form')">👤 S'inscrire maintenant →</button></div><div class="hr"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop"><div style="position:absolute;right:20px;bottom:60px;color:#fff;font-style:italic;font-weight:800;font-size:20px;transform:rotate(-8deg);text-shadow:0 2px 10px rgba(0,0,0,.6)">Ensemble<br>plus loin!</div></div></div>
+<div class="cards">
+<div class="card"><div class="ci"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400"><span class="tag">Chaîne officielle</span></div><div class="cb"><h3>Chaîne WhatsApp</h3><p>Reçois nos annonces, nos astuces, les opportunités et toutes les actualités.</p><button class="btn btn-g" onclick="go('hub')">💬 Accéder à la chaîne →</button></div></div>
+<div class="card"><div class="ci"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400"><span class="tag" style="background:#cfe0ff;color:#123a8a">Nouvelles recrues</span></div><div class="cb"><h3>Groupe de recrutement</h3><p>Rejoins le groupe des nouvelles recrues et fais partie de l'aventure AMATRIX.</p><button class="btn btn-b" onclick="go('group')">👥 Rejoindre le groupe →</button></div></div>
+<div class="card"><div class="ci"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"><span class="tag" style="background:#e0d4ff;color:#5a2eb8">Communauté</span></div><div class="cb"><h3>Communauté WhatsApp</h3><p>Échange, partage et avance ensemble au sein de la communauté AMATRIX.</p><button class="btn btn-p" onclick="go('hub')">👥 Rejoindre la communauté →</button></div></div>
+</div>
+<div class="impact"><div><div style="font-size:11px;color:#0f6fff;font-weight:800">📢 NOTRE IMPACT</div><h2 style="font-size:22px;font-weight:900">Une communauté en chiffres</h2><p style="font-size:12px;color:#5a7599">Des personnes motivées, venues de différents pays et villes.</p></div><div class="stats"><div class="st"><span>👥</span><b>352</b><span>Personnes inscrites</span></div><div class="st"><span>🌐</span><b>12</b><span>Pays</span></div><div class="st"><span>📍</span><b>28</b><span>Villes</span></div><div class="st"><span>📈</span><b>5</b><span>Nouvelles / semaine</span></div></div></div>
+<div class="news"><div><div style="font-size:11px;color:#0f6fff;font-weight:800">📢 DERNIÈRES ANNONCES</div><h2 style="font-size:20px;font-weight:900">Reste informé</h2><p style="font-size:12px;color:#5a7599;margin:8px 0">Découvre les dernières actualités et opportunités.</p><button class="btn" style="background:#0a1e42;color:#fff">Voir toutes →</button></div><div class="ng"><div class="nc"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300"><div class="nm"><div style="font-size:10px;color:#6b8ab5">16 oct 2025 • Information</div><b style="font-size:13px">Bienvenue aux nouvelles recrues !</b><p style="font-size:11px;color:#6b8ab5">Nous sommes ravis de vous accueillir.</p></div></div><div class="nc"><img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?w=300"><div class="nm"><div style="font-size:10px;color:#6b8ab5">14 oct 2025 • Mise à jour</div><b style="font-size:13px">Nouveau lien du groupe</b><p style="font-size:11px;color:#6b8ab5">Le groupe a été mis à jour.</p></div></div><div class="nc"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300"><div class="nm"><div style="font-size:10px;color:#6b8ab5">10 oct 2025 • Formation</div><b style="font-size:13px">Nouvelle formation</b><p style="font-size:11px;color:#6b8ab5">Formation en ligne disponible.</p></div></div></div></div>
+<div class="why"><div><div style="font-size:10px;letter-spacing:1px;opacity:.7">POURQUOI NOUS REJOINDRE ?</div><h2 style="font-size:22px;font-weight:900">Bien plus qu'une plateforme</h2><p style="font-size:13px;opacity:.9;margin-top:6px">Une communauté d'entraide, de formation, de partage et d'opportunités.</p><button class="btn" style="background:#fff;color:#0a1e42;margin-top:14px" onclick="go('form')">En savoir plus →</button></div><ul><li><div class="ico">👥</div><div><b>Accompagnement personnalisé</b><br><span style="font-size:11px;opacity:.8">Conseils à chaque étape.</span></div></li><li><div class="ico" style="background:#0a6b5a">📄</div><div><b>Ressources de qualité</b><br><span style="font-size:11px;opacity:.8">Documents et outils utiles.</span></div></li><li><div class="ico">🔗</div><div><b>Opportunités uniques</b><br><span style="font-size:11px;opacity:.8">Stages, emplois et plus.</span></div></li><li><div class="ico" style="background:#0a6b5a">🤝</div><div><b>Communauté solidaire</b><br><span style="font-size:11px;opacity:.8">Entraide entre membres.</span></div></li></ul></div>
+<div class="footer"><div><div class="logo"><i>A</i><b>AMATRIX community</b></div><div style="margin-top:12px">© 2025 AMATRIX community. Tous droits réservés.<br><i>Ensemble pour un meilleur avenir</i></div></div><div><b>Liens rapides</b><a onclick="go('form')">📋 Formulaire</a><a onclick="go('group')">👥 Groupe recrutement</a><a onclick="go('hub')">💬 Chaîne WhatsApp</a></div><div><b>Informations</b><a>À propos</a><a>Assistance</a><a>Confidentialité</a></div><div><b>Contact</b><button class="btn-green" style="font-size:12px" onclick="go('group')">👥 Rejoins AMATRIX maintenant!</button></div><div class="copy"><span>© 2025 AMATRIX community</span><span>Ensemble pour un meilleur avenir</span></div></div>
+<div class="admin" id="admin"><h3 style="color:#22c55e">🔐 Admin AMATRIX</h3><label style="font-size:11px;margin-top:10px;display:block">Lien Groupe Recrutement</label><input id="g" placeholder="https://chat.whatsapp.com/..."><label style="font-size:11px;margin-top:8px;display:block">Lien Chaîne / Communauté</label><input id="h" placeholder="https://whatsapp.com/channel/..."><label style="font-size:11px;margin-top:8px;display:block">Lien Formulaire</label><input id="f" placeholder="https://wa.me/..."><button class="btn-green" style="width:100%;margin-top:12px;justify-content:center" onclick="save()">💾 Sauvegarder</button><button onclick="document.getElementById('admin').classList.remove('show')" style="width:100%;margin-top:8px;background:#122a5a;color:#fff;border:none;padding:8px;border-radius:8px">Fermer</button></div>
+<script>
+let CFG={group:"https://chat.whatsapp.com/C9fUueaYo9i4JvKfg8Z5rW",hub:"https://whatsapp.com/channel/0029Vb6g1dMKWEKk2l2bk0I1i",form:"https://wa.me/243992083817?text=Bonjour%20AMATRIX%20je%20veux%20m'inscrire"};
+function unlock(){let c=prompt('Code Admin:');if(c==='AMATRIX_LUBUM_2026'||c==='ap1'){document.getElementById('admin').classList.add('show')}else if(c!==null)alert('Code incorrect')}
+function go(t){let u=CFG[t]||CFG.group;window.open(u,'_blank')}
+function save(){let g=document.getElementById('g').value;let h=document.getElementById('h').value;let f=document.getElementById('f').value;if(g)CFG.group=g;if(h)CFG.hub=h;if(f)CFG.form=f;alert('✅ Liens sauvegardés!');document.getElementById('admin').classList.remove('show')}
+</script>
+</body>
+</html>

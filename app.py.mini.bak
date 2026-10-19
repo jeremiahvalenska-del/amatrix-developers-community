@@ -1,0 +1,181 @@
+import os, sqlite3, datetime, uuid, urllib.parse
+from flask import Flask, request, render_template_string, redirect, session, g
+from werkzeug.security import generate_password_hash, check_password_hash
+
+app = Flask(__name__)
+app.secret_key = 'amatrix-direct-no-block-2025'
+DATABASE='amatrix.db'
+LINKS={
+ 'chaine':'https://whatsapp.com/channel/0029VbDMH24FSAtCHZ5smv20',
+ 'recrutement':'https://chat.whatsapp.com/CYcNxrmW7lH6XrLRU20hxS?s=cl&p=a&mlu=4&ilr=4',
+ 'communaute':'https://chat.whatsapp.com/K2fYZpLSk1a81qFKy3yNZN'
+}
+
+def get_db():
+    db=getattr(g,'_database',None)
+    if db is None:
+        db=g._database=sqlite3.connect(DATABASE)
+        db.row_factory=sqlite3.Row
+    return db
+
+def init_db():
+    db=sqlite3.connect(DATABASE)
+    c=db.cursor()
+    c.executescript("""
+    CREATE TABLE IF NOT EXISTS candidatures(id TEXT PRIMARY KEY, nom TEXT, age INTEGER, ville TEXT, pays TEXT, whatsapp TEXT, niveau TEXT, langages TEXT, outils TEXT, projets TEXT, liens_projets TEXT, experience TEXT, motivation TEXT, competences TEXT, disponibilite TEXT, statut TEXT, created_at TEXT, pays_lower TEXT, ville_lower TEXT);
+    CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY, username TEXT UNIQUE, password_hash TEXT, role TEXT);
+    CREATE TABLE IF NOT EXISTS annonces(id TEXT PRIMARY KEY, titre TEXT, description TEXT, image TEXT, categorie TEXT, statut TEXT, date TEXT);
+    CREATE TABLE IF NOT EXISTS assistance(id TEXT PRIMARY KEY, nom TEXT, whatsapp TEXT, message TEXT, date TEXT);
+    """)
+    if not c.execute("SELECT * FROM users WHERE username='admin'").fetchone():
+        c.execute("INSERT INTO users VALUES (?,?,?,?)",(str(uuid.uuid4()),'admin',generate_password_hash("AMATRIX 900 9-9 Pro"),'admin_principal'))
+    db.commit(); db.close()
+
+def get_stats():
+    db=get_db()
+    try:
+        total=db.execute("SELECT COUNT(*) FROM candidatures").fetchone()[0]
+        pays=db.execute("SELECT COUNT(DISTINCT pays_lower) FROM candidatures WHERE pays_lower!=''").fetchone()[0] or 0
+        villes=db.execute("SELECT COUNT(DISTINCT ville_lower) FROM candidatures WHERE ville_lower!=''").fetchone()[0] or 0
+        week=db.execute("SELECT COUNT(*) FROM candidatures WHERE created_at>=?",((datetime.datetime.now()-datetime.timedelta(days=7)).isoformat(),)).fetchone()[0] or 0
+    except: total=pays=villes=week=0
+    return dict(total=total,pays=pays,villes=villes,week=week)
+
+def build_whatsapp(d):
+    now = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
+    return f"AMATRIX - FORMULAIRE RECRUTEMENT\nDate: {now}\nNom: {d.get('nom','')}\nAge: {d.get('age','')}\nVille: {d.get('ville','')}\nPays: {d.get('pays','')}\nWhatsApp: {d.get('whatsapp','')}\nNiveau: {d.get('niveau','')}\nLangages: {d.get('langages','')}\nOutils: {d.get('outils','')}\nProjets: {d.get('projets','')}\nLiens: {d.get('liens_projets','')}\nMotivation: {d.get('motivation','')}\nCompetences: {d.get('competences','')}\nDispo: {d.get('disponibilite','')}\nGroupe: {LINKS['recrutement']}"
+
+def HEADER(s):
+    return f"""
+<header style="background:#091a35;display:flex;justify-content:space-between;padding:10px 14px;position:sticky;top:0;z-index:200;color:#fff"><div>AMATRIX community</div><a href="/" style="color:#fff;text-decoration:none">🏠 Accueil</a></header>
+"""
+
+BASE_CSS = """
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#f6f8ff}
+.form-wrap{max-width:840px;margin:20px auto;background:#fff;border-radius:18px;padding:24px;border:1px solid #e2eaff}
+.form-wrap label{font-size:12px;font-weight:700;display:block;margin:14px 0 5px} .form-wrap input,.form-wrap select,.form-wrap textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #d0d8ea;font-size:13px}
+.card{border:1px solid #e2eaff;border-radius:12px;padding:14px;background:#fff;margin:8px 0}
+.page{max-width:1100px;margin:0 auto;background:#fff;min-height:80vh;padding:20px}
+</style>
+"""
+
+@app.before_request
+def before(): g.db=get_db()
+@app.teardown_appcontext
+def close(e):
+    db=getattr(g,'_database',None)
+    if db: db.close()
+
+@app.route('/')
+def index():
+    init_db(); s=get_stats(); header=HEADER(s)
+    return render_template_string(BASE_CSS + header + f"""
+<div class="page"><h1>AMATRIX Community - {s['total']} membres</h1><p>Construis ton avenir avec nous</p><br>
+<a href="/form" style="background:#00c897;color:#002a1a;padding:13px 20px;border-radius:24px;font-weight:800;text-decoration:none">S'inscrire maintenant</a><br><br>
+<a href="/annonces" style="background:#0a1930;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none">Annonces</a>
+<a href="/apropos" style="background:#0a1930;color:#fff;padding:10px 18px;border-radius:20px;text-decoration:none;margin-left:8px">A propos</a>
+</div>
+""")
+
+@app.route('/form', methods=['GET'])
+def form_page():
+    init_db(); s=get_stats(); header=HEADER(s)
+    return render_template_string(BASE_CSS + header + """
+<div class="form-wrap"><h2 style="text-align:center">FORMULAIRE RECRUTEMENT - DIRECT SANS BLOCAGE</h2><p style="text-align:center;font-size:11px;color:#6e829f">Fix blocage - Envoi direct groupe</p>
+<form method="POST" action="/form/confirm">
+<label>Nom complet *</label><input name="nom" required placeholder="Jeremiah Valenska">
+<label>Age *</label><input name="age" type="number" required>
+<label>Ville *</label><input name="ville" required placeholder="Lubumbashi">
+<label>Pays *</label><input name="pays" required placeholder="RDC">
+<label>Contact WhatsApp *</label><input name="whatsapp" required placeholder="+243...">
+<label>Niveau *</label><select name="niveau" required><option value="">Choisir</option><option>Debutant</option><option>Intermediaire</option><option>Professionnel</option></select>
+<label>Langages *</label><input name="langages" required placeholder="Html,css,Python">
+<label>Outils *</label><input name="outils" required>
+<label>Projets</label><input name="projets">
+<label>Liens projets</label><input name="liens_projets">
+<label>Motivation *</label><textarea name="motivation" required rows="3"></textarea>
+<label>Competences *</label><input name="competences" required>
+<label>Heures / semaine *</label><select name="disponibilite" required><option>De 5 a 10 heures</option><option>De 10 a 20 heures</option><option>Plus de 20 heures</option></select>
+<button style="width:100%;background:linear-gradient(135deg,#2a5bd7,#00a36a);color:#fff;padding:16px;border-radius:24px;border:none;font-weight:800;font-size:14px;margin-top:18px" type="submit">✅ ENREGISTRER ET ENVOYER VERS GROUPE</button>
+</form>
+</div>
+""")
+
+@app.route('/form/confirm', methods=['POST'])
+def confirm():
+    init_db(); db=get_db(); s=get_stats(); header=HEADER(s)
+    d = {k: request.form.get(k,'').strip() for k in ['nom','age','ville','pays','whatsapp','niveau','langages','outils','projets','liens_projets','motivation','competences','disponibilite']}
+    print("FORM DATA RECU:", d)
+    cid=str(uuid.uuid4())
+    try: age=int(d.get('age',0) or 0)
+    except: age=0
+    try:
+        db.execute("INSERT INTO candidatures(id,nom,age,ville,pays,whatsapp,niveau,langages,outils,projets,liens_projets,experience,motivation,competences,disponibilite,statut,created_at,pays_lower,ville_lower) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",(cid,d.get('nom'),age,d.get('ville'),d.get('pays'),d.get('whatsapp'),d.get('niveau'),d.get('langages'),d.get('outils'),d.get('projets'),d.get('liens_projets'),'',d.get('motivation'),d.get('competences'),d.get('disponibilite'),'Enregistree',datetime.datetime.now().isoformat(),d.get('pays','').lower(),d.get('ville','').lower()))
+        db.commit()
+        print("INSERT OK CID:", cid)
+    except Exception as e:
+        print("ERREUR INSERT:", e)
+        return render_template_string(BASE_CSS + header + f"<div class='page'><h2>Erreur: {e}</h2><a href='/form'>Retour</a></div>")
+
+    msg = build_whatsapp(d)
+    wa_direct = f"https://wa.me/?text={urllib.parse.quote(msg, safe='')}"
+    total_new = s["total"]+1
+    return render_template_string(BASE_CSS + header + f"""
+<div class="form-wrap" style="text-align:center">
+<h2>✅ Candidature enregistree !</h2>
+<p>ID: {cid}</p><p>Total membres: {total_new}</p>
+<div style="background:#e6fffa;border:1px solid #00a36a;padding:14px;border-radius:12px;margin:14px 0">
+<p style="font-size:13px;color:#0a5a3a;font-weight:700">✅ Enregistre avec succes - Pas de blocage</p>
+</div>
+<a href="{wa_direct}" target="_blank" style="display:block;background:#25D366;color:#fff;padding:16px;border-radius:24px;text-decoration:none;font-weight:800;margin-bottom:12px">💬 ENVOYER DANS GROUPE RECRUTEMENT - Clavier direct</a>
+<a href="{LINKS['recrutement']}" target="_blank" style="display:block;background:#2a5bd7;color:#fff;padding:12px;border-radius:24px;text-decoration:none;font-weight:700">👥 REJOINDRE GROUPE RECRUTEMENT</a>
+<br><br><a href="/">Accueil</a> | <a href="/membres">Voir membres: {total_new}</a>
+</div>
+<script>setTimeout(()=>{{window.open("{wa_direct}", "_blank")}}, 700);</script>
+""")
+
+@app.route('/membres')
+def membres():
+    init_db(); db=get_db(); s=get_stats(); header=HEADER(s); rows=db.execute("SELECT * FROM candidatures ORDER BY created_at DESC").fetchall()
+    html="".join([f"<div class='card'><b>{r['nom']}</b> - {r['ville']}/{r['pays']} - {r['whatsapp']}</div>" for r in rows]) or "<p>Aucun membre encore</p>"
+    return render_template_string(BASE_CSS + header + f"<div class='page'><h2>Membres: {s['total']}</h2>{html}<br><a href='/'>Accueil</a></div>")
+
+@app.route('/annonces')
+def annonces():
+    init_db(); s=get_stats(); header=HEADER(s)
+    return render_template_string(BASE_CSS + header + "<div class='page'><h2>Annonces AMATRIX</h2><p>Marketplace - Sites Web - Apps - Plateformes</p><br><a href='/'>Accueil</a></div>")
+
+@app.route('/apropos')
+def apropos():
+    init_db(); s=get_stats(); header=HEADER(s)
+    return render_template_string(BASE_CSS + header + "<div class='page'><h2>A propos AMATRIX</h2><p>On cree sites web, apps, Marketplace avec HTML CSS Python Firebase JS. Ensemble plus loin !</p><br><a href='/'>Accueil</a></div>")
+
+@app.route('/assistance')
+def assistance_page():
+    s=get_stats(); header=HEADER(s)
+    return render_template_string(BASE_CSS + header + "<div class='page'><h2>Assistance</h2><br><a href='/'>Accueil</a></div>")
+
+@app.route('/admin', methods=['GET','POST'])
+def admin():
+    init_db()
+    if request.method=='POST':
+        from werkzeug.security import check_password_hash
+        u=request.form.get('username',''); p=request.form.get('password',''); db=get_db(); r=db.execute("SELECT * FROM users WHERE username=?",(u,)).fetchone()
+        if r and check_password_hash(r['password_hash'],p): session['admin']=r['username']; return redirect('/admin/dashboard')
+    return render_template_string(BASE_CSS+'<div style="max-width:400px;margin:80px auto;background:#fff;padding:20px;border-radius:16px"><h2>Admin</h2><form method="POST"><input name="username" value="admin" required style="width:100%;padding:10px"><input name="password" type="password" required style="width:100%;padding:10px;margin-top:8px"><button style="width:100%;background:#2a5bd7;color:#fff;padding:10px;margin-top:10px" type="submit">Login</button></form></div>')
+
+@app.route('/admin/dashboard')
+def dash():
+    init_db()
+    if 'admin' not in session: return redirect('/admin')
+    db=get_db(); s=get_stats(); rows=db.execute("SELECT * FROM candidatures ORDER BY created_at DESC").fetchall()
+    html="".join([f"<div class='card'><b>{r['nom']}</b> {r['ville']} {r['whatsapp']}</div>" for r in rows])
+    return render_template_string(BASE_CSS + f"<div class='page'><h2>Dashboard {s['total']} membres</h2>{html}<br><a href='/'>Site</a></div>")
+
+@app.route('/admin/logout')
+def logout(): session.clear(); return redirect('/admin')
+
+if __name__=='__main__':
+    init_db(); print("AMATRIX DIRECT - SANS BLOCAGE - FORM OK"); app.run(host='0.0.0.0',port=9000,debug=True)
